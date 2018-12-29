@@ -17,7 +17,9 @@ class Login extends Controller
     {
         return view('/login');
     }
-
+    /*
+     * 执行登录操作
+     */
     public function login(Request $request)
     {
         $validate   = Validate::make($this->rule);
@@ -42,5 +44,11 @@ class Login extends Controller
         }
         return json($result);
     }
+    /*
+     * 注销登录
+     */
+    public function logout()
+    {
 
+    }
 }
