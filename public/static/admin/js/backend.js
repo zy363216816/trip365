@@ -31,8 +31,8 @@ if (typeof jQuery === "undefined") {
                     type:'post',
                     data:form.serialize(),
                     success:function(data){
-                        if(data.success === true && data.code == '1'){
-                            $.Pop.error('登录成功')
+                        if(data.success === true && data.code === '1'){
+                            $.Pop.error('登录成功');
                             window.location.href = "/index.html";
                         }else{
                             $.Pop.error(data.msg);
@@ -49,6 +49,22 @@ if (typeof jQuery === "undefined") {
         })
 
     }
+
+    var menu = {
+        _init: function () {
+            var menu = $('.menu-item');
+            menu.click(function () {
+                event.preventDefault();
+                var iframe = $('#iframe'),
+                    _href  = $(this).attr('href');
+                iframe.attr('src',_href);
+                if (history.pushState){
+                    window.history.pushState(state, '新标题', 'http://trip365.cc/admin/bar.html');
+                }
+            });
+        }
+    };
+    menu._init();
   });
 
 
@@ -62,3 +78,4 @@ if (typeof jQuery === "undefined") {
         })
       }
   };
+
