@@ -312,39 +312,46 @@
       <ul class="sidebar-menu">
         <li class="header">主导航栏</li>
         <li class="active treeview">
-          <a href="#" class="menu-item">
+          <a href="#">
             <i class="fa fa-dashboard"></i><span>首页</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a class="menu-item" href="index.html"><i class="fa fa-circle-o"></i> 控制面板</a></li>
-            <li><a class="menu-item" href="index2.html"><i class="fa fa-circle-o"></i> 信息统计</a></li>
+            <li><a class="menu-item" href="collect"><i class="fa fa-circle-o"></i>信息统计</a></li>
+            <li><a class="menu-item" href="dashboard"><i class="fa fa-circle-o"></i>控制面板</a></li>
           </ul>
         </li>
         <li class="treeview">
-          <a class="menu-item" href="#">
+          <a href="#">
             <i class="fa fa-files-o"></i>
             <span>网站设置</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+            <li><a class="menu-item" href="setting"><i class="fa fa-circle-o"></i>基本信息</a></li>
+            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+            <li><a class="menu-item" href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a class="menu-item" href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
           </ul>
         </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>信息</span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>内容管理</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a class="menu-item" href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i>分类设置</a></li>
+            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>标签</a></li>
+            <li><a class="menu-item" href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a class="menu-item" href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -386,9 +393,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+            <li><a class="menu-item" href="pages/forms/general.html"><i class="fa fa-circle-o"></i>管理员用户</a></li>
+            <li><a class="menu-item" href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i>网站用户</a></li>
+            <li><a class="menu-item" href="pages/forms/editors.html"><i class="fa fa-circle-o"></i>第三方用户</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -496,7 +503,7 @@
 
     <!-- 主体内容 -->
     <section class="content">
-        <iframe class="iframe" id="iframe" src="/dashboard" frameborder="0"></iframe>
+        <iframe class="iframe" id="iframe" src="dashboard.html" frameborder="0"></iframe>
     </section>
     <!-- /.content -->
   </div>
