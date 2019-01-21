@@ -35,9 +35,16 @@ class Login extends Controller
                 'captcha'  => $request->post("captcha")
             ];
             if ($validate->check($data)){
-                $result['code']    = '1';
-                $result['success'] = true;
-                $result['msg']     = '登录成功';
+                $admin = new AdminUsers();
+                $user = $admin->getUser($data['username'],$data['password']);
+                if ($user !== null){
+                    session('admin_id',$user->admin_id);
+                    $result['code']    = '1';
+                    $result['success'] = true;
+                    $result['msg']     = '登录成功';
+                }else{
+                    $result['msg'] = '用户名或密码错误';
+                }
             }else{
                 $result['msg']     = $validate->getError();
             }

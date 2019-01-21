@@ -50,7 +50,7 @@ $(function () {
             return false;
         });
         captcha.click(function () {
-            this.src = this.src;
+            this.src = $(this).attr('src')+Math.floor(Math.random()*10+1);
         });
     }
     $.Backend = {};
