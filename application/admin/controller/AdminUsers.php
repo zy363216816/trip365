@@ -2,18 +2,15 @@
 
 namespace app\admin\controller;
 
-use think\App;
 use think\Controller;
 use app\admin\model\AdminUsers as Users;
 
 class AdminUsers extends Controller
 {
-    public function getUser($username,$password)
+    public function getAdmin($username)
     {
-        $user = Users::where('status',0)
-            ->where(['account' => $username, 'password' => $password])
-            ->find();
-        return $user;
+        return Users::where('account', $username)->find();
+
     }
 
     public function saveSession()
@@ -23,7 +20,15 @@ class AdminUsers extends Controller
 
     public function add()
     {
-        $users = new Users();
+        Users::create([
+            'admin_id' => guid(),
+            'account' => 'admin',
+            'password' => $this->encrypt('admin')
+        ]);
+    }
 
+    public function encrypt($password,$salt = 'sunny')
+    {
+        return crypt($password,md5($salt));
     }
 }

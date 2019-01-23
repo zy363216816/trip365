@@ -23,11 +23,7 @@ class Login extends Controller
     public function login(Request $request)
     {
         $validate   = Validate::make($this->rule);
-        $result = [
-            'code'    => '0', //0 - 登录失败，1 - 登录成功，2 - 账户禁用
-            'success' => false,
-            'msg'     => '登录失败'
-        ];
+        $res = null;
         if ($request->isAjax()){
             $data = [
                 'username' => $request->post("username"),
@@ -36,20 +32,29 @@ class Login extends Controller
             ];
             if ($validate->check($data)){
                 $admin = new AdminUsers();
-                $user = $admin->getUser($data['username'],$data['password']);
+                $user= $admin->getAdmin($data['username']);
                 if ($user !== null){
-                    session('admin_id',$user->admin_id);
-                    $result['code']    = '1';
-                    $result['success'] = true;
-                    $result['msg']     = '登录成功';
-                }else{
-                    $result['msg'] = '用户名或密码错误';
+                    $pwd = $user->password;
+                    $status = $user->status; //账号状态,0-正常,1-禁用
+                    $deleted = $user->deleted; //账号删除标志,0-正常,1-删除
+                    if ($pwd === $admin->encrypt($data['password'])){
+                        if ($status === 1){//账户被禁用
+                            return lang('forbidden');
+                        }elseif ($deleted === 1){//账户被注销
+                            return lang('delete');
+                        }else{//登录成功
+                            session('AdminId',$user->admin_id);
+                            return lang('success');
+                        }
+                    }
                 }
+                return lang('fail');
             }else{
-                $result['msg']     = $validate->getError();
+                $res['msg'] = $validate->getError();
+                $res['code'] = -1;
             }
         }
-        return json($result);
+        return json($res);
     }
     /*
      * 注销登录

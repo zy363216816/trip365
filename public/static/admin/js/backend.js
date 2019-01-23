@@ -17,7 +17,7 @@ $(function () {
     // login start
     function _initLogin() {
         var submit = $('#sub'),
-            captcha = $('.captcha-img');
+            _captcha = $('.captcha-img');
         submit.click(function () {
             var username = $('#username').val(),
                 password = $('#password').val(),
@@ -36,12 +36,12 @@ $(function () {
                     type: 'post',
                     data: form.serialize(),
                     success: function (data) {
-                        if (data.success === true && data.code === '1') {
+                        if (data.code === 3) {
                             $.Pop.error('登录成功');
                             window.location.href = "/index.html";
                         } else {
                             $.Pop.error(data.msg);
-
+                            _captcha.attr('src','/captcha.htm?'+Math.random());
                         }
                         NProgress.done();
                     }
@@ -49,8 +49,8 @@ $(function () {
             }
             return false;
         });
-        captcha.click(function () {
-            this.src = $(this).attr('src')+Math.floor(Math.random()*10+1);
+        _captcha.click(function () {
+            this.src = '/captcha.htm?'+Math.random();
         });
     }
     $.Backend = {};
