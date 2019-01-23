@@ -25,5 +25,7 @@ create table if not exists `admin_users`(
 	`modify_user_name` VARCHAR(50) NULL COMMENT '修改用户姓名',
 	`deleted` TINYINT NULL DEFAULT '0' COMMENT '删除标志(0正常,1删除)',
 	PRIMARY KEY (`id`),
-	UNIQUE INDEX (`admin_id`, `account`)
+	UNIQUE INDEX (`admin_id`),
+	UNIQUE INDEX (`account`)
+
 )

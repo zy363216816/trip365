@@ -14,3 +14,27 @@
     width: 100%;
     bottom: 0;
 }
+.box .shortcut{
+    padding: 0;
+    margin: 0;
+}
+.box .shortcut li{
+    list-style: none;
+    display: inline-block;
+    padding: 15px;
+}
+.box .shortcut li a span{
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: #444;
+    text-align: center;
+}
+.box .shortcut li a span i{
+    font-size: 32px;
+    line-height: 50px;
+}
+.box .shortcut li a{
+    color: #fff;
+}

@@ -8,12 +8,10 @@ var selector = {
     treeView : $(".treeview")
 };
 $(function () {
-
     "use strict";
 
     _initLogin();
     _init();
-
     // login start
     function _initLogin() {
         var submit = $('#sub'),
@@ -38,7 +36,7 @@ $(function () {
                     success: function (data) {
                         if (data.code === 3) {
                             $.Pop.error('登录成功');
-                            window.location.href = "/index.html";
+                            window.location.href = "/admin/index.html";
                         } else {
                             $.Pop.error(data.msg);
                             _captcha.attr('src','/captcha.htm?'+Math.random());

@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>控制面板</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+    <!--Ionicons -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/styles.css">
+    <!-- 兼容ie8 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 <!-- Small boxes (Stat box) -->
@@ -13,10 +26,10 @@
             <div class="inner">
                 <h3>150</h3>
 
-                <p>New Orders</p>
+                <p>文章数量</p>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-compose"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -43,10 +56,10 @@
             <div class="inner">
                 <h3>44</h3>
 
-                <p>User Registrations</p>
+                <p>会员数量</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-person-stalker"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -58,7 +71,7 @@
             <div class="inner">
                 <h3>65</h3>
 
-                <p>Unique Visitors</p>
+                <p>历史访问量</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -73,13 +86,53 @@
 <div class="row">
     <!-- Left col -->
     <section class="col-lg-7 connectedSortable">
+        <!-- Map box -->
+        <div class="box box-solid bg-teal-gradient">
+            <div class="box-header">
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="添加">
+                        <i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
+                        <i class="fa fa-minus"></i></button>
+                </div>
+                <!-- /. tools -->
+
+                <i class="fa fa-map-marker"></i>
+
+                <h3 class="box-title">
+                    快捷操作
+                </h3>
+            </div>
+            <div class="box-body">
+                <ul class="shortcut clearfix">
+                    <li>
+                        <a href="">
+                            <span><i class="fa fa-edit"></i></span>
+                            添加文章
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span><i class="fa fa-user-plus"></i></span>
+                            添加管理员
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-footer no-border">
+                <p style="color: #333">添加常用操作到快捷面板</p>
+            </div>
+        </div>
+        <!-- /.box -->
+
         <!-- Custom tabs (Charts with tabs)-->
         <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
             <ul class="nav nav-tabs pull-right">
+                <li class="pull-left header"><i class="fa fa-inbox"></i> 最新信息</li>
+                <li><a href="#sales-chart" data-toggle="tab">文章</a></li>
                 <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-                <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-                <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
             </ul>
             <div class="tab-content no-padding">
                 <!-- Morris chart - Sales -->
@@ -496,5 +549,39 @@
     <!-- right col -->
 </div>
 <!-- /.row (main row) -->
+<!-- jQuery 2.2.3 -->
+<script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script>
+<!--<script src="__PLUGINS__/morris/morris.min.js"></script>-->
+<!-- Sparkline -->
+<script src="__PLUGINS__/sparkline/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="__PLUGINS__/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="__PLUGINS__/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="__PLUGINS__/knob/jquery.knob.js"></script>
+<!-- daterangepicker -->
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<script src="__PLUGINS__/daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="__PLUGINS__/datepicker/bootstrap-datepicker.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="__PLUGINS__/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="__PLUGINS__/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="__PLUGINS__/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="__ADMIN__/js/app.min.js"></script>
+<script src="__ADMIN__/js/backend.js"></script>
 </body>
 </html>

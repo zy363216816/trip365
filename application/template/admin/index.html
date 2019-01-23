@@ -45,7 +45,7 @@
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="{:url('clearCache')}">
             <i class="fa fa-home"></i>
             <span>清空缓存</span>
           </a>
@@ -503,7 +503,7 @@
 
     <!-- 主体内容 -->
     <section class="content">
-        <iframe class="iframe" id="iframe" src="dashboard.html" frameborder="0"></iframe>
+        <iframe class="iframe" id="iframe" frameborder="0" src=""></iframe>
     </section>
     <!-- /.content -->
   </div>
@@ -746,5 +746,10 @@
 <!--<script src="__ADMIN__/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="__ADMIN__/js/backend.js"></script>
+<script>
+  $(function () {
+    $('#iframe').attr('src','dashboard')
+  })
+</script>
 </body>
 </html>
