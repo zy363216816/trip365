@@ -27,5 +27,4 @@ create table if not exists `admin_users`(
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX (`admin_id`),
 	UNIQUE INDEX (`account`)
-
 )

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理| 管理员用户</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/jqGrid/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/styles.css">
+</head>
+<body>
+<div class="grid">
+    <div class="toolbar">
+        <div class="input-group margin pull-left" style="width: 30%;">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat">搜索</button>
+                    </span>
+        </div>
+        <div class="btn-group pull-right" style="margin: 10px">
+            <button class="btn btn-success">添加</button>
+            <button class="btn btn-primary">编辑</button>
+            <button class="btn btn-danger">删除</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">导出</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">导出全部</a></li>
+                <li><a href="#">导出选择</a></li>
+            </ul>
+        </div>
+    </div>
+    <table id="grid" style="width:100%" data-options="fitColumns:true,scrollbarSize:0"></table>
+    <div id="pager"></div>
+</div>
+<!-- jQuery 2.2.3 -->
+<script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PLUGINS__/jqGrid/js/jquery-1.11.0.min.js"></script>
+<script src="__PLUGINS__/jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script src="__PLUGINS__/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript">
+    var height = $(document).height()-76;
+    $(document).ready(function () {
+        $("#grid").jqGrid({
+            url: '{:url("/getAdmins")}',
+            mtype: "GET",
+            styleUI : 'Bootstrap',
+            datatype: "jsonp",
+            colModel: [
+                { label: '序号', name: 'id', key: true, },
+                { label: '管理员账号', name: 'account',},
+                { label: '管理员姓名', name: 'full_name',},
+                { label: '性别', name: 'gender',},
+                { label:'角色', name: 'role', },
+                { label:'状态', name: 'status', }
+            ],
+            rownumbers: true,
+            autowidth:true,
+            viewrecords: true,
+            height: height,
+            rowNum: 20,
+            pager: "#pager"
+        });
+    });
+
+</script>
+</body>
+</html>

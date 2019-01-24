@@ -50,11 +50,16 @@ $(function () {
         _captcha.click(function () {
             this.src = '/captcha.htm?'+Math.random();
         });
+        submit.keyup(function (event) {
+            if (event.keyCode === 13){
+                submit.trigger('click');
+            }
+        })
     }
     $.Backend = {};
     function _init() {
         var $path = location.search;
-        if ($path !== '' || $path != null) {
+        if ($path !== '') {
             var url = $path.substr(6),
                 $parent  = selector.sidebar.find('.menu-item[href="' + url + '"]').parent('li'),
                 $parents  = selector.sidebar.find('.menu-item[href="' + url + '"]').parents('li.treeview');
@@ -63,6 +68,8 @@ $(function () {
             $parent.addClass('active');
             $parents.addClass('active');
             selector.iframe.attr('src', url);
+        }else {
+            selector.iframe.attr('src', 'admin/dashboard');
         }
     }
 

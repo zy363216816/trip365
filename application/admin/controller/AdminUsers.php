@@ -7,15 +7,20 @@ use app\admin\model\AdminUsers as Users;
 
 class AdminUsers extends Controller
 {
+    public function index()
+    {
+        return view('/admins');
+    }
     public function getAdmin($username)
     {
         return Users::where('account', $username)->find();
 
     }
 
-    public function saveSession()
+    public function getAdmins()
     {
-
+        $res = Users::all();
+        return json($res);
     }
 
     public function add()

@@ -9,7 +9,7 @@ use think\Request;
 
 class Index extends Controller
 {
-    protected $middleware = ['Auth'];
+    protected $middleware = ['Authenticated'];
 
     public function index()
     {
@@ -19,6 +19,6 @@ class Index extends Controller
     function clearCache()
     {
         Cache::clear();
-        $this->success( '清除成功', 'index/index' );
+        $this->success( '清除成功', '/admin/index' );
     }
 }

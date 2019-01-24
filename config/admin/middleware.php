@@ -13,5 +13,5 @@
 // | 中间件配置
 // +----------------------------------------------------------------------
 return [
-    'Auth' => app\http\middleware\Auth::class,
+    'Authenticated' => app\http\middleware\Auth::class,
 ];

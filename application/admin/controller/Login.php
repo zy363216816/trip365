@@ -1,6 +1,9 @@
 <?php
 namespace app\admin\controller;
+
+use app\facade\Authenticated;
 use think\Controller;
+use think\facade\Session;
 use think\Request;
 use think\Validate;
 
@@ -43,7 +46,7 @@ class Login extends Controller
                         }elseif ($deleted === 1){//账户被注销
                             return lang('delete');
                         }else{//登录成功
-                            session('AdminId',$user->admin_id);
+                            Authenticated::save($user->toArray());
                             return lang('success');
                         }
                     }
@@ -61,6 +64,7 @@ class Login extends Controller
      */
     public function logout()
     {
-
+        Session::clear();
+        $this->success('注销登录成功');
     }
 }

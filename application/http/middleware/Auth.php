@@ -2,13 +2,13 @@
 
 namespace app\http\middleware;
 
-use think\facade\Session;
+use app\facade\Authenticated;
 
 class Auth
 {
     public function handle($request, \Closure $next)
     {
-        if (Session::has('AdminId') && Session::get('AdminId') !== null) {
+        if (Authenticated::user() !== null) {
             //do something
         } else {
           return redirect('/login');
