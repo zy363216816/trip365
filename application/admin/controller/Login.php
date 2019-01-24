@@ -38,16 +38,21 @@ class Login extends Controller
                 $user= $admin->getAdmin($data['username']);
                 if ($user !== null){
                     $pwd = $user->password;
-                    $status = $user->status; //账号状态,0-正常,1-禁用
-                    $deleted = $user->deleted; //账号删除标志,0-正常,1-删除
+                    $status = $user->getData('status'); //-1删除,账号状态,0-禁用,1-正常,2-待审核
                     if ($pwd === $admin->encrypt($data['password'])){
-                        if ($status === 1){//账户被禁用
-                            return lang('forbidden');
-                        }elseif ($deleted === 1){//账户被注销
-                            return lang('delete');
-                        }else{//登录成功
-                            Authenticated::save($user->toArray());
-                            return lang('success');
+                        switch ($status){
+                            case -1:
+                                return lang('delete');
+                                break;
+                            case 0:
+                                return lang('forbidden');
+                                break;
+                            case 2:
+                                return lang('authStr');
+                                break;
+                            default:
+                                Authenticated::save($user->toArray());
+                                return lang('success');
                         }
                     }
                 }

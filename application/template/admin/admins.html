@@ -48,17 +48,17 @@
     var height = $(document).height()-76;
     $(document).ready(function () {
         $("#grid").jqGrid({
-            url: '{:url("/getAdmins")}',
+            url: '{:url("/admin/getAdmins")}',
             mtype: "GET",
             styleUI : 'Bootstrap',
-            datatype: "jsonp",
+            datatype: "json",
             colModel: [
-                { label: '序号', name: 'id', key: true, },
-                { label: '管理员账号', name: 'account',},
-                { label: '管理员姓名', name: 'full_name',},
-                { label: '性别', name: 'gender',},
-                { label:'角色', name: 'role', },
-                { label:'状态', name: 'status', }
+                { label: '序号', name: 'id', index:'id', key: true, },
+                { label: '管理员账号', name: 'account', index:'account'},
+                { label: '管理员姓名', name: 'full_name', index:'full_name'},
+                { label: '性别', name: 'gender', index:'gender'},
+                { label:'角色', name: 'role', index:'role'},
+                { label:'状态', name: 'status', index:'status'}
             ],
             rownumbers: true,
             autowidth:true,

@@ -34,7 +34,7 @@ $(function () {
                     type: 'post',
                     data: form.serialize(),
                     success: function (data) {
-                        if (data.code === 3) {
+                        if (data.success === true) {
                             $.Pop.error('登录成功');
                             window.location.href = "/admin/index.html";
                         } else {

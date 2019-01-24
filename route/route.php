@@ -17,8 +17,11 @@ Route::get('hello/:name', 'index/hello');
 
 Route::get('login', 'admin/Login/index');
 Route::post('login', 'admin/Login/login');
-Route::get('/admin','admin/index/index');
+Route::get('admin/index','admin/index/index');
 
-Route::get('admins','admin/AdminUsers/index');
+Route::get('admin/dashboard','admin/index/dashboard');
 
-Route::get('getAdmins','admin/AdminUsers/getAdmins');
+Route::get('admin/admins','admin/AdminUsers/index');
+Route::get('admin/add','admin/AdminUsers/add');
+
+Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');

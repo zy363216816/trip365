@@ -13,7 +13,7 @@ create table if not exists `admin_users`(
 	`phone` VARCHAR(50) NULL COMMENT '固定电话',
 	`email` VARCHAR(255) NULL COMMENT '电子邮件',
 	`qq` VARCHAR(50) NULL COMMENT 'qq号码',
-	`status` TINYINT NULL DEFAULT '0' COMMENT '状态(0正常,1禁用)',
+	`status` TINYINT NULL DEFAULT '0' COMMENT '状态(-1删除,0禁用,1正常,2待审核)',
 	`loginnum` INT UNSIGNED NULL DEFAULT '0' COMMENT '登录次数',
 	`login_time` DATETIME NULL COMMENT '登录时间',
 	`last_login_time` DATETIME NULL COMMENT '上次登录时间',
@@ -23,7 +23,8 @@ create table if not exists `admin_users`(
 	`create_user_name` VARCHAR(50) NULL COMMENT '创建用户姓名',
 	`modify_user_id` VARCHAR(50) NULL COMMENT '修改用户id',
 	`modify_user_name` VARCHAR(50) NULL COMMENT '修改用户姓名',
-	`deleted` TINYINT NULL DEFAULT '0' COMMENT '删除标志(0正常,1删除)',
+	`create_at` DATETIME NULL COMMENT '创建时间',
+	`update_at` DATETIME NULL COMMENT '修改时间',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX (`admin_id`),
 	UNIQUE INDEX (`account`)
