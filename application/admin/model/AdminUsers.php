@@ -21,6 +21,12 @@ class AdminUsers extends Model
         return $status[$val];
     }
 
+    public function getGenderAttr($val)
+    {
+        $gender = [null=>'待定',0=>'女',1=>'男'];
+        return $gender[$val];
+    }
+
     public function setAdminIdAttr()
     {
         return guid();

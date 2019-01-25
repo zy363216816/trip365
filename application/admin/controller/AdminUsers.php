@@ -20,18 +20,23 @@ class AdminUsers extends Controller
     public function getAdmins()
     {
         $res = Users::all();
-        $row ['total']= 1;
-        $row ['page']= 1;
-        $row ['records']= 1;
-        $row['rows'] = $res;
+        $row['code'] = 0;
+        $row['msg'] = '';
+        $row['count'] = 3;
+        $row['data'] = $res;
         return json($row);
+    }
+
+    public function form()
+    {
+        return view('/adminForm');
     }
 
     public function add()
     {
         Users::create([
-            'account' => 'test',
-            'password' => $this->encrypt('test')
+            'account' => 'demo',
+            'password' => $this->encrypt('demo')
         ]);
     }
 

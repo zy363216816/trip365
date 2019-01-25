@@ -19,16 +19,6 @@
   <link rel="stylesheet" href="__PLUGINS__/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="__PLUGINS__/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="__ADMIN__/css/styles.css">
-  <script>
-    document.onreadystatechange =function () {
-      var index = layer.load(0, {
-        shade: [0.3,'#333']
-      });
-      if (document.readyState === 'complete' ){
-        layer.close(index);
-      }
-    }
-  </script>
   <!-- 兼容ie8 -->
   <!--[if lt IE 9]>
   <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
@@ -721,35 +711,35 @@
 </div>
 <!-- jQuery 2.2.3 -->
 <script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- Bootstrap 3.3.6 -->
 <script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
-<!-- Sparkline -->
-<script src="__PLUGINS__/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="__PLUGINS__/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="__PLUGINS__/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="__PLUGINS__/knob/jquery.knob.js"></script>
-<!-- datepicker -->
-<script src="__PLUGINS__/datepicker/bootstrap-datepicker.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="__PLUGINS__/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 <!-- Slimscroll -->
 <script src="__PLUGINS__/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="__PLUGINS__/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="__ADMIN__/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!--<script src="__ADMIN__/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
-<script src="__PLUGINS__/layer/layer.js"></script>
+<script src="__PLUGINS__/layui/layui.all.js"></script>
 <script src="__ADMIN__/js/backend.js"></script>
+<script>
+  layui.use('layer', function(){
+    var layer = layui.layer;
+    layer.config({
+      extend: 'custom/style.css', //扩展样式
+      skin: 'layer-custom'
+    });
+    document.onreadystatechange =function () {
+      var index = layer.load(0, {
+        shade: [0.3,'#333']
+      });
+      if (document.readyState === 'complete' ){
+        layer.close(index);
+      }
+    }
+  });
+
+</script>
 </body>
 </html>
