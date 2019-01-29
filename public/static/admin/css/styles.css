@@ -38,9 +38,6 @@
 .box .shortcut li a{
     color: #fff;
 }
-.layui-table, .layui-table-view{
-    margin: 0 !important;
-}
-.layui-table-tool{
-    background-color: #fff;
+.toolbar{
+    padding: 0 15px;
 }

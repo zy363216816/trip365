@@ -22,6 +22,7 @@ Route::get('admin/index','admin/index/index');
 Route::get('admin/dashboard','admin/index/dashboard');
 
 Route::get('admin/admins','admin/AdminUsers/index');
+Route::get('admin/form','admin/AdminUsers/form');
 Route::get('admin/add','admin/AdminUsers/add');
 
 Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');

@@ -6,20 +6,71 @@
     <title>后台管理| 添加管理员</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="__ADMIN__/css/styles.css">
+    <style>
+        .control-label {
+            padding-top: 7px;
+            margin-bottom: 0;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
-    <form action="">
-
+    <form role="form" id="form" class="form-horizontal" style="padding-top: 10px">
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="role">角色:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="role" name="role" placeholder="所属角色">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="account">管理员账号:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="account" name="account" placeholder="管理员账号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="password">密码:</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="password1">再次输入密码:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="password1" name="password1" placeholder="再次输入密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="role">姓名:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="mobile">手机:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="手机号码">
+            </div>
+        </div>
     </form>
 </div>
 <!-- jQuery 2.2.3 -->
 <script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        function save() {
+            alert('保存方法')
+        }
+        function reset() {
+            $('#form').reset();
+        }
+    })
+
+</script>
 
 </body>
 </html>

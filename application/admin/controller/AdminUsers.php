@@ -20,10 +20,10 @@ class AdminUsers extends Controller
     public function getAdmins()
     {
         $res = Users::all();
-        $row['code'] = 0;
-        $row['msg'] = '';
-        $row['count'] = 3;
-        $row['data'] = $res;
+        $row['page'] = 1;
+        $row['records'] = 3;
+        $row['total'] = 3;
+        $row['rows'] = $res;
         return json($row);
     }
 

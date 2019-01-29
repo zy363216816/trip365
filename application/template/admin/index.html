@@ -721,25 +721,20 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!--<script src="__ADMIN__/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
-<script src="__PLUGINS__/layui/layui.all.js"></script>
+<script src="__PLUGINS__/layer/layer.js"></script>
 <script src="__ADMIN__/js/backend.js"></script>
 <script>
-  layui.use('layer', function(){
-    var layer = layui.layer;
     layer.config({
-      extend: 'custom/style.css', //扩展样式
-      skin: 'layer-custom'
+        skin: 'layui-layer-molv'
     });
     document.onreadystatechange =function () {
-      var index = layer.load(0, {
-        shade: [0.3,'#333']
-      });
-      if (document.readyState === 'complete' ){
-        layer.close(index);
-      }
+        var index = layer.load(0, {
+            shade: [0.3,'#333']
+        });
+        if (document.readyState === 'complete' ){
+            layer.close(index);
+        }
     }
-  });
-
 </script>
 </body>
 </html>
