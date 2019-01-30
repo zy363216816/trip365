@@ -18,6 +18,7 @@
 <body>
 <div class="container-fluid">
     <form role="form" id="form" class="form-horizontal" style="padding-top: 10px">
+        <input type="hidden" name="__token__" value="{$Request.token}" />
         <div class="form-group">
             <label class="col-xs-2 control-label" for="role">角色:</label>
             <div class="col-xs-10">
@@ -39,7 +40,7 @@
         <div class="form-group">
             <label class="col-xs-2 control-label" for="password1">再次输入密码:</label>
             <div class="col-xs-10">
-                <input type="text" class="form-control" id="password1" name="password1" placeholder="再次输入密码">
+                <input type="password" class="form-control" id="password1" name="password_confirm" placeholder="再次输入密码">
             </div>
         </div>
         <div class="form-group">
@@ -60,16 +61,36 @@
 <script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PLUGINS__/layer/layer.js"></script>
 <script>
-    $(function () {
-        function save() {
-            alert('保存方法')
-        }
-        function reset() {
-            $('#form').reset();
-        }
-    })
-
+    (function ($) {
+        var form = $('#form');
+        $.extend({
+            save: function () {
+                var data = form.serialize();
+                $.ajax({
+                    url: '{:url("/admin/add")}',
+                    type: 'post',
+                    data: data,
+                    success:function (data) {
+                        if (data !== true) {
+                            layer.msg(data.msg);
+                            form.find('input[name="__token__"]').remove();
+                            form.prepend(data.token);
+                        }else {
+                            top.layer.closeAll();
+                            top.layer.msg('添加成功');
+                            $doc = top.$('#iframe').contents();
+                            $doc.find('#grid').jqGrid().trigger('reloadGrid');
+                        }
+                    }
+                })
+            },
+            reset: function () {
+                document.getElementById('form').reset();
+            }
+        });
+    })(window.jQuery)
 </script>
 
 </body>

@@ -83,12 +83,12 @@
                         btn:['确认','重置','关闭'],
                         yes:function(index, layero) {
                             // var body = layer.getChildFrame('body', index);
-                            iframe = top.window[layero.find('iframe')[0]['name']].contentWindow;
-                            iframe.save();
+                            iframe = top.window[layero.find('iframe')[0]['name']];
+                            iframe.$.save();
                         },
                         btn2:function(index, layero){
                             iframe = top.window[layero.find('iframe')[0]['name']];
-                            iframe.reset();
+                            iframe.$.reset();
                             return false
                         }
                     })
