@@ -21,8 +21,11 @@ Route::get('admin/index','admin/index/index');
 
 Route::get('admin/dashboard','admin/index/dashboard');
 
+//管理员相关
 Route::get('admin/admins','admin/AdminUsers/index');
 Route::get('admin/form','admin/AdminUsers/form');
 Route::post('admin/add','admin/AdminUsers/add');
+Route::post('admin/delete','admin/AdminUsers/del');
+Route::get('admin/profile','admin/AdminUsers/profile');
 
 Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');

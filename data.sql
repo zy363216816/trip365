@@ -9,12 +9,12 @@ create table if not exists `admin_users`(
 	`name` VARCHAR(50) NULL COMMENT '管理员姓名',
 	`nick_name` VARCHAR(50) NULL COMMENT '管理员昵称',
 	`gender` TINYINT NULL COMMENT '性别(0女，1男)',
-	`mobile` INT NULL COMMENT '手机',
+	`mobile` varchar(50) NULL COMMENT '手机',
 	`phone` VARCHAR(50) NULL COMMENT '固定电话',
 	`email` VARCHAR(255) NULL COMMENT '电子邮件',
 	`qq` VARCHAR(50) NULL COMMENT 'qq号码',
 	`status` TINYINT NULL DEFAULT '1' COMMENT '状态(0禁用,1正常,2待审核)',
-	`loginnum` INT UNSIGNED NULL DEFAULT '0' COMMENT '登录次数',
+	`login_num` INT UNSIGNED NULL DEFAULT '0' COMMENT '登录次数',
 	`login_time` DATETIME NULL COMMENT '登录时间',
 	`last_login_time` DATETIME NULL COMMENT '上次登录时间',
 	`ip` VARCHAR(255) NULL COMMENT '登录ip地址',
@@ -30,3 +30,4 @@ create table if not exists `admin_users`(
 	UNIQUE INDEX (`admin_id`),
 	UNIQUE INDEX (`account`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into `admin_users`(admin_id,account,password) values ('admin','admin','53iCojw7PT176')

@@ -30,6 +30,9 @@
                 <button type="button" class="btn btn-success btn-flat" data-action="edit">编辑</button>
             </div>
             <div class="btn-group">
+                <button type="button" class="btn btn-success btn-flat" data-action="refresh">刷新</button>
+            </div>
+            <div class="btn-group">
                 <button type="button" class="btn btn-warning btn-flat" data-action="export">导出</button>
             </div>
         </div>
@@ -45,55 +48,91 @@
 <script src="__PLUGINS__/jqGrid/js/jquery.jqGrid.min.js"></script>
 <script src="__PLUGINS__/layer/layer.js"></script>
 <script>
-    $(function () {
-        var $height = $(document).height()-135;
-        $('#grid').jqGrid({
-            url:'{:url("/admin/getAdmins")}',
-            datatype: "json",
-            styleUI : 'Bootstrap',
-            colModel:[
-                {name:'admin_id',label:'主键', hidden:true},
-                {name:'account',label:'管理员账号'},
-                {name:'full_name',label:'姓名'},
-                {name:'icon',label:'头像'},
-                {name:'gender',label:'性别'},
-                {name:'status',label:'状态'},
-                {name:'login_time',label:'登录时间'},
-                {name:'create_at',label:'注册时间'}
-            ],
-            height: $height,
-            autowidth: true,
-            pager: '#pager',
-            rowList : [20,30,50],
-            rownumbers: true,
-            rownumWidth: 25,
-            multiselect: true,
-        });
-        var btn = $('.toolbar').find('button[data-action]'),
-            iframe = null;
-        btn.click(function () {
-            var act = $(this).data('action');
-            switch (act) {
-                case 'add':
-                    top.layer.open({
-                        type: 2,
-                        title: '添加用户',
-                        area: ['650px','420px'],
-                        content: '{:url("/admin/form")}',
-                        btn:['确认','重置','关闭'],
-                        yes:function(index, layero) {
-                            // var body = layer.getChildFrame('body', index);
-                            iframe = top.window[layero.find('iframe')[0]['name']];
-                            iframe.$.save();
-                        },
-                        btn2:function(index, layero){
-                            iframe = top.window[layero.find('iframe')[0]['name']];
-                            iframe.$.reset();
-                            return false
-                        }
+    var $height = $(document).height() - 135,
+        $grid = $('#grid');
+    layer.config({
+        skin: 'layui-layer-molv'
+    });
+    $grid.jqGrid({
+        url: '{:url("/admin/getAdmins")}',
+        datatype: "json",
+        styleUI: 'Bootstrap',
+        colModel: [
+            {name: 'admin_id', label: '主键', hidden: true},
+            {name: 'account', label: '管理员账号'},
+            {name: 'name', label: '姓名'},
+            {name: 'icon', label: '头像'},
+            {name: 'gender', label: '性别'},
+            {name: 'status', label: '状态'},
+            {name: 'login_time', label: '登录时间', width: 300},
+            {name: 'ip', label: '登录ip地址'},
+            {name: 'create_at', label: '注册时间', width: 300}
+        ],
+        height: $height,
+        autowidth: true,
+        pager: '#pager',
+        rowList: [20, 30, 50],
+        rownumbers: true,
+        rownumWidth: 25,
+        multiselect: true,
+    });
+    var btn = $('.toolbar').find('button[data-action]'),
+        iframe = null;
+    btn.click(function () {
+        var act = $(this).data('action');
+        switch (act) {
+            case 'add':
+                top.layer.open({
+                    type: 2,
+                    title: '添加用户',
+                    area: ['650px', '420px'],
+                    content: '{:url("/admin/form")}',
+                    btn: ['确认', '重置', '关闭'],
+                    yes: function (index, layero) {
+                        // var body = layer.getChildFrame('body', index);
+                        iframe = top.window[layero.find('iframe')[0]['name']];
+                        iframe.save();
+                    },
+                    btn2: function (index, layero) {
+                        iframe = top.window[layero.find('iframe')[0]['name']];
+                        iframe.reset();
+                        return false
+                    }
+                });
+                break;
+            case 'refresh':
+                reload();
+                break;
+            case 'del':
+                var ids = $grid.jqGrid('getGridParam', 'selarrrow');
+                if (ids.length !== 0) {
+                    layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
+                        $.ajax({
+                            url: '{:url("/admin/delete")}',
+                            type: 'post',
+                            data: {'keyValues': ids},
+                            success: function (data) {
+                                if (data === true){
+                                    layer.msg('删除成功！', {icon: 1});
+                                    reload();
+                                }else {
+                                    layer.msg('删除失败,请联系管理员！', {icon: 2});
+                                }
+                            }
+                        })
                     })
-            }
-        })
+                } else {
+                    layer.msg('请选择要删除的数据！', {icon: 3})
+                }
+        }
+    });
+
+    function reload() {
+        $("#grid").trigger('reloadGrid');
+    }
+
+    $(window).resize(function () {
+        $("#grid").setGridWidth($(window).width());
     });
 </script>
 </body>

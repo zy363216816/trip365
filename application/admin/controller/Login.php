@@ -1,7 +1,9 @@
 <?php
+
 namespace app\admin\controller;
 
 use app\facade\Authenticated;
+use Faker\Provider\DateTime;
 use think\Controller;
 use think\facade\Session;
 use think\Request;
@@ -12,7 +14,7 @@ class Login extends Controller
     protected $rule = [
         'username' => 'require|max:25',
         'password' => 'require',
-        'captcha|验证码'=>'require|captcha',
+        'captcha|验证码' => 'require|captcha',
         '__token__' => 'token',
     ];
 
@@ -20,30 +22,28 @@ class Login extends Controller
     {
         return view('/login');
     }
+
     /*
      * 执行登录操作
      */
     public function login(Request $request)
     {
-        $validate   = Validate::make($this->rule);
+        $validate = Validate::make($this->rule);
         $res = null;
-        if ($request->isAjax()){
+        if ($request->isAjax()) {
             $data = [
                 'username' => $request->post("username"),
                 'password' => $request->post("password"),
-                'captcha'  => $request->post("captcha")
+                'captcha' => $request->post("captcha")
             ];
-            if ($validate->check($data)){
+            if ($validate->check($data)) {
                 $admin = new AdminUsers();
-                $user= $admin->getAdmin($data['username']);
-                if ($user !== null){
+                $user = $admin->getAdmin($data['username']);
+                if ($user !== null) {
                     $pwd = $user->password;
                     $status = $user->getData('status'); //-1删除,账号状态,0-禁用,1-正常,2-待审核
-                    if ($pwd === $admin->encrypt($data['password'])){
-                        switch ($status){
-                            case -1:
-                                return lang('delete');
-                                break;
+                    if ($pwd === $admin->encrypt($data['password'])) {
+                        switch ($status) {
                             case 0:
                                 return lang('forbidden');
                                 break;
@@ -52,18 +52,35 @@ class Login extends Controller
                                 break;
                             default:
                                 Authenticated::save($user->toArray());
+                                $this->authenticated();
                                 return lang('success');
                         }
                     }
                 }
                 return lang('fail');
-            }else{
+            } else {
                 $res['msg'] = $validate->getError();
                 $res['code'] = -1;
             }
         }
         return json($res);
     }
+
+    /*
+     * 登录成功后的操作
+     */
+    public function authenticated()
+    {
+        $user = Authenticated::user();
+        $key = $user['id'];
+        $login_num = $user['login_num'];
+        $admin = new \app\admin\model\AdminUsers();
+        $admin->save([
+            'login_time' => date('Y-m-d H:i:s', time()),
+            'ip' => $this->request->ip(),
+            'login_num' => $login_num + 1], ['id' => $key]);
+    }
+
     /*
      * 注销登录
      */
