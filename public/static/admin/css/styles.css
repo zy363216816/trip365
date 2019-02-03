@@ -41,3 +41,30 @@
 .toolbar{
     padding: 0 15px;
 }
+.img-container,
+.img-preview {
+    background-color: #ddd;
+    text-align: center;
+    width: 100%;
+}
+
+.img-container {
+    margin-bottom: 1rem;
+    height: 330px;
+}
+
+.img-container > img {
+    width: 100%;
+}
+
+.preview {
+    margin-right: -1rem;
+}
+
+.img-preview {
+    height: 9rem;
+    width: 16rem;
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+    overflow: hidden;
+}

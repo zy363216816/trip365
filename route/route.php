@@ -27,5 +27,6 @@ Route::get('admin/form','admin/AdminUsers/form');
 Route::post('admin/add','admin/AdminUsers/add');
 Route::post('admin/delete','admin/AdminUsers/del');
 Route::get('admin/profile','admin/AdminUsers/profile');
+Route::get('admin/avatar','admin/AdminUsers/avatar');
 
 Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');

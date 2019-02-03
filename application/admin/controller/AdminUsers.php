@@ -41,6 +41,12 @@ class AdminUsers extends Controller
         $this->assign('admin',$admin);
         return $this->fetch('/adminProfile');
     }
+
+    public function avatar()
+    {
+        return view('/avatar');
+    }
+
     public function add(Request $request)
     {
         if ($request->isAjax() && $request->isPost()){
