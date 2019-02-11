@@ -79,14 +79,14 @@ $(function () {
             menu.click(function () {
                 event.preventDefault();
                 var _href = $(this).attr('href'),
-                    li = $(this).parent('li'),
+                    li = $(this).parents('li'),
                     states = {
                         title: $(this).text(),
                         url: _href,
                         time: new Date().getTime()
                     };
                 if (!li.hasClass('active')) {
-                    menu.parent('li').removeClass('active');
+                    menu.parents('li').removeClass('active');
                     li.addClass('active');
                 }
                 selector.iframe.attr('src', _href);

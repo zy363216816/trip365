@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\facade\Authenticated;
 use think\App;
 use think\Controller;
 use think\facade\Cache;
@@ -13,6 +14,8 @@ class Index extends Controller
 
     public function index()
     {
+        $admin = Authenticated::user();
+        $this->assign('admin',$admin);
         return view('/index');
     }
 

@@ -28,5 +28,9 @@ Route::post('admin/add','admin/AdminUsers/add');
 Route::post('admin/delete','admin/AdminUsers/del');
 Route::get('admin/profile','admin/AdminUsers/profile');
 Route::get('admin/avatar','admin/AdminUsers/avatar');
-
+Route::post('admin/uploadAvatar','admin/AdminUsers/uploadFile');
+Route::post('admin/changePwd','admin/AdminUsers/changePassword');
 Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');
+
+//内容管理相关
+Route::get('admin/Article','admin/Article/index');

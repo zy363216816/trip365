@@ -8,6 +8,7 @@ create table if not exists `admin_users`(
 	`password` VARCHAR(255) NOT NULL COMMENT '管理员密码',
 	`name` VARCHAR(50) NULL COMMENT '管理员姓名',
 	`nick_name` VARCHAR(50) NULL COMMENT '管理员昵称',
+	`avatar`  VARCHAR(255) NULL COMMENT '管理员头像',
 	`gender` TINYINT NULL COMMENT '性别(0女，1男)',
 	`mobile` varchar(50) NULL COMMENT '手机',
 	`phone` VARCHAR(50) NULL COMMENT '固定电话',

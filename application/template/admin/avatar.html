@@ -16,7 +16,7 @@
         <div class="col-xs-9" style="margin-bottom: 10px">
             <!-- <h3>Demo:</h3> -->
             <div class="img-container">
-                <img src="__ADMIN__/img/avatar.jpg" alt="头像">
+                <img id="avatar" src="/upload/{$admin.avatar}" alt="头像">
             </div>
         </div>
         <div class="col-xs-3">
@@ -238,13 +238,22 @@
 
     // 上传头像事件
     $("#sub").on("click", function() {
-        if (img.attr("src") == null) {
+        if (img.src == null) {
             return false;
         } else {
-            var cas = img.cropper('getCroppedCanvas');// 获取被裁剪后的canvas
-            var base64 = cas.toDataURL('image/jpeg'); // 转换为base64
-
-            uploadFile(encodeURIComponent(base64))//编码后上传服务器
+            var cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas
+            var base64 = cas.toDataURL(); // 转换为base64
+            $.ajax({
+                url: '{:url("/admin/uploadAvatar")}',
+                type: 'post',
+                data:{'file': encodeURIComponent(base64)},
+                success : function(data) {
+                    if (data === true) {
+                        parent.layer.closeAll();
+                        top.layer.msg('上传成功');
+                    }
+                }
+            });
         }
     });
 </script>

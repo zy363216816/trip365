@@ -16,3 +16,7 @@ function guid()
         return $uuid;
     }
 }
+
+function getUniName(){
+    return md5(uniqid(microtime(true),true));
+}

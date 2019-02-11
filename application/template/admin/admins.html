@@ -61,7 +61,9 @@
             {name: 'admin_id', label: '主键', hidden: true},
             {name: 'account', label: '管理员账号'},
             {name: 'name', label: '姓名'},
-            {name: 'icon', label: '头像'},
+            {name: 'avatar', label: '头像', formatter:function(cellValue, options, rowObject){
+                return '<img src="/upload/'+cellValue+'" alt="头像" width="30" height="30" />'
+                }},
             {name: 'gender', label: '性别'},
             {name: 'status', label: '状态'},
             {name: 'login_time', label: '登录时间', width: 300},
