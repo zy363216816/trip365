@@ -34,3 +34,5 @@ Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');
 
 //内容管理相关
 Route::get('admin/Article','admin/Article/index');
+Route::get('article/ArticleList','admin/Article/index');
+Route::get('article/form','admin/Article/form');

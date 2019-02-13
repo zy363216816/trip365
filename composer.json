@@ -19,7 +19,9 @@
         "php": ">=5.6.0",
         "topthink/framework": "5.1.*",
         "topthink/think-captcha": "^2.0",
-      "ext-com_dotnet": "*"
+      "ext-com_dotnet": "*",
+      "ext-json": "*",
+        "ext-iconv": "*"
     },
     "autoload": {
         "psr-4": {

@@ -1,10 +1,155 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <title>文章列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理| 文章管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/jqGrid/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="__ADMIN__/css/styles.css">
 </head>
 <body>
-        <p>文章列表</p>
+<div class="container-fluid" style="padding: 0">
+    <div class="toolbar clearfix">
+        <div class="input-group margin pull-left" style="width: 30%">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+        <button type="button" class="btn btn-info btn-flat">搜索</button>
+    </span>
+        </div>
+        <div class="margin pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-info btn-flat" data-action="add">添加</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-flat" data-action="del">删除</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-flat" data-action="edit">编辑</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-flat" data-action="edit">审核</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning btn-flat" data-action="refresh">刷新</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    操作
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">发布</a></li>
+                    <li><a href="#">置顶</a></li>
+                    <li><a href="#">推荐</a></li>
+                    <li><a href="#">取消发布</a></li>
+                    <li><a href="#">取消置顶</a></li>
+                    <li><a href="#">取消推荐</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <table id="grid"></table>
+    <div id="pager"></div>
+</div>
+<!-- jQuery 2.2.3 -->
+<script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
+<script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="__PLUGINS__/jquery-ui/jquery-ui.min.js"></script>-->
+<script src="__PLUGINS__/jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script src="__PLUGINS__/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="__PLUGINS__/layer/layer.js"></script>
+<script>
+    var $height = $(document).height() - 172,
+        $grid = $('#grid');
+    layer.config({
+        skin: 'layui-layer-molv'
+    });
+    $grid.jqGrid({
+        url: '{:url("/admin/getAdmins")}',
+        datatype: "json",
+        styleUI: 'Bootstrap',
+        colModel: [
+            {name: 'id', label: '主键', hidden: true},
+            {name: 'sort', label: '排序'},
+            {name: 'article_title', label: '标题'},
+            {name: 'category_id', label: '分类'},
+            {name: 'user_id', label: '作者'},
+            {name: 'article_hits', label: '点击量'},
+            {name: 'comment_count', label: '评论量'},
+            {name: 'article_keywords', label: '关键字'},
+            {name: 'article_source', label: '来源'},
+            {name: 'article_excerpt', label: '摘要'},
+            {name: 'thumbnail', label: '缩略图'},
+            {name: 'photo_id', label: '相册'},
+            {name: 'video_id', label: '视频'},
+            {name: 'published_time', label: '发布时间', width: 300},
+            {name: 'update_time', label: '更新时间', width: 300},
+            {name: 'article_status', label: '状态'}
+        ],
+        height: $height,
+        autowidth: true,
+        pager: '#pager',
+        rowList: [20, 30, 50],
+        rownumbers: true,
+        rownumWidth: 25,
+        multiselect: true,
+    });
+    $grid.jqGrid('setGroupHeaders', {
+        useColSpanStyle: true,
+        groupHeaders:[
+            {startColumnName:'article_keywords', numberOfColumns:6, titleText: '文章属性'}
+        ]
+    });
+    var btn = $('.toolbar').find('button[data-action]'),
+        iframe = null;
+    btn.click(function () {
+        var act = $(this).data('action');
+        switch (act) {
+            case 'add':
+                top.layer.open({
+                    type: 2,
+                    title: '添加文章',
+                    area: ['1000px', '600px'],
+                    content: '{:url("/article/form")}'
+                });
+                break;
+            case 'refresh':
+                reload();
+                break;
+            case 'del':
+                var ids = $grid.jqGrid('getGridParam', 'selarrrow');
+                if (ids.length !== 0) {
+                    layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
+                        $.ajax({
+                            url: '{:url("/admin/delete")}',
+                            type: 'post',
+                            data: {'keyValues': ids},
+                            success: function (data) {
+                                if (data === true){
+                                    layer.msg('删除成功！', {icon: 1});
+                                    reload();
+                                }else {
+                                    layer.msg('删除失败,请联系管理员！', {icon: 2});
+                                }
+                            }
+                        })
+                    })
+                } else {
+                    layer.msg('请选择要删除的数据！', {icon: 3})
+                }
+        }
+    });
+
+    function reload() {
+        $("#grid").trigger('reloadGrid');
+    }
+
+    $(window).resize(function () {
+        $("#grid").setGridWidth($(window).width());
+    });
+</script>
 </body>
 </html>

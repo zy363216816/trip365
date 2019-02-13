@@ -66,7 +66,9 @@ $(function () {
             selector.menu.removeClass("active");
             selector.treeView.removeClass("active");
             $parent.addClass('active');
-            $parents.addClass('active');
+            $parents.each(function () {
+                $(this).addClass('active');
+            });
             selector.iframe.attr('src', url);
         }else {
             selector.iframe.attr('src', 'admin/dashboard');
@@ -79,14 +81,14 @@ $(function () {
             menu.click(function () {
                 event.preventDefault();
                 var _href = $(this).attr('href'),
-                    li = $(this).parents('li'),
+                    li = $(this).parent('li'),
                     states = {
                         title: $(this).text(),
                         url: _href,
                         time: new Date().getTime()
                     };
                 if (!li.hasClass('active')) {
-                    menu.parents('li').removeClass('active');
+                    menu.parent('li').removeClass('active');
                     li.addClass('active');
                 }
                 selector.iframe.attr('src', _href);

@@ -73,12 +73,12 @@ class Login extends Controller
     {
         $user = Authenticated::user();
         $key = $user['id'];
-        $login_num = $user['login_num'];
+        $login_times = $user['login_times'];
         $admin = new \app\admin\model\AdminUsers();
         $admin->save([
             'login_time' => date('Y-m-d H:i:s', time()),
             'ip' => $this->request->ip(),
-            'login_num' => $login_num + 1], ['id' => $key]);
+            'login_num' => $login_times + 1], ['id' => $key]);
     }
 
     /*

@@ -15,7 +15,7 @@ create table if not exists `admin_users`(
 	`email` VARCHAR(255) NULL COMMENT '电子邮件',
 	`qq` VARCHAR(50) NULL COMMENT 'qq号码',
 	`status` TINYINT NULL DEFAULT '1' COMMENT '状态(0禁用,1正常,2待审核)',
-	`login_num` INT UNSIGNED NULL DEFAULT '0' COMMENT '登录次数',
+	`login_times` INT UNSIGNED NULL DEFAULT '0' COMMENT '登录次数',
 	`login_time` DATETIME NULL COMMENT '登录时间',
 	`last_login_time` DATETIME NULL COMMENT '上次登录时间',
 	`ip` VARCHAR(255) NULL COMMENT '登录ip地址',
@@ -30,5 +30,60 @@ create table if not exists `admin_users`(
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX (`admin_id`),
 	UNIQUE INDEX (`account`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-insert into `admin_users`(admin_id,account,password) values ('admin','admin','53iCojw7PT176')
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into `admin_users`(admin_id,account,password) values ('admin','admin','53iCojw7PT176');
+
+CREATE TABLE IF NOT EXISTS `assets` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+  `file_size` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文件大小,单位B',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上传时间',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:可用,0:不可用',
+  `download_times` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '下载次数',
+  `file_key` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件惟一码',
+  `filename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `file_path` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件路径,相对于upload目录,可以为url',
+  `file_md5` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件md5值',
+  `file_sha1` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `suffix` varchar(10) NOT NULL DEFAULT '' COMMENT '文件后缀名,不包括点',
+  `more` text COMMENT '其它详细信息,JSON格式',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父级id',
+  `category_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '类别id',
+  `article_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '类型,1:文章;2:页面',
+  `article_format` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '内容格式;1:html;2:md',
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文章作者id',
+  `article_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:已发布;0:未发布;',
+  `comment_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
+  `is_top` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否置顶;1:置顶;0:不置顶',
+  `recommended` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
+  `article_hits` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '查看数',
+  `article_like` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '点赞数',
+  `comment_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '评论数',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `published_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `delete_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `article_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'post标题',
+  `article_keywords` varchar(150) NOT NULL DEFAULT '' COMMENT 'seo keywords',
+  `article_excerpt` varchar(500) NOT NULL DEFAULT '' COMMENT 'article摘要',
+  `article_source` varchar(150) NOT NULL DEFAULT '' COMMENT '转载文章的来源',
+  `thumbnail` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `article_content` text COMMENT '文章内容',
+  `article_content_filtered` text COMMENT '处理过的文章内容',
+  `audio_id` varchar(150) NULL DEFAULT '' COMMENT '音频id',
+  `video_id` varchar(150) NULL DEFAULT '' COMMENT '视频id',
+  `photo_id` varchar(150) NULL DEFAULT '' COMMENT '相册id',
+  `file_id` varchar(150) NULL DEFAULT '' COMMENT '附件id',
+  `sort` bigint(20) NULL COMMENT '排序',
+  `more` text COMMENT '扩展属性,如缩略图;格式为json',
+  PRIMARY KEY (`id`),
+  KEY `type_status_date` (`article_type`,`article_status`,`create_time`,`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_time` (`create_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表' ROW_FORMAT=COMPACT;
