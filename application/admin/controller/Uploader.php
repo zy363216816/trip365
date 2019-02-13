@@ -21,7 +21,6 @@ class Uploader
     private $filePath; //完整文件名,即从当前配置目录开始的URL
     private $fileSize; //文件大小
     private $fileType; //文件类型
-    private $fileExtension; //文件类型
     private $stateInfo; //上传状态信息,
     private $stateMap = array( //上传状态映射表，国际化用户需考虑此处数据的国际化
         "SUCCESS", //上传成功标记，在UEditor中内不可改变，否则flash判断会出错
@@ -53,11 +52,10 @@ class Uploader
      * @param array $config 配置项
      * @param bool $base64 是否解析base64编码，可省略。若开启，则$fileField代表的是base64编码的字符串表单名
      */
-    public function __construct($fileField, $fileType = 'image', $type = "upload")
+    public function __construct($fileField, $config, $type = "upload")
     {
         $this->fileField = $fileField;
-        $this->fileType  = $fileType;
-        $this->config = Config('upload.');
+        $this->config = $config;
         $this->type = $type;
         if ($type == "remote") {
             $this->saveRemote();
@@ -94,7 +92,7 @@ class Uploader
 
         $this->oriName = $file['name'];
         $this->fileSize = $file['size'];
-        $this->fileExtension = $this->getFileExt();
+        $this->fileType = $this->getFileExt();
         $this->fullName = $this->getFullName();
         $this->filePath = $this->getFilePath();
         $this->fileName = $this->getFileName();
@@ -107,7 +105,7 @@ class Uploader
         }
 
         //检查是否不允许的文件格式
-        if (!$this->checkAllow()) {
+        if (!$this->checkType()) {
             $this->stateInfo = $this->getStateInfo("ERROR_TYPE_NOT_ALLOWED");
             return;
         }
@@ -324,13 +322,13 @@ class Uploader
     }
 
     /**
-     * 文件保存路径
+     * 获取文件完整路径
      * @return string
      */
     private function getFilePath()
     {
         $fullname = $this->fullName;
-        $rootPath = $this->config['upload_path'];
+        $rootPath = $_SERVER['DOCUMENT_ROOT'];
 
         if (substr($fullname, 0, 1) != '/') {
             $fullname = '/' . $fullname;
@@ -343,10 +341,9 @@ class Uploader
      * 文件类型检测
      * @return bool
      */
-    private function checkAllow()
+    private function checkType()
     {
-        $extensions = explode(',',$this->config[$this->fileType]['extensions']);
-        return in_array($this->getFileExt(), $extensions);
+        return in_array($this->getFileExt(), $this->config["allowFiles"]);
     }
 
     /**
@@ -355,7 +352,7 @@ class Uploader
      */
     private function  checkSize()
     {
-        return $this->fileSize <= ($this->config["types"][$this->fileType]['max_size'])*1024;
+        return $this->fileSize <= ($this->config["maxSize"]);
     }
 
     /**

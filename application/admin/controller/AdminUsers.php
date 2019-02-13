@@ -102,7 +102,7 @@ class AdminUsers extends Controller
         $admin = Authenticated::user();
         $name = 'avatar/' . $admin['id'] . '.' . $type;
         try {
-            file_put_contents(config('upload') . $name, $file);
+            file_put_contents(config('uploads') . $name, $file);
             $user = Users::get($admin['id']);
             $user->avatar = $name;
             if ($user->save()) {

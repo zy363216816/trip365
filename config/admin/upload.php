@@ -5,7 +5,7 @@
  * Time: 15:09
  */
 return[
-    'upload_path' => \think\facade\Env::get('root_path').'upload/ueditor/',
+    'upload_path' => \think\facade\Env::get('root_path').'uploads/ueditor/',
     'types' => [
         'image' => [
             'max_size' => '10240',//单位KB

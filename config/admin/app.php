@@ -8,5 +8,5 @@ return [
     // 开启强制路由
     'url_route_must'		 => true,
     // 文件上传路径
-    'upload'                 => Env::get('root_path').'public/upload/'
+    'uploads'                 => Env::get('root_path').'public/uploads/'
 ];

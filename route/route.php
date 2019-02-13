@@ -36,3 +36,5 @@ Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');
 Route::get('admin/Article','admin/Article/index');
 Route::get('article/ArticleList','admin/Article/index');
 Route::get('article/form','admin/Article/form');
+
+Route::rule('asset/upload','admin/Ueditor/index','GET|POST');

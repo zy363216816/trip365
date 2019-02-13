@@ -12,7 +12,7 @@ class Article extends Controller
      */
     public function index()
     {
-        return view('/articleList');
+        return view('list');
     }
     /**
      * 显示添加文章表格
