@@ -23,6 +23,15 @@ class Article extends Controller
     }
 
     /**
+     * 显示上传控件
+     */
+    public function assetUpload()
+    {
+        return view('upload');
+    }
+
+
+    /**
      * 显示创建资源表单页.
      *
      * @return \think\Response

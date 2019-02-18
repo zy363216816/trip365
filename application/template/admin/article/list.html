@@ -109,13 +109,14 @@
         var act = $(this).data('action');
         switch (act) {
             case 'add':
-                top.layer.open({
+                var index = top.layer.open({
                     type: 2,
                     title: '添加文章',
                     area: ['1000px', '600px'],
                     maxmin: true,
                     content: '{:url("/article/form")}'
                 });
+                top.layer.full(index);
                 break;
             case 'refresh':
                 reload();

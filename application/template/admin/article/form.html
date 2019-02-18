@@ -57,14 +57,15 @@
                     <tr>
                         <th>内容</th>
                         <td>
-                            <script id="content" name="content" type="text/plain"></script>
+                            <script id="content" type="text/plain"></script>
                         </td>
                     </tr>
                     <tr>
                         <th>相册</th>
                         <td>
+                            <script id="images" type="text/plain"></script>
                             <ul id="photos" class="pic-list list-unstyled form-inline"></ul>
-                            <a href="javascript:uploadMultiImage('图片上传','#photos','photos-item-tpl');" class="btn btn-default btn-sm">选择图片</a>
+                            <a href="javascript:uploadDialog('多图上传');" class="btn btn-default btn-sm">选择图片</a>
                         </td>
                     </tr>
                     <tr>
@@ -135,7 +136,6 @@
                         </td>
                     </tr>
                     </tbody></table>
-
             </div>
         </div>
     </form>
@@ -154,7 +154,14 @@
 <script>
     var ue = UE.getEditor('content');
     var form = $('#form');
-
+    function uploadDialog(title) {
+        var index = layer.open({
+            type: 2,
+            title: title,
+            area: ['800px','500px'],
+            content: '{:url("/article/asset")}'
+        });
+    }
     function save() {
         var data = form.serialize();
         $.ajax({
