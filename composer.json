@@ -21,7 +21,8 @@
         "topthink/think-captcha": "^2.0",
       "ext-com_dotnet": "*",
       "ext-json": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+      "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

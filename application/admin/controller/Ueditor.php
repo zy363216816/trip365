@@ -8,6 +8,8 @@
 namespace app\admin\controller;
 
 use think\Controller;
+use think\exception\HttpResponseException;
+use think\Response;
 
 class Ueditor extends Controller
 {
@@ -16,8 +18,6 @@ class Ueditor extends Controller
     public function initialize()
     {
         date_default_timezone_set("Asia/chongqing");
-        error_reporting(E_ERROR);
-        header("Content-Type: text/html; charset=utf-8");
         $this->config = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./static/plugins/ueditor/config.json")), true);
     }
 
@@ -26,33 +26,30 @@ class Ueditor extends Controller
         $action = $_GET['action'];
         switch ($action) {
             case 'config':
-                $result =  json($this->config);
+                $result =  json_encode($this->config,JSON_UNESCAPED_UNICODE);
                 break;
             /* 上传图片 */
             case 'uploadimage':
-                $this->uploadFile();
-                break;
             /* 上传涂鸦 */
             case 'uploadscrawl':
-                break;
             /* 上传视频 */
             case 'uploadvideo':
-                break;
             /* 上传文件 */
             case 'uploadfile':
-                $this->uploadFile();
+                $result = $this->uploadFile();
                 break;
+
             /* 列出图片 */
             case 'listimage':
-                $this->showList();
+                $result = $this->showList();
                 break;
             /* 列出文件 */
             case 'listfile':
-                $this->showList();
+                $result = $this->showList();
                 break;
             /* 抓取远程文件 */
             case 'catchimage':
-                $this->crawler();
+                $result = $this->crawler();
                 break;
             default:
                 $result = json_encode(array(
@@ -71,9 +68,9 @@ class Ueditor extends Controller
                 ));
             }
         }else{
-            return $result;
+            $response = Response::create(json_decode($result,true),'json');
+            throw new HttpResponseException($response);
         }
-        return false;
     }
 
     public function uploadFile()
@@ -120,7 +117,7 @@ class Ueditor extends Controller
         }
         /* 生成上传实例对象并完成上传 */
         $up = new Uploader($fieldName, $config, $base64);
-        return json($up->getFileInfo());
+        return json_encode($up->getFileInfo());
     }
 
     public function crawler()

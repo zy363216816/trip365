@@ -3,10 +3,8 @@
 namespace app\admin\controller;
 
 use app\facade\Authenticated;
-use think\App;
 use think\Controller;
 use think\facade\Cache;
-use think\Request;
 
 class Index extends Controller
 {
@@ -19,7 +17,7 @@ class Index extends Controller
         return view('/index');
     }
 
-    function clearCache()
+    public function clearCache()
     {
         Cache::clear();
         $this->success( '清除成功', '/admin/index' );

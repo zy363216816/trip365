@@ -149,12 +149,10 @@
     var Uploader = '{:url("/asset/upload")}';
 </script>
 <!-- UEditor -->
-<script type="text/javascript" src="__PLUGINS__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PLUGINS__/ueditor/ueditor.config.js?v=1.4.3"></script>
 <script type="text/javascript" src="__PLUGINS__/ueditor/ueditor.all.min.js"></script>
 <script>
-    var ue = UE.getEditor('content',{
-        serverUrl: "{:url('/asset/upload')}",
-    });
+    var ue = UE.getEditor('content');
     var form = $('#form');
 
     function save() {
