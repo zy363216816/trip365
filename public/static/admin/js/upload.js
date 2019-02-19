@@ -187,7 +187,7 @@
         });
 
         uploader.on('dialogOpen', function() {
-            console.log('here');
+            console.log('弹出选择框');
         });
 
         // uploader.on('filesQueued', function() {
@@ -524,6 +524,13 @@
             updateTotalProgress();
 
         };
+
+        uploader.on('uploadSuccess', function( file ,response ) {
+            var photos = parent.$('#photos');
+            var html = '<input type="text" value="'+ response["originalName"] +'"/>';
+                html += '<img src="../' + response["url"] + '" width="60" height="60"/>';
+            photos.append(html);
+        });
 
         uploader.on( 'all', function( type ) {
             var stats;
