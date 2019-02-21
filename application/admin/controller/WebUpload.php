@@ -120,7 +120,7 @@ class WebUpload extends Controller
             file_put_contents('./uploads/md5list.txt', join($md5File, "\n"));
         }
 
-        return (["originalName" => $original,"url" => $uploadPath, "result" => "" ]);
+        return (['id' => uniqid(), "fileName" => $fileName,"originalName" => $original,"url" => $uploadPath, "result" => "" ]);
     }
 
     private static function  generateMD5($file)

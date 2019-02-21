@@ -36,9 +36,9 @@ class Article extends Controller
      *
      * @return \think\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return ['msg' => '添加成功'];
     }
 
     /**

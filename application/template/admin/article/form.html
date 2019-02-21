@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form action="{:url('article/add')}" method="post" class="form-horizontal" style="margin-top:10px">
+    <form method="post" class="form-horizontal" style="margin-top:10px">
         <div class="row">
             <div class="col-xs-9">
                 <table class="table table-bordered">
@@ -65,7 +65,7 @@
                         <td>
                             <script id="images" type="text/plain"></script>
                             <ul id="photos" class="pic-list list-unstyled form-inline"></ul>
-                            <a href="javascript:uploadDialog('多图上传');" class="btn btn-default btn-sm">选择图片</a>
+                            <a href="javascript:uploadDialog('多图上传','images','#img-tpl',true);" class="btn bg-navy btn-flat">选择图片</a>
                         </td>
                     </tr>
                     <tr>
@@ -73,7 +73,7 @@
                         <td>
                             <ul id="files" class="pic-list list-unstyled form-inline">
                             </ul>
-                            <a href="javascript:uploadMultiFile('附件上传','#files','files-item-tpl','file');" class="btn btn-sm btn-default">选择文件</a>
+                            <a href="javascript:uploadDialog('附件上传','files','#file-tpl',true);" class="btn bg-navy btn-flat">选择文件</a>
                         </td>
                     </tr>
                     <tr>
@@ -81,21 +81,21 @@
                         <td class="form-inline">
                             <input id="file-audio" class="form-control" type="text" name="audio" value="" placeholder="请上传音频文件" style="width: 200px;">
 
-                            <a href="javascript:uploadOne('文件上传','#file-audio','audio');">上传</a>
+                            <a href="javascript:uploadDialog('上传音频','audio','#file-audio',false);">上传</a>
                         </td>
                     </tr>
                     <tr>
                         <th>视频</th>
                         <td class="form-inline">
                             <input id="file-video" class="form-control" type="text" name="video" value="" placeholder="请上传视频文件" style="width: 200px;">
-                            <a href="javascript:uploadOne('文件上传','#file-video','video');">上传</a>
+                            <a href="javascript:uploadDialog('上传视频','video','#file-video',false);">上传</a>
                         </td>
                     </tr>
                     </tbody></table>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary js-ajax-submit">添加</button>
-                        <a class="btn btn-default" href="/portal/admin_article/index.html">返回</a>
+                        <button type="submit" class="btn btn-success ajax-submit">添加</button>
+                        <a class="btn btn-default" href="javascript:{top.layer.closeAll()}">返回</a>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                         <td>
                             <div style="text-align: center;">
                                 <input type="hidden" name="post[more][thumbnail]" id="thumbnail" value="">
-                                <a href="javascript:uploadOneImage('图片上传','#thumbnail');">
+                                <a href="javascript:uploadDialog('图片上传','image','#thumbnail',false);">
                                     <img src="__ADMIN__/img/default-thumbnail.png" id="thumbnail-preview" width="135" style="cursor: pointer">
                                 </a>
                                 <input type="button" class="btn btn-sm btn-cancel-thumbnail" value="取消图片">
@@ -140,6 +140,24 @@
         </div>
     </form>
 </div>
+<script type="text/html" id="img-tpl">
+    <li style="margin-bottom: 5px">
+        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="filepath">
+        <input class="form-control" id="photo-name-{id}" type="text" name="image_names[]" value="originalName">
+        <img src="filepath" alt="" height="34">
+        <a href="javascript:uploadDialog('图片替换','#_id','file');">替换</a>
+        <a href="javascript:void(0)" onclick="{$(this).parent().remove()}">移除</a>
+    </li>
+</script>
+<script type="text/html" id="file-tpl">
+    <li style="margin-bottom: 5px">
+        <input id="file-{id}" type="hidden" name="file_urls[]" value="filepath">
+        <input class="form-control" id="file-name-{id}" type="text" name="file_names[]" value="originalName" title="文件名称">
+        <a id="file-preview-{id}" href="filepath" target="_blank">下载</a>
+        <a href="javascript:uploadDialog('文件上传','#file-_id','file');">替换</a>
+        <a href="javascript:void(0)" onclick="{$(this).parent().remove()}">移除</a>
+    </li>
+</script>
 <!-- jQuery 2.2.3 -->
 <script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -153,35 +171,43 @@
 <script type="text/javascript" src="__PLUGINS__/ueditor/ueditor.all.min.js"></script>
 <script>
     var ue = UE.getEditor('content');
-    var form = $('#form');
-    function uploadDialog(title) {
-        var index = layer.open({
+    var form = $('form');
+    var fileType,tpl,multi,index;
+    function uploadDialog(title, type, template, multiple) {
+        fileType = type;
+        tpl = template;
+        multi = multiple;
+        index = layer.open({
             type: 2,
             title: title,
             area: ['800px','500px'],
+            btn:['关闭'],
             content: '{:url("/article/asset")}'
         });
     }
-    function save() {
-        var data = form.serialize();
+    form.submit(function () {
+        var $data = form.serialize();
+        console.log($data);
         $.ajax({
-            url: '{:url("/admin/add")}',
+            url: '{:url("/article/add")}',
             type: 'post',
-            data: data,
+            data: $data,
+            dataType:'json',
             success: function (data) {
                 if (data !== true) {
-                    layer.msg(data.msg);
-                    form.find('input[name="__token__"]').remove();
-                    form.prepend(data.token);
+                    // layer.msg(data.msg);
+                    // form.find('input[name="__token__"]').remove();
+                    // form.prepend(data.token);
                 } else {
-                    top.layer.closeAll();
-                    top.layer.msg('添加成功');
-                    $obj = top.window['iframe'];
-                    $obj.reload();
+                    // top.layer.closeAll();
+                    // top.layer.msg('添加成功');
+                    // $obj = top.window['iframe'];
+                    // $obj.reload();
                 }
             }
-        })
-    }
+        });
+        return false;
+    });
     function reset() {
         document.getElementById('form').reset();
     }

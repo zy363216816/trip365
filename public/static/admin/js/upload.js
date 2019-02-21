@@ -1,6 +1,37 @@
 (function( $ ){
     // 当domReady的时候开始初始化
     $(function() {
+        var $type = parent.fileType,
+            $accept;
+        switch ($type) {
+            case 'image':
+            case 'images':
+                $accept = {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png'
+                };
+                break;
+            case 'audio':
+                $accept = {
+                    title: 'Audio',
+                    extensions: 'mp3,wav'
+                };
+                break;
+            case 'video':
+                $accept = {
+                    title: 'video',
+                    extensions: 'mp4,avi,3gp,rmvb,flv'
+                };
+                break;
+            case 'files':
+                $accept = {
+                    title: 'file',
+                    extensions: 'doc,docs,txt,xls,xlsx,zip,rar,ppt'
+                };
+                break;
+            default:
+                return false;
+        }
         var $wrap = $('#uploader'),
 
             // 图片容器
@@ -141,8 +172,10 @@
         uploader = WebUploader.create({
             pick: {
                 id: '#filePicker',
-                label: '点击选择'
+                label: '点击选择',
+                multiple: parent.multi
             },
+            auto: !parent.multi,
             formData: {
                 uid: 123
             },
@@ -154,11 +187,7 @@
             server: rootPath + '/asset/webupload.php',
             // runtimeOrder: 'flash',
 
-            // accept: {
-            //     title: 'Images',
-            //     extensions: 'gif,jpg,jpeg,bmp,png',
-            //     mimeTypes: 'image/*'
-            // },
+            accept: $accept,
 
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: true,
@@ -435,7 +464,7 @@
             $upload.removeClass( 'state-' + state );
             $upload.addClass( 'state-' + val );
             state = val;
-
+            var picker2 = $( '#filePicker2' );
             switch ( state ) {
                 case 'pedding':
                     $placeHolder.removeClass( 'element-invisible' );
@@ -446,14 +475,14 @@
 
                 case 'ready':
                     $placeHolder.addClass( 'element-invisible' );
-                    $( '#filePicker2' ).removeClass( 'element-invisible');
+                    picker2.removeClass( 'element-invisible');
                     $queue.show();
                     $statusBar.removeClass('element-invisible');
                     uploader.refresh();
                     break;
 
                 case 'uploading':
-                    $( '#filePicker2' ).addClass( 'element-invisible' );
+                    picker2.addClass( 'element-invisible' );
                     $progress.show();
                     $upload.text( '暂停上传' );
                     break;
@@ -465,7 +494,7 @@
 
                 case 'confirm':
                     $progress.hide();
-                    $( '#filePicker2' ).removeClass( 'element-invisible' );
+                    picker2.removeClass( 'element-invisible' );
                     $upload.text( '开始上传' );
 
                     stats = uploader.getStats();
@@ -477,7 +506,7 @@
                 case 'finish':
                     stats = uploader.getStats();
                     if ( stats.successNum ) {
-                        alert( '上传成功' );
+                        console.log( '上传成功' );
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';
@@ -526,10 +555,7 @@
         };
 
         uploader.on('uploadSuccess', function( file ,response ) {
-            var photos = parent.$('#photos');
-            var html = '<input type="text" value="'+ response["originalName"] +'"/>';
-                html += '<img src="../' + response["url"] + '" width="60" height="60"/>';
-            photos.append(html);
+            updateTpl(response.id,response.originalName,'../'+response.url);
         });
 
         uploader.on( 'all', function( type ) {
@@ -551,7 +577,11 @@
         });
 
         uploader.onError = function( code ) {
-            alert( 'Eroor: ' + code );
+            if (code === 'Q_TYPE_DENIED') {
+                alert( '错误提示: 文件格式不正确支持文件格式' + $accept.extensions );
+            }else {
+                alert( '错误提示: ' + code );
+            }
         };
 
         $upload.on('click', function() {
@@ -580,4 +610,52 @@
         updateTotalProgress();
     });
 
+    var $address = $('#remote-addr'),
+        $addBtn = $('#add-btn');
+    $addBtn.click(function () {
+        var url = $address.val();
+        if (url==''){
+            alert('请输入地址');
+            return false;
+        } else {
+            updateTpl('','',url);
+        }
+        if (!parent.multi){
+            parent.layer.closeAll();
+        }
+    });
+
+    var updateTpl =function (id,originalName,filePath) {
+        var photos = parent.$('#photos'),
+            files = parent.$('#files') ,
+            selector = parent.$(parent.tpl),
+            type = parent.fileType;
+        switch (type) {
+            case 'images':
+                tpl = selector.html();
+                tpl = tpl.replace(/\{id\}/g,id);
+                tpl = tpl.replace(/originalName/g,originalName);
+                tpl = tpl.replace(/filepath/g,filePath);
+                photos.append(tpl);
+                break;
+            case 'files':
+                tpl = selector.html();
+                tpl = tpl.replace(/\{id\}/g,id);
+                tpl = tpl.replace(/originalName/g,originalName);
+                tpl = tpl.replace(/filepath/g,filePath);
+                files.append(tpl);
+                break;
+            case 'audio':
+            case 'video':
+                selector.val(filePath);
+                break;
+            case 'image':
+                var preview = parent.$(parent.tpl + '-preview');
+                selector.val(filePath);
+                preview.attr('src',filePath);
+        }
+        if (!parent.multi){
+            parent.layer.closeAll();
+        }
+    }
 })( jQuery );
