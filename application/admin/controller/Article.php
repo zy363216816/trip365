@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use think\Request;
+use app\admin\model\Article as Articles;
 
 class Article extends Controller
 {
@@ -30,17 +31,6 @@ class Article extends Controller
         return view('upload');
     }
 
-
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create(Request $request)
-    {
-        return ['msg' => '添加成功'];
-    }
-
     /**
      * 保存新建的资源
      *
@@ -49,7 +39,13 @@ class Article extends Controller
      */
     public function save(Request $request)
     {
-        //
+        $article = new Articles();
+        if ($request->isPost()){
+            $data = $request->post(false);
+            $category =$data->category;
+        }
+
+        return false;
     }
 
     /**
