@@ -1,4 +1,5 @@
 <?php
+use app\facade\Authenticated;
 
 function guid()
 {
@@ -19,4 +20,10 @@ function guid()
 
 function getUniName(){
     return md5(uniqid(microtime(true),true));
+}
+
+function getAuthId()
+{
+    $admin = Authenticated::user();
+    return $admin['id'];
 }

@@ -35,8 +35,10 @@ Route::get('admin/getAdmins','admin/AdminUsers/getAdmins');
 //内容管理相关
 Route::get('admin/Article','admin/Article/index');
 Route::get('article/ArticleList','admin/Article/index');
+Route::get('article/getArticles','admin/Article/getAll');
 Route::get('article/form','admin/Article/form');
 Route::post('article/add','admin/Article/save');
+Route::post('article/del','admin/Article/delete');
 Route::get('article/asset','admin/Article/assetUpload');
 Route::post('asset/webUpload.php','admin/webUpload/index');
 

@@ -12,7 +12,7 @@ class AdminUsers extends Controller
 {
     public function index()
     {
-        return view('/admins');
+        return view('admin/index');
     }
 
     public function getAdmin($username)
@@ -33,14 +33,14 @@ class AdminUsers extends Controller
 
     public function form()
     {
-        return view('/adminForm');
+        return view('admin/form');
     }
 
     public function profile()
     {
         $admin = Authenticated::user();
         $this->assign('admin', $admin);
-        return $this->fetch('/adminProfile');
+        return $this->fetch('admin/profile');
     }
 
     public function avatar()
@@ -53,7 +53,7 @@ class AdminUsers extends Controller
     public function add(Request $request)
     {
         if ($request->isAjax() && $request->isPost()) {
-            $data = $request->only(['account', 'password', 'password_confirm', 'name', 'mobile', '__token__']);
+            $data = $request->only(['account', 'password', 'password_confirm', 'full_name', 'mobile', '__token__']);
             $valid = $this->validate($data, 'app\admin\validate\Admin');
             $data['account'] = trim($request->post('account'));
             $data['password'] = trim($this->encrypt($request->post('password')));

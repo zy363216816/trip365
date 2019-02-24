@@ -124,6 +124,7 @@ class Uploader
             $this->stateInfo = $this->getStateInfo("ERROR_FILE_MOVE");
         } else { //移动成功
             $this->stateInfo = $this->stateMap[0];
+            $this->saveInfo();
         }
     }
 
@@ -256,6 +257,7 @@ class Uploader
             $this->stateInfo = $this->getStateInfo("ERROR_WRITE_CONTENT");
         } else { //移动成功
             $this->stateInfo = $this->stateMap[0];
+            $this->saveInfo();
         }
 
     }
@@ -369,6 +371,18 @@ class Uploader
             "type" => $this->fileType,
             "size" => $this->fileSize
         );
+    }
+
+    public function saveInfo()
+    {
+        $asset = new Asset();
+        $asset->save([
+            'file_size' => $this->fileSize,
+            'original_name' => $this->oriName,
+            'filename' => $this->fileName,
+            'file_path' => $this->fullName,
+            'suffix' => $this->fileType
+        ]);
     }
 
 }

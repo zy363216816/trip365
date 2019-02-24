@@ -79,14 +79,15 @@
                     <tr>
                         <th>音频</th>
                         <td class="form-inline">
+                            <input type="hidden" name="audio_id" value="" hidden>
                             <input id="file-audio" class="form-control" type="text" name="audio" value="" placeholder="请上传音频文件" style="width: 200px;">
-
                             <a href="javascript:uploadDialog('上传音频','audio','#file-audio',false);">上传</a>
                         </td>
                     </tr>
                     <tr>
                         <th>视频</th>
                         <td class="form-inline">
+                            <input type="hidden" name="video_id" value="">
                             <input id="file-video" class="form-control" type="text" name="video" value="" placeholder="请上传视频文件" style="width: 200px;">
                             <a href="javascript:uploadDialog('上传视频','video','#file-video',false);">上传</a>
                         </td>
@@ -107,7 +108,7 @@
                     <tr>
                         <td>
                             <div style="text-align: center;">
-                                <input type="hidden" name="post[more][thumbnail]" id="thumbnail" value="">
+                                <input type="hidden" name="article[thumbnail]" id="thumbnail" value="">
                                 <a href="javascript:uploadDialog('图片上传','image','#thumbnail',false);">
                                     <img src="__ADMIN__/img/default-thumbnail.png" id="thumbnail-preview" width="135" style="cursor: pointer">
                                 </a>
@@ -142,8 +143,8 @@
 </div>
 <script type="text/html" id="img-tpl">
     <li style="margin-bottom: 5px">
-        <input id="photo-{id}" type="hidden" name="photo_urls[]" value="filepath">
-        <input class="form-control" id="photo-name-{id}" type="text" name="image_names[]" value="originalName">
+        <input id="image-{id}" type="hidden" name="image_ids[]" value="{id}">
+        <input class="form-control" id="image-name-{id}" type="text" name="image_names[]" value="originalName">
         <img src="filepath" alt="" height="34">
         <a href="javascript:uploadDialog('图片替换','#_id','file');">替换</a>
         <a href="javascript:void(0)" onclick="{$(this).parent().remove()}">移除</a>
@@ -151,7 +152,7 @@
 </script>
 <script type="text/html" id="file-tpl">
     <li style="margin-bottom: 5px">
-        <input id="file-{id}" type="hidden" name="file_urls[]" value="filepath">
+        <input id="file-{id}" type="hidden" name="file_ids[]" value="{id}">
         <input class="form-control" id="file-name-{id}" type="text" name="file_names[]" value="originalName" title="文件名称">
         <a id="file-preview-{id}" href="filepath" target="_blank">下载</a>
         <a href="javascript:uploadDialog('文件上传','#file-_id','file');">替换</a>

@@ -4,12 +4,13 @@ namespace app\admin\controller;
 
 use think\Controller;
 use think\Request;
-use app\admin\model\Article as Articles;
+use app\admin\model\Articles;
 
 class Article extends Controller
 {
     /**
      * 显示资源列表
+     *
      */
     public function index()
     {
@@ -17,6 +18,7 @@ class Article extends Controller
     }
     /**
      * 显示添加文章表格
+     *
      */
     public function form()
     {
@@ -25,6 +27,7 @@ class Article extends Controller
 
     /**
      * 显示上传控件
+     *
      */
     public function assetUpload()
     {
@@ -35,41 +38,45 @@ class Article extends Controller
      * 保存新建的资源
      *
      * @param  \think\Request  $request
-     * @return \think\Response
      */
     public function save(Request $request)
     {
-        $article = new Articles();
+        $article = new Articles;
         if ($request->isPost()){
             $data = $request->post(false);
-            $category =$data->category;
+            if (isset($data['image_ids'])){
+                $photosId = json_encode($data['image_ids']);
+            }
+            if (isset($data['file_ids'])){
+                $fileId = json_encode($data['file_ids']);
+            }
+            $res = $article->save([
+                'title' => $data['article_title'],
+                'keywords' => $data['article_keywords'],
+                'excerpt' => $data['article_excerpt'],
+                'source' => $data['article_source'],
+                'content' => isset($data['editorValue']) ? $data['editorValue'] : null,
+                'photo_id' => isset($photosId) ? $photosId : null,
+                'file_id' => isset($fileId) ? $fileId : null,
+            ]);
+            if ($res){
+                return ['msg' => 'success'];
+            }
         }
 
         return false;
     }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
+    public function getAll()
     {
-        //
+        $articles = Articles::all();
+        foreach ($articles as $k=>$article){
+            $article['author'] = isset($article->user->full_name)?$article->user->full_name:'';
+            $data[] = $article;
+            unset($article['user']);
+        }
+        return $data;
     }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * 保存更新的资源
      *
@@ -86,10 +93,15 @@ class Article extends Controller
      * 删除指定资源
      *
      * @param  int  $id
-     * @return \think\Response
      */
     public function delete($id)
     {
-        //
+        if ($id){
+            $res = Articles::destroy($id);
+            if ($res){
+                return true;
+            }
+        }
+        return false;
     }
 }

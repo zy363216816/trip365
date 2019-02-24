@@ -6,6 +6,7 @@
     <title>后台管理| 文章管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
     <link rel="stylesheet" href="__PLUGINS__/jqGrid/css/ui.jqgrid-bootstrap.css">
     <link rel="stylesheet" href="__ADMIN__/css/styles.css">
@@ -68,23 +69,23 @@
         skin: 'layui-layer-molv'
     });
     $grid.jqGrid({
-        url: '{:url("/admin/getAdmins")}',
+        url: '{:url("/article/getArticles")}',
         datatype: "json",
         styleUI: 'Bootstrap',
         colModel: [
             {name: 'id', label: '主键', hidden: true},
-            {name: 'sort', label: '排序'},
-            {name: 'article_title', label: '标题'},
-            {name: 'category_id', label: '分类'},
-            {name: 'user_id', label: '作者'},
+            {name: 'sort', label: '排序', width: 90},
+            {name: 'title', label: '标题'},
+            {name: 'category', label: '分类'},
+            {name: 'author', label: '作者'},
             {name: 'article_hits', label: '点击量'},
             {name: 'comment_count', label: '评论量'},
-            {name: 'article_keywords', label: '关键字'},
-            {name: 'article_source', label: '来源'},
-            {name: 'article_excerpt', label: '摘要'},
-            {name: 'thumbnail', label: '缩略图'},
-            {name: 'photo_id', label: '相册'},
-            {name: 'video_id', label: '视频'},
+            {name: 'keywords', label: '关键字', align: 'center', formatter:tableFormatter},
+            {name: 'source', label: '来源', align: 'center', formatter:tableFormatter},
+            {name: 'excerpt', label: '摘要', align: 'center', formatter:tableFormatter},
+            {name: 'thumbnail', label: '缩略图', align: 'center', formatter:tableFormatter},
+            {name: 'photo_id', label: '相册', align: 'center', formatter:tableFormatter},
+            {name: 'video_id', label: '视频', align: 'center', formatter:tableFormatter},
             {name: 'published_time', label: '发布时间', width: 300},
             {name: 'update_time', label: '更新时间', width: 300},
             {name: 'article_status', label: '状态'}
@@ -100,9 +101,14 @@
     $grid.jqGrid('setGroupHeaders', {
         useColSpanStyle: true,
         groupHeaders:[
-            {startColumnName:'article_keywords', numberOfColumns:6, titleText: '文章属性'}
+            {startColumnName:'keywords', numberOfColumns:6, titleText: '文章属性'}
         ]
     });
+
+    function  tableFormatter(cellValue, options, rowData) {
+        return cellValue === ''? '<i class="fa fa-close"></i>':'<i class="fa fa-check"></i>';
+    }
+
     var btn = $('.toolbar').find('button[data-action]'),
         iframe = null;
     btn.click(function () {
@@ -126,9 +132,9 @@
                 if (ids.length !== 0) {
                     layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
                         $.ajax({
-                            url: '{:url("/admin/delete")}',
+                            url: '{:url("/article/del")}',
                             type: 'post',
-                            data: {'keyValues': ids},
+                            data: {'id': ids},
                             success: function (data) {
                                 if (data === true){
                                     layer.msg('删除成功！', {icon: 1});

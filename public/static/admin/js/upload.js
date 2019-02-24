@@ -184,7 +184,7 @@
             swf: rootPath + '/static/plugins/ueditor/third-party/webuploader/Uploader.swf',
             chunked: false,
             chunkSize: 512 * 1024,
-            server: rootPath + '/asset/webupload.php',
+            server: rootPath + '/asset/webUpload.php',
             // runtimeOrder: 'flash',
 
             accept: $accept,
@@ -647,11 +647,12 @@
                 break;
             case 'audio':
             case 'video':
-                selector.val(filePath);
+                selector.prev().val(id);
+                selector.val(originalName);
                 break;
             case 'image':
                 var preview = parent.$(parent.tpl + '-preview');
-                selector.val(filePath);
+                selector.val(id);
                 preview.attr('src',filePath);
         }
         if (!parent.multi){

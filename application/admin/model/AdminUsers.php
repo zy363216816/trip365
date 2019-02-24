@@ -14,8 +14,6 @@ class AdminUsers extends Model
     protected $insert = ['admin_id','status' => 1];//新增自动完成字段
     protected $update = [];//更新自动完成字段
     // 定义时间戳字段名
-    protected $createTime = 'create_at';
-    protected $updateTime = 'update_at';
     protected $deleteTime = 'delete_time';//软删除字段
 
     public function getStatusAttr($val)

@@ -47,6 +47,9 @@ class WebUpload extends Controller
         } elseif (!empty($_FILES)) {
             $fileName = $_FILES["file"]["name"];
         }
+        if (!empty($_FILES)){
+            $size = $_FILES["file"]["size"];
+        }
         $original = $fileName;
         $arr = explode('.',$fileName);
         if($arr[1]){
@@ -119,8 +122,16 @@ class WebUpload extends Controller
             $md5File = array_unique($md5File);
             file_put_contents('./uploads/md5list.txt', join($md5File, "\n"));
         }
-
-        return (['id' => uniqid(), "fileName" => $fileName,"originalName" => $original,"url" => $uploadPath, "result" => "" ]);
+        $asset = new Asset();
+        $model = $asset->save([
+            'file_size' => $size,
+            'file_key' => guid(),
+            'filename' => $fileName,
+            'original_name' => $original,
+            'file_path' => $uploadPath,
+            'suffix' => strrchr($original,'.')
+        ]);
+        return json(['id' => $model->id, "fileName" => $fileName,"originalName" => $original,"url" => $uploadPath, "result" => "" ]);
     }
 
     private static function  generateMD5($file)
