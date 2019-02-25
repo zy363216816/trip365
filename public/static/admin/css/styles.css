@@ -68,3 +68,11 @@
     margin-right: .5rem;
     overflow: hidden;
 }
+
+.drop-down-box{
+    display: none;
+    position: absolute;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+}

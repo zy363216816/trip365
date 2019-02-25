@@ -58,6 +58,7 @@ class Article extends Controller
                 'content' => isset($data['editorValue']) ? $data['editorValue'] : null,
                 'photo_id' => isset($photosId) ? $photosId : null,
                 'file_id' => isset($fileId) ? $fileId : null,
+                'thumbnail' => isset($data['thumbnail']) ? $data['thumbnail'] : null,
             ]);
             if ($res){
                 return ['msg' => 'success'];
