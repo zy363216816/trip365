@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
 CREATE TABLE IF NOT EXISTS `article_category` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类父id',
-  `post_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类文章数',
+  `article_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类文章数',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:有效,0:无效',
   `delete_time` DATETIME NULL COMMENT '删除时间',
   `sort` float NOT NULL DEFAULT '10000' COMMENT '排序',

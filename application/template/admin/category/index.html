@@ -54,15 +54,15 @@
         skin: 'layui-layer-molv'
     });
     $grid.jqGrid({
-        url: '{:url("/admin/getAdmins")}',
+        url: '{:url("/category/showAll")}',
         datatype: "json",
         styleUI: 'Bootstrap',
         colModel: [
-            {name: 'id', label: '排序', width:30},
+            {name: 'sort', label: '排序', width: 30},
             {name: 'id', label: 'ID', width:30},
-            {name: 'account', label: '分类名称'},
-            {name: 'name', label: '描述'},
-            {name: 'avatar', label: '状态', width: 30, formatter:function(cellValue, options, rowObject){
+            {name: 'name', label: '分类名称'},
+            {name: 'description', label: '描述'},
+            {name: 'status', label: '状态', width: 30, formatter:function(cellValue, options, rowObject){
                 }}
         ],
         height: $height,
