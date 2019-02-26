@@ -7,7 +7,7 @@ use think\Model;
 class Articles extends Model
 {
     protected $pk = 'id';
-
+    protected $auto = ['user_id'];
 
     public function getArticleStatusAttr($val)
     {
@@ -21,6 +21,6 @@ class Articles extends Model
 
     public function user()
     {
-        return $this->belongsTo('AdminUsers','user_id');
+        return $this->belongsTo('AdminUsers', 'user_id');
     }
 }

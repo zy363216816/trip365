@@ -3,7 +3,6 @@
 namespace app\admin\controller;
 
 use app\facade\Authenticated;
-use Faker\Provider\DateTime;
 use think\Controller;
 use think\facade\Session;
 use think\Request;

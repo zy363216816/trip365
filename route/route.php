@@ -41,6 +41,10 @@ Route::post('article/add','admin/Article/save');
 Route::post('article/del','admin/Article/delete');
 Route::get('article/asset','admin/Article/assetUpload');
 Route::post('asset/webUpload.php','admin/webUpload/index');
-
 Route::rule('asset/upload','admin/Ueditor/index','GET|POST');
+
+//分类设置
+Route::get('category/index','admin/Category/index');
+Route::get('category/form','admin/Category/form');
+
 

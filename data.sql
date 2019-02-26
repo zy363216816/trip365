@@ -35,7 +35,7 @@ insert into `admin_users`(admin_id,account,password) values ('admin','admin','53
 
 CREATE TABLE IF NOT EXISTS `assets` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
   `file_size` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文件大小,单位B',
   `create_time` DATETIME NULL COMMENT '上传时间',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:可用,0:不可用',
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `category_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '类别id',
   `article_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '类型,1:文章;2:页面',
   `article_format` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '内容格式;1:html;2:md',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文章作者id',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章作者id',
   `article_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:已发布;0:未发布;',
   `comment_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
   `is_top` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否置顶;1:置顶;0:不置顶',
@@ -67,13 +67,13 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `comment_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '评论数',
   `create_time` DATETIME NULL COMMENT '创建时间',
   `update_time` DATETIME NULL COMMENT '更新时间',
-  `published_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '发布时间',
-  `delete_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `published_time` DATETIME NULL COMMENT '发布时间',
+  `delete_time` DATETIME NULL COMMENT '删除时间',
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'post标题',
   `keywords` varchar(150) NOT NULL DEFAULT '' COMMENT 'seo keywords',
   `excerpt` varchar(500) NOT NULL DEFAULT '' COMMENT 'article摘要',
   `source` varchar(150) NOT NULL DEFAULT '' COMMENT '转载文章的来源',
-  `thumbnail` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `thumbnail_id` VARCHAR(150) NOT NULL DEFAULT '' COMMENT '缩略图',
   `content` text COMMENT '文章内容',
   `content_filtered` text COMMENT '处理过的文章内容',
   `audio_id` varchar(150) NULL DEFAULT '' COMMENT '音频id',
@@ -88,3 +88,23 @@ CREATE TABLE IF NOT EXISTS `articles` (
   KEY `user_id` (`user_id`),
   KEY `create_time` (`create_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表' ROW_FORMAT=COMPACT;
+
+CREATE TABLE IF NOT EXISTS `article_category` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类父id',
+  `post_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类文章数',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:有效,0:无效',
+  `delete_time` DATETIME NULL COMMENT '删除时间',
+  `sort` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
+  `seo_title` varchar(100) NOT NULL DEFAULT '',
+  `seo_keywords` varchar(255) NOT NULL DEFAULT '',
+  `seo_description` varchar(255) NOT NULL DEFAULT '',
+  `index_tpl` varchar(50) NULL COMMENT '分类首页模板',
+  `list_tpl` varchar(50) NULL COMMENT '分类列表模板',
+  `one_tpl` varchar(50) NULL COMMENT '分类文章页模板',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';

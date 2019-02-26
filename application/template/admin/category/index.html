@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理| 文章分类</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/jqGrid/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="__ADMIN__/css/styles.css">
+</head>
+<body>
+<div class="container-fluid" style="padding: 0">
+    <div class="toolbar clearfix">
+        <div class="input-group margin pull-left" style="width: 30%">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+        <button type="button" class="btn btn-info btn-flat">搜索</button>
+    </span>
+        </div>
+        <div class="margin pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-info btn-flat" data-action="add">添加</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-flat" data-action="del">删除</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-flat" data-action="edit">编辑</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-flat" data-action="refresh">刷新</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning btn-flat" data-action="export">导出</button>
+            </div>
+        </div>
+    </div>
+    <table id="grid"></table>
+    <div id="pager"></div>
+</div>
+<!-- jQuery 2.2.3 -->
+<script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
+<script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="__PLUGINS__/jquery-ui/jquery-ui.min.js"></script>-->
+<script src="__PLUGINS__/jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script src="__PLUGINS__/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script src="__PLUGINS__/layer/layer.js"></script>
+<script>
+    var $height = $(document).height() - 135,
+        $grid = $('#grid');
+    layer.config({
+        skin: 'layui-layer-molv'
+    });
+    $grid.jqGrid({
+        url: '{:url("/admin/getAdmins")}',
+        datatype: "json",
+        styleUI: 'Bootstrap',
+        colModel: [
+            {name: 'id', label: '排序', width:30},
+            {name: 'id', label: 'ID', width:30},
+            {name: 'account', label: '分类名称'},
+            {name: 'name', label: '描述'},
+            {name: 'avatar', label: '状态', width: 30, formatter:function(cellValue, options, rowObject){
+                }}
+        ],
+        height: $height,
+        autowidth: true,
+        pager: '#pager',
+        rowList: [20, 30, 50],
+        rownumbers: true,
+        rownumWidth: 25,
+        multiselect: true,
+    });
+    var btn = $('.toolbar').find('button[data-action]'),
+        iframe = null;
+    btn.click(function () {
+        var act = $(this).data('action');
+        switch (act) {
+            case 'add':
+                top.layer.open({
+                    type: 2,
+                    title: '添加分类',
+                    area: ['700px', '550px'],
+                    content: '{:url("/category/form")}'
+                });
+                break;
+            case 'refresh':
+                reload();
+                break;
+            case 'del':
+                var ids = $grid.jqGrid('getGridParam', 'selarrrow');
+                if (ids.length !== 0) {
+                    layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
+                        $.ajax({
+                            url: '{:url("/admin/delete")}',
+                            type: 'post',
+                            data: {'keyValues': ids},
+                            success: function (data) {
+                                if (data === true){
+                                    layer.msg('删除成功！', {icon: 1});
+                                    reload();
+                                }else {
+                                    layer.msg('删除失败,请联系管理员！', {icon: 2});
+                                }
+                            }
+                        })
+                    })
+                } else {
+                    layer.msg('请选择要删除的数据！', {icon: 3})
+                }
+        }
+    });
+
+    function reload() {
+        $("#grid").trigger('reloadGrid');
+    }
+
+    $(window).resize(function () {
+        $("#grid").setGridWidth($(window).width());
+    });
+</script>
+</body>
+</html>

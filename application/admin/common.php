@@ -1,4 +1,5 @@
 <?php
+
 use app\facade\Authenticated;
 
 function guid()

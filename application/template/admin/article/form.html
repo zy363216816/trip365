@@ -34,7 +34,7 @@
                             <th width="120">分类<span class="form-required">*</span></th>
                             <td style="position: relative">
                                 <input class="form-control" type="text" style="width:400px;" required="" value="" placeholder="请选择分类" onclick="selectCategory();" id="category_name" readonly aria-required="true">
-                                <input class="form-control" type="hidden" value="" name="category" id="category_id">
+                                <input class="form-control" type="hidden" value="" name="category_id" id="category_id">
                                 <div class="drop-down-box" style="width: 400px">
                                     <ul class="ztree"></ul>
                                 </div>
@@ -201,22 +201,21 @@
     }
     form.submit(function () {
         var $data = form.serialize();
-        console.log($data);
         $.ajax({
             url: '{:url("/article/add")}',
             type: 'post',
             data: $data,
             dataType:'json',
             success: function (data) {
-                if (data !== true) {
-                    // layer.msg(data.msg);
-                    // form.find('input[name="__token__"]').remove();
-                    // form.prepend(data.token);
+                if (data.status === 'success') {
+                    layer.msg(data.msg);
+                    form.find('input[name="__token__"]').remove();
+                    form.prepend(data.token);
                 } else {
-                    // top.layer.closeAll();
-                    // top.layer.msg('添加成功');
-                    // $obj = top.window['iframe'];
-                    // $obj.reload();
+                    top.layer.closeAll();
+                    top.layer.msg('添加成功');
+                    $obj = top.window['iframe'];
+                    $obj.reload();
                 }
             }
         });
