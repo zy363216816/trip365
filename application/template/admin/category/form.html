@@ -87,6 +87,15 @@
             </div>
             <div class="tab-pane" id="C">
                 <div class="form-group">
+                    <label for="input-index_tpl"><span class="form-required">*</span>首页模板</label>
+                    <div>
+                        <select class="form-control" name="index_tpl" id="input-index_tpl">
+                            <!--<option value="list">portal/list.html(默认)</option>-->
+                            <option value="list">文章列表页 portal/index.html</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="input-list_tpl"><span class="form-required">*</span>列表模板</label>
                     <div>
                         <select class="form-control" name="list_tpl" id="input-list_tpl">
@@ -134,11 +143,24 @@
 <script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
 <script src="__PLUGINS__/layer/layer.js"></script>
 <script>
+    $(function () {
+        var $parent = $('#input-parent');
+        $.ajax({
+            url: '{:url("/category/getTree")}',
+            dataType: 'json',
+            success: function (data) {
+                if (length(data) == 0) return;
+                $parent.prepend('<option value="' + data.id + '">' + data.name + '</option>')
+            }
+        })
+    });
+
     var form = $('form');
     form.submit(function () {
         save();
         return false;
     });
+
     function save() {
         var data = form.serialize();
         $.ajax({
@@ -159,6 +181,7 @@
             }
         })
     }
+
     function reset() {
         document.getElementById('form').reset();
     }

@@ -48,5 +48,6 @@ Route::get('category/index','admin/Category/index');
 Route::get('category/form','admin/Category/form');
 Route::get('category/showAll','admin/Category/getAll');
 Route::post('category/add','admin/Category/save');
+Route::get('category/getTree','admin/Category/getTree');
 
 
