@@ -111,30 +111,27 @@ class Category extends Controller
     public function getTree()
     {
         $category = Categories::All()->toArray();
-        $tree = toTree($category);
-        $res = $this->selectTree($tree);
+        $tree     = toTree($category);
+        $res      = $this->selectTree($tree);
         return json($res);
     }
 
-    public function selectTree($tree = [],$level = 1)
+    function selectTree($tree = [], $level = 0, &$arr = [])
     {
-        $icon = ['├─', '└─'];
-        $nbsp = '&nbsp;&nbsp;';
         $child = '_child';
-        $data = [];
-        if (is_array($tree)){
-            foreach ($tree as $value){
-                array_push($data,$value);
-                if (isset($value[$child])){
-                    $this->selectTree($value[$child],$level ++);
-                }
-                if ($level != 1 && current($tree) == end($tree)){
-                    $value['name'] = $nbsp * $level . $icon[1].$value['name'];
-                }else{
-                    $value['name'] = $nbsp * $level . $icon[2].$value['name'];
+        $icon  = ['11111', '2222'];
+        $nbsp  = '&nbsp;&nbsp;';
+        if (is_array($tree)) {
+            foreach ($tree as $key => $value) {
+                $refer   = [];
+                $refer[] = $value['id'];
+                array_push($arr, $refer);
+                if (isset($value[$child])) {
+                    $level++;
+                    $this->selectTree($value[$child], $level, $arr);
                 }
             }
-            return $data;
+            return $arr;
         }
         return null;
     }
