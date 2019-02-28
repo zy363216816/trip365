@@ -133,7 +133,7 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary ajax-submit">添加</button>
-            <a class="btn btn-default">返回</a>
+            <a class="btn btn-default" onclick="parent.layer.closeAll()">返回</a>
         </div>
     </form>
 </div>
@@ -149,8 +149,11 @@
             url: '{:url("/category/getTree")}',
             dataType: 'json',
             success: function (data) {
-                if (length(data) == 0) return;
-                $parent.prepend('<option value="' + data.id + '">' + data.name + '</option>')
+                if (data.length === 0) return;
+                $.each(data, function (i, val) {
+                    $parent.append('<option value="' + val[0] + '">' + val[1] + '</option>')
+                });
+
             }
         })
     });
@@ -180,10 +183,6 @@
                 }
             }
         })
-    }
-
-    function reset() {
-        document.getElementById('form').reset();
     }
 </script>
 

@@ -53,27 +53,34 @@
     layer.config({
         skin: 'layui-layer-molv'
     });
-
+    var checkBox= '<input type="checkbox" style="margin-left: 5px;" id="checkAll">';
     $grid.jqGrid({
         url: '{:url("/category/showAll")}',
         datatype: "json",
         styleUI: 'Bootstrap',
+        colNames:[checkBox,'排序','ID','分类名称','描述','状态'],
         colModel: [
-            {name: 'sort', label: '排序', width: 30},
-            {name: 'id', label: 'ID', width:30},
-            {name: 'name', label: '分类名称'},
-            {name: 'description', label: '描述'},
-            {name: 'status', label: '状态', width: 30, formatter:function(cellValue, options, rowObject){
+            {name: 'check', width: 15, align: 'center', sortable:false, formatter:function(cellValue, options, rowObject){
+                    return '<input type="checkbox" />';
+                }},
+            {name: 'sort', width: 30},
+            {name: 'id', width:30},
+            {name: 'name', },
+            {name: 'description'},
+            {name: 'status', width: 30, formatter:function(cellValue, options, rowObject){
                 return cellValue == 1 ? '有效':'隐藏'
                 }}
         ],
         height: $height,
         autowidth: true,
-        pager: '#pager',
-        rowList: [20, 30, 50],
+        // pager: '#pager',
+        // rowList: [20, 30, 50],
         rownumbers: true,
         rownumWidth: 25,
-        multiselect: true,
+        // multiselect: true,
+        treeGrid: true,
+        treeGridModel:'adjacency',
+        ExpandColumn: "name"
     });
 
     var btn = $('.toolbar').find('button[data-action]'),
@@ -123,6 +130,10 @@
     $(window).resize(function () {
         $("#grid").setGridWidth($(window).width());
     });
+
+    $("#checkAll").click(function () {
+        console.log($(this));
+    })
 </script>
 </body>
 </html>

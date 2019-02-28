@@ -119,16 +119,25 @@ class Category extends Controller
     function selectTree($tree = [], $level = 0, &$arr = [])
     {
         $child = '_child';
-        $icon  = ['11111', '2222'];
+        $icon  = ['├─', '└─'];
         $nbsp  = '&nbsp;&nbsp;';
         if (is_array($tree)) {
             foreach ($tree as $key => $value) {
                 $refer   = [];
                 $refer[] = $value['id'];
+                if ($level > 0) {
+                    if ($value !== end($tree)) {
+                        $sign = $icon[0];
+                    } else {
+                        $sign = $icon[1];
+                    }
+                    $refer[] = str_repeat($nbsp, $level) . $sign . $value['name'];
+                } else {
+                    $refer[] = $value['name'];
+                }
                 array_push($arr, $refer);
                 if (isset($value[$child])) {
-                    $level++;
-                    $this->selectTree($value[$child], $level, $arr);
+                    $this->selectTree($value[$child], $level + 1, $arr);
                 }
             }
             return $arr;
