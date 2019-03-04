@@ -23,20 +23,13 @@ class Category extends Controller
      *
      * @return \think\Response
      */
-    public function form()
+    public function form($id = '')
     {
+        if ($id != ''){
+            $category = Categories::get($id);
+            $this->assign('category', $category);
+        }
         return view('form');
-    }
-
-    /**
-     * 获取全部资源.
-     *
-     * @return \think\Response
-     */
-    public function getAll()
-    {
-        $category = Categories::All();
-        return $category;
     }
 
     /**
@@ -64,28 +57,6 @@ class Category extends Controller
     }
 
     /**
-     * 显示指定的资源
-     *
-     * @param  int $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * 保存更新的资源
      *
      * @param  \think\Request $request
@@ -101,11 +72,13 @@ class Category extends Controller
      * 删除指定资源
      *
      * @param  int $id
-     * @return \think\Response
      */
     public function delete($id)
     {
-        //
+        if (Categories::destroy($id)){
+            return true;
+        };
+        return false;
     }
 
     public function getTree()
@@ -116,7 +89,7 @@ class Category extends Controller
         return json($res);
     }
 
-    function selectTree($tree = [], $level = 0, &$arr = [])
+    protected function selectTree($tree = [], $level = 0, &$arr = [])
     {
         $child = '_child';
         $icon  = ['├─', '└─'];
@@ -143,5 +116,36 @@ class Category extends Controller
             return $arr;
         }
         return null;
+    }
+
+    public function getGridTree()
+    {
+        $category = Categories::All()->toArray();
+        $tree     = toTree($category);
+        $res      = $this->gridTree($tree);
+        return json($res);
+    }
+
+    protected function gridTree($tree = [], $level = 0, &$arr = [])
+    {
+        $child = '_child';
+        foreach ($tree as $key => $value) {
+            $refer                = [];
+            $refer['id']          = $value['id'];
+            $refer['name']        = $value['name'];
+            $refer['description'] = $value['description'];
+            $refer['status']      = $value['status'];
+            $refer['sort']        = $value['sort'];
+            $refer['level']       = $level;
+            $refer['parent']      = $value['parent_id'];
+            $refer['expanded']    = true;
+            $refer['parent']      = $value['parent_id'];
+            $refer['isLeaf']      = isset($value[$child]) ? false : true;
+            array_push($arr, $refer);
+            if (isset($value[$child])) {
+                $this->gridTree($value[$child], $level + 1, $arr);
+            }
+        }
+        return $arr;
     }
 }

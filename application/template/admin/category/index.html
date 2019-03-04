@@ -38,7 +38,6 @@
         </div>
     </div>
     <table id="grid"></table>
-    <div id="pager"></div>
 </div>
 <!-- jQuery 2.2.3 -->
 <script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
@@ -53,33 +52,28 @@
     layer.config({
         skin: 'layui-layer-molv'
     });
-    var checkBox= '<input type="checkbox" style="margin-left: 5px;" id="checkAll">';
     $grid.jqGrid({
         url: '{:url("/category/showAll")}',
         datatype: "json",
         styleUI: 'Bootstrap',
-        colNames:[checkBox,'排序','ID','分类名称','描述','状态'],
+        colNames: ['ID', '分类名称', '描述', '状态', '排序',],
         colModel: [
-            {name: 'check', width: 15, align: 'center', sortable:false, formatter:function(cellValue, options, rowObject){
-                    return '<input type="checkbox" />';
-                }},
-            {name: 'sort', width: 30},
-            {name: 'id', width:30},
-            {name: 'name', },
-            {name: 'description'},
-            {name: 'status', width: 30, formatter:function(cellValue, options, rowObject){
-                return cellValue == 1 ? '有效':'隐藏'
-                }}
+            {name: 'id', index: 'id', width: 60},
+            {name: 'name', index: 'name',},
+            {name: 'description', index: 'description',},
+            {
+                name: 'status', index: 'status', width: 30, formatter: function (cellValue, options, rowObject) {
+                    return cellValue == 1 ? '有效' : '隐藏'
+                }
+            },
+            {name: 'sort', index: 'sort', width: 30},
         ],
         height: $height,
         autowidth: true,
-        // pager: '#pager',
-        // rowList: [20, 30, 50],
         rownumbers: true,
         rownumWidth: 25,
-        // multiselect: true,
         treeGrid: true,
-        treeGridModel:'adjacency',
+        treeGridModel: 'adjacency',
         ExpandColumn: "name"
     });
 
@@ -96,22 +90,31 @@
                     content: '{:url("/category/form")}'
                 });
                 break;
+            case 'edit':
+                var key = $grid.jqGrid('getGridParam', 'selrow');
+                top.layer.open({
+                    type: 2,
+                    title: '添加分类',
+                    area: ['700px', '550px'],
+                    content: '{:url("/category/form")}' + '?id=' + key
+                });
+                break;
             case 'refresh':
                 reload();
                 break;
             case 'del':
-                var ids = $grid.jqGrid('getGridParam', 'selarrrow');
-                if (ids.length !== 0) {
+                var id = $grid.jqGrid('getGridParam', 'selrow');
+                if (id.length !== 0) {
                     layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
                         $.ajax({
-                            url: '{:url("/admin/delete")}',
+                            url: '{:url("/category/del")}',
                             type: 'post',
-                            data: {'keyValues': ids},
+                            data: {'keyValues': id},
                             success: function (data) {
-                                if (data === true){
+                                if (data === true) {
                                     layer.msg('删除成功！', {icon: 1});
                                     reload();
-                                }else {
+                                } else {
                                     layer.msg('删除失败,请联系管理员！', {icon: 2});
                                 }
                             }

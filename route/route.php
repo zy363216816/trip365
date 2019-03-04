@@ -46,8 +46,9 @@ Route::rule('asset/upload','admin/Ueditor/index','GET|POST');
 //分类设置
 Route::get('category/index','admin/Category/index');
 Route::get('category/form','admin/Category/form');
-Route::get('category/showAll','admin/Category/getAll');
+Route::get('category/showAll','admin/Category/getGridTree');
 Route::post('category/add','admin/Category/save');
+Route::post('category/del','admin/Category/delete');
 Route::get('category/getTree','admin/Category/getTree');
 
 
