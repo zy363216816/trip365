@@ -108,3 +108,29 @@ CREATE TABLE IF NOT EXISTS `article_category` (
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
+
+
+CREATE TABLE IF NOT EXISTS `slide` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示,0不显示',
+  `delete_time` DATETIME NULL COMMENT '删除时间',
+  `name` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片分类',
+  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '分类备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片表';
+
+CREATE TABLE IF NOT EXISTS `slide_item` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `slide_id` int(11)NULL COMMENT '幻灯片id',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示;0:隐藏',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '幻灯片名称',
+  `image` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片图片',
+  `url` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片链接',
+  `target` varchar(10) NOT NULL DEFAULT '' COMMENT '链接打开方式',
+  `description` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '幻灯片描述',
+  `content` text CHARACTER SET utf8 COMMENT '幻灯片内容',
+  `more` text COMMENT '扩展信息',
+  PRIMARY KEY (`id`),
+  KEY `slide_id` (`slide_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片子项表';
