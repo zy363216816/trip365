@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>后台管理| 文章管理</title>
+    <title>后台管理| 管理员用户</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
     <link rel="stylesheet" href="__PLUGINS__/jqGrid/css/ui.jqgrid-bootstrap.css">
     <link rel="stylesheet" href="__ADMIN__/css/styles.css">
@@ -31,24 +30,10 @@
                 <button type="button" class="btn btn-success btn-flat" data-action="edit">编辑</button>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-flat" data-action="edit">审核</button>
+                <button type="button" class="btn btn-success btn-flat" data-action="refresh">刷新</button>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-warning btn-flat" data-action="refresh">刷新</button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    操作
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">发布</a></li>
-                    <li><a href="#">置顶</a></li>
-                    <li><a href="#">推荐</a></li>
-                    <li><a href="#">取消发布</a></li>
-                    <li><a href="#">取消置顶</a></li>
-                    <li><a href="#">取消推荐</a></li>
-                </ul>
+                <button type="button" class="btn btn-warning btn-flat" data-action="export">导出</button>
             </div>
         </div>
     </div>
@@ -63,32 +48,27 @@
 <script src="__PLUGINS__/jqGrid/js/jquery.jqGrid.min.js"></script>
 <script src="__PLUGINS__/layer/layer.js"></script>
 <script>
-    var $height = $(document).height() - 172,
+    var $height = $(document).height() - 135,
         $grid = $('#grid');
     layer.config({
         skin: 'layui-layer-molv'
     });
     $grid.jqGrid({
-        url: '{:url("/article/getArticles")}',
+        url: '{:url("/admin/getAdmins")}',
         datatype: "json",
         styleUI: 'Bootstrap',
         colModel: [
-            {name: 'id', label: '主键', hidden: true},
-            {name: 'sort', label: '排序', width: 90},
-            {name: 'title', label: '标题'},
-            {name: 'category', label: '分类'},
-            {name: 'author', label: '作者'},
-            {name: 'article_hits', label: '点击量'},
-            {name: 'comment_count', label: '评论量'},
-            {name: 'keywords', label: '关键字', align: 'center', formatter:tableFormatter},
-            {name: 'source', label: '来源', align: 'center', formatter:tableFormatter},
-            {name: 'excerpt', label: '摘要', align: 'center', formatter:tableFormatter},
-            {name: 'thumbnail', label: '缩略图', align: 'center', formatter:tableFormatter},
-            {name: 'photo_id', label: '相册', align: 'center', formatter:tableFormatter},
-            {name: 'video_id', label: '视频', align: 'center', formatter:tableFormatter},
-            {name: 'published_time', label: '发布时间', width: 300},
-            {name: 'update_time', label: '更新时间', width: 300},
-            {name: 'article_status', label: '状态'}
+            {name: 'admin_id', label: '主键', hidden: true},
+            {name: 'account', label: '管理员账号'},
+            {name: 'full_name', label: '姓名'},
+            {name: 'avatar', label: '头像', formatter:function(cellValue, options, rowObject){
+                return '<img src="/uploads/'+cellValue+'" alt="头像" width="30" height="30" />'
+                }},
+            {name: 'gender', label: '性别'},
+            {name: 'status', label: '状态'},
+            {name: 'login_time', label: '登录时间', width: 300},
+            {name: 'ip', label: '登录ip地址'},
+            {name: 'create_time', label: '注册时间', width: 300}
         ],
         height: $height,
         autowidth: true,
@@ -98,31 +78,29 @@
         rownumWidth: 25,
         multiselect: true,
     });
-    $grid.jqGrid('setGroupHeaders', {
-        useColSpanStyle: true,
-        groupHeaders:[
-            {startColumnName:'keywords', numberOfColumns:6, titleText: '文章属性'}
-        ]
-    });
-
-    function  tableFormatter(cellValue, options, rowData) {
-        return cellValue === ''? '<i class="fa fa-close"></i>':'<i class="fa fa-check"></i>';
-    }
-
     var btn = $('.toolbar').find('button[data-action]'),
         iframe = null;
     btn.click(function () {
         var act = $(this).data('action');
         switch (act) {
             case 'add':
-                var index = top.layer.open({
+                top.layer.open({
                     type: 2,
-                    title: '添加文章',
-                    area: ['1000px', '600px'],
-                    maxmin: true,
-                    content: '{:url("/article/form")}'
+                    title: '添加用户',
+                    area: ['650px', '420px'],
+                    content: '{:url("/admin/form")}',
+                    btn: ['确认', '重置', '关闭'],
+                    yes: function (index, layero) {
+                        // var body = layer.getChildFrame('body', index);
+                        iframe = top.window[layero.find('iframe')[0]['name']];
+                        iframe.save();
+                    },
+                    btn2: function (index, layero) {
+                        iframe = top.window[layero.find('iframe')[0]['name']];
+                        iframe.reset();
+                        return false
+                    }
                 });
-                top.layer.full(index);
                 break;
             case 'refresh':
                 reload();
@@ -132,9 +110,9 @@
                 if (ids.length !== 0) {
                     layer.confirm('确定删除数据吗,该操作不可逆请谨慎操作！', {icon: 0, title: '提示'}, function () {
                         $.ajax({
-                            url: '{:url("/article/del")}',
+                            url: '{:url("/admin/delete")}',
                             type: 'post',
-                            data: {'id': ids},
+                            data: {'keyValues': ids},
                             success: function (data) {
                                 if (data === true){
                                     layer.msg('删除成功！', {icon: 1});

@@ -47,7 +47,7 @@ class AdminUsers extends Controller
     {
         $admin = Authenticated::user();
         $this->assign('admin', $admin);
-        return view('/avatar');
+        return view('admin/avatar');
     }
 
     public function add(Request $request)
@@ -106,6 +106,7 @@ class AdminUsers extends Controller
             $user = Users::get($admin['id']);
             $user->avatar = $name;
             if ($user->save()) {
+                Authenticated::save($user);
                 return true;
             }
         } catch (\Exception $e) {

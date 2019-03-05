@@ -245,15 +245,22 @@
           </li>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/uploads/{$admin.avatar}" class="user-image" alt="">
-              <span class="hidden-xs">{$admin.name?$admin.name:'请完善个人资料'}</span>
+              {empty name="admin.avatar"}
+              <img src="__ADMIN__/img/avatar.png" class="user-image" alt="avatar">
+              {else /}
+              <img src="/uploads/{$admin.avatar}" class="user-image" alt="User Image">
+              {/empty}
+              <span class="hidden-xs">{$admin.full_name?:'请完善个人资料'}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
+                {empty name="admin.avatar"}
+                <img src="__ADMIN__/img/avatar.png" class="img-circle" alt="avatar">
+                {else /}
                 <img src="/uploads/{$admin.avatar}" class="img-circle" alt="User Image">
-
+                {/empty}
                 <p>
-                  {$admin.name?$admin.name:'请完善个人资料'} - Web Developer
+                  {$admin.full_name?:'请完善个人资料'} - Web Developer
                   <small>Member since Nov. 2018</small>
                 </p>
               </li>
@@ -293,10 +300,14 @@
     <section class="sidebar">
       <div class="user-panel">
         <div class="pull-left image">
+          {empty name="admin.avatar"}
+          <img src="__ADMIN__/img/avatar.png" class="img-circle" alt="avatar">
+          {else /}
           <img src="/uploads/{$admin.avatar}" class="img-circle" alt="User Image">
+          {/empty}
         </div>
         <div class="pull-left info">
-          <p>Sunny小时光</p>
+          <p>{$admin.full_name?:'请完善个人资料'}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
         </div>
       </div>
@@ -333,9 +344,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a class="menu-item" href="setting"><i class="fa fa-circle-o"></i>基本信息</a></li>
-            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a class="menu-item" href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a class="menu-item" href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> 短信设置</a></li>
+            <li><a class="menu-item" href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> 邮箱设置</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -348,7 +358,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a class="menu-item" href="/category/index"><i class="fa fa-circle-o"></i>分类设置</a></li>
-            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>标签</a></li>
+            <li><a class="menu-item" href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i>门户栏目</a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> 分类
                 <span class="pull-right-container">
@@ -372,7 +382,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> 模块管理</a></li>
             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
@@ -387,8 +397,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> 后台菜单</a></li>
             <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
             <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
             <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>

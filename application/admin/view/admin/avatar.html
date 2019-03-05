@@ -16,7 +16,11 @@
         <div class="col-xs-9" style="margin-bottom: 10px">
             <!-- <h3>Demo:</h3> -->
             <div class="img-container">
-                <img id="avatar" src="/upload/{$admin.avatar}" alt="头像">
+                {empty name='admin.avatar'}
+                <img id="avatar" src="" alt="请选择头像">
+                {else /}
+                <img id="avatar" src="/uploads/{$admin.avatar}" alt="头像">
+                {/empty}
             </div>
         </div>
         <div class="col-xs-3">
