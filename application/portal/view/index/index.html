@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +7,26 @@
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     {include file="public/head" /}
-
     <link href="__PORTAL__/css/slippry/slippry.css" rel="stylesheet">
 </head>
 <body class="bg">
-<div class="top-section">
-    {include file="public/nav" /}
+{include file="public/nav" /}
+<div class="section">
     <ul id="banner">
         <li>
-            <div class="caption-wraper">
+            <div class="caption-wrapper">
                 <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
             </div>
             <a href=""><img src="__PORTAL__/images/demo/1.jpg" alt=""></a>
         </li>
         <li>
-            <div class="caption-wraper">
+            <div class="caption-wrapper">
                 <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
             </div>
             <a href=""><img src="__PORTAL__/images/demo/2.jpg" alt=""></a>
         </li>
         <li>
-            <div class="caption-wraper">
+            <div class="caption-wrapper">
                 <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
             </div>
             <a href=""><img src="__PORTAL__/images/demo/3.jpg" alt=""></a>
@@ -69,8 +68,8 @@
     <widget name="festival_video">
         <div class="section">
             <div class="text-center widget-title">
-                <p class="title">{$widget.title?:''}</p>
-                <p class="sub-title">{$widget.vars.sub_title|default=''}</p>
+                <p class="title">视屏赏析</p>
+                <p class="sub-title">Video</p>
             </div>
             <div class="slide-box">
                 <div class="box-container bd">
@@ -120,8 +119,8 @@
     <widget name="recommend">
         <div class="section container">
             <div class="text-center widget-title">
-                <p class="title">{$widget.title?:''}</p>
-                <p class="sub-title">{$widget.vars.sub_title|default=''}</p>
+                <p class="title">旅行推荐</p>
+                <p class="sub-title">Recommend</p>
             </div>
             <div class="recommend">
                 <ul>
@@ -205,8 +204,8 @@
     <widget name="guides">
         <div class="section container">
             <div class="text-center widget-title">
-                <p class="title">{$widget.title?:''}</p>
-                <p class="sub-title">{$widget.vars.sub_title|default=''}</p>
+                <p class="title">导游推荐</p>
+                <p class="sub-title">EveryDay Star</p>
             </div>
             <div class="slide-box2 guide">
                 <div class="hd">
@@ -262,8 +261,8 @@
     <widget name="services">
         <div class="section container">
             <div class="text-center widget-title">
-                <p class="title">{$widget.title?:''}</p>
-                <p class="sub-title">{$widget.vars.sub_title|default=''}</p>
+                <p class="title">服务项目</p>
+                <p class="sub-title">Services</p>
             </div>
             <php>
                 $services_count = count($widget['vars']['services']);
@@ -295,8 +294,8 @@
         <div class="section container">
             <widget name="news">
                 <div class="text-center widget-title">
-                    <p class="title">{$widget.title?:''}</p>
-                    <p class="sub-title">{$widget.vars.sub_title|default=''}</p>
+                    <p class="title">新闻聚焦</p>
+                    <p class="sub-title">News</p>
                 </div>
                 <div class="row">
                     <div class="news-box col-xs-6">

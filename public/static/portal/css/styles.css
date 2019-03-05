@@ -1,7 +1,8 @@
-html,body{
+html, body {
     margin: 0;
     padding: 0;
 }
+
 body.bg {
     background: #f1f1f1;
 }
@@ -62,6 +63,15 @@ body.bg {
     line-height: 35px;
 }
 
+.navbar .nav .user a:hover {
+    color: #f7671d;
+}
+
+.navbar .nav .user li {
+    list-style: none;
+    display: inline-block;
+}
+
 .navbar .nav .user .headicon {
     margin: 0 5px;
     height: 30px;
@@ -78,6 +88,7 @@ body.bg {
 
 .search input {
     margin-top: 30px !important;
+    border-radius: 0;
 }
 
 .search .search-input {
@@ -116,6 +127,28 @@ body.bg {
     color: #333
 }
 
+.section {
+    position: relative;
+}
+
+.caption-wrapper {
+    position: absolute;
+    left: 50%;
+    bottom: 2em;
+}
+
+.caption-wrapper .caption {
+    position: relative;
+    left: -50%;
+    background-color: rgba(0, 0, 0, 0.54);
+    padding: 0.4em 1em;
+    color: #fff;
+    -webkit-border-radius: 1.2em;
+    -moz-border-radius: 1.2em;
+    -ms-border-radius: 1.2em;
+    -o-border-radius: 1.2em;
+    border-radius: 1.2em;
+}
 
 /*tc widget*/
 .tc-main {
@@ -883,9 +916,11 @@ ul.tc-photos {
 .section {
     margin-bottom: 60px;
 }
-.video-content{
+
+.video-content {
     display: none;
 }
+
 .pop-video {
     position: fixed;
     left: 50%;
@@ -983,9 +1018,9 @@ ul.tc-photos {
     color: #fff;
     width: 100%;
     transition: top 2s;
-    -moz-transition:top 2s;
-    -webkit-transition:top 2s;
-    -o-transition:top 2s;
+    -moz-transition: top 2s;
+    -webkit-transition: top 2s;
+    -o-transition: top 2s;
 }
 
 .video-play {
@@ -1524,18 +1559,17 @@ hr.line-break {
     position: relative;
 }
 
-.festival .video ul{
+.festival .video ul {
     margin: 0;
     padding: 0;
 }
 
-.festival .video .bd img{
+.festival .video .bd img {
     width: 100%;
     height: 500px;
     overflow: hidden;
     position: relative;
 }
-
 
 
 .festival .video:hover .play span {
@@ -1589,24 +1623,29 @@ hr.line-break {
     top: 0;
     right: 120px;
     height: 100%;
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled="true",startColorstr="#B2000000",endColorstr="#B2000000");
-    background-color: rgba(0,0,0,.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled="true", startColorstr="#B2000000", endColorstr="#B2000000");
+    background-color: rgba(0, 0, 0, .7);
     z-index: 10;
 }
-.festival .video .video-list ul{
+
+.festival .video .video-list ul {
     padding: 16px 0;
 }
-.festival .video .video-list a{
+
+.festival .video .video-list a {
     color: #fff;
 }
-.festival .video .video-list li.on a{
+
+.festival .video .video-list li.on a {
     color: #00be06;
 }
-.festival .video .video-list li{
+
+.festival .video .video-list li {
     list-style: none;
     padding: 11px 20px;
     font-size: 16px;
 }
+
 @keyframes play_btn {
     0% {
         -webkit-transform: rotate(0);
@@ -1753,11 +1792,13 @@ hr.line-break {
     -webkit-transition: all .6s;
     transition: all .6s;
 }
-@media screen and (min-width: 1366px){
-    .hotel{
+
+@media screen and (min-width: 1366px) {
+    .hotel {
         min-height: 595px;
     }
 }
+
 /****目的地****/
 .destination .top {
     height: 466px;
@@ -1783,10 +1824,12 @@ hr.line-break {
     background: #fff;
     border-radius: 2px;
 }
-.destination .in-season ul{
+
+.destination .in-season ul {
     margin: 0;
     padding: 0;
 }
+
 .destination .in-season h3 {
     text-align: center;
 }
@@ -1866,13 +1909,16 @@ hr.line-break {
 .ticket {
     margin-top: 15px;
 }
-.ticket ul{
+
+.ticket ul {
     padding: 0;
     margin: 0;
 }
-.ticket ul li{
+
+.ticket ul li {
     list-style: none;
 }
+
 .ticket .front-page .recommend-lft {
     width: 79%;
     float: left;
@@ -1912,9 +1958,11 @@ hr.line-break {
 .ticket .side {
     margin-top: 20px;
 }
-.ticket .side .hd li{
+
+.ticket .side .hd li {
     display: inline-block;
 }
+
 .ticket .tabs-title span {
     font-size: 20px;
     font-weight: bold;
@@ -1958,7 +2006,8 @@ hr.line-break {
     box-shadow: 0 1px 1px #ddd;
     margin: 0 0 10px 7px;
 }
-.ticket .tabs-content li:first-child{
+
+.ticket .tabs-content li:first-child {
     margin-left: 0;
 }
 
@@ -2181,28 +2230,33 @@ hr.line-break {
 
 /*=============旅行公告==========*/
 
-.notice .top-section .top-bg{
+.notice .top-section .top-bg {
     height: 400px;
 }
-.notice .top-section .top-bg img{
+
+.notice .top-section .top-bg img {
     width: 100%;
     height: 100%;
 }
-.notice .top-section .content{
+
+.notice .top-section .content {
     position: absolute;
     left: 40%;
     top: 40%;
 }
-.notice .top-section .content p{
+
+.notice .top-section .content p {
     color: #fff;
     font-size: 24px;
     font-weight: bold;
 }
+
 .notice .publish-trip {
     margin-top: 20px;
     text-align: center;
 }
-.notice .publish-trip a{
+
+.notice .publish-trip a {
     text-align: center;
     background: #2780E3;
     padding: 10px;
@@ -2210,7 +2264,7 @@ hr.line-break {
     text-decoration: none;
 }
 
-.notice .publish-trip a:hover{
+.notice .publish-trip a:hover {
     background: #f80;
 }
 

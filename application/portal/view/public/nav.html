@@ -1,15 +1,16 @@
-<nav class="navbar navbar-default" style="margin: 0">
+<nav class="navbar navbar-default" style="margin: 0;border: none">
     <div class="top-bar-container">
         <div class="container">
+            <p class="contact pull-left"><a href="/contacts.html">联系我们</a></p>
             <ul class="nav navbar-nav navbar-right" id="main-menu-user">
-                <li class="contact"><a href="/contacts.html">联系我们</a></li>
-                <li class="user login">
+                {if Session::has('USER_INFO')}
+                <li class="user offline">
                     <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
-                        <if condition="empty($user['avatar'])">
-                            <img src="__PORTAL__/images/headicon.png" class="headicon">
-                            <else/>
-                            <img src="" class="headicon" width="30"/>
-                        </if>
+                        {if empty($user['avatar'])}
+                        <img src="__PORTAL__/images/headicon.png" class="headicon">
+                        {else /}
+                        <img src="{$user['avatar']}" class="headicon" width="30"/>
+                        {/if}
                         <span class="user-nickname"></span><b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -18,13 +19,15 @@
                         <li><a href=""><i class="fa fa-sign-out"></i> &nbsp;退出</a></li>
                     </ul>
                 </li>
-                <li class="user offline">
+                {else /}
+                <li class="user login">
                     <ul class="pull-right">
-                        <li><a href="{:url('user/Login/index')}"><i class="fa fa-sign-in"></i> &nbsp;登录</a></li>
+                        <li><a href="{:url('user/login')}"><i class="fa fa-sign-in"></i> &nbsp;登录</a></li>
                         <li class="divider"></li>
-                        <li><a href="{:url('user/Register/index')}"><i class="fa fa-user"></i> &nbsp;注册</a></li>
+                        <li><a href="{:url('user/register')}"><i class="fa fa-user"></i> &nbsp;注册</a></li>
                     </ul>
                 </li>
+                {/if}
             </ul>
         </div>
     </div>
@@ -57,32 +60,36 @@
                 </button>
             </div>
             <ul id="main-menu" class="nav navbar-nav">
-                <navigation nav-id="" root="" id="main-navigation" class="nav navbar-nav navbar-nav-custom"
-                            max-level="0">
-                    <navigationMenu>
-                        <if condition="$level gt 1">
-                            <li class="menu-item menu-item-level">
-                                <a href="{$menu.href|default=''}" target="{$menu.target|default=''}">
-                                    {$menu.name|default='首页'}
-                                </a>
-                            </li>
-                            <else/>
-                            <li class="menu-item menu-item-level">
-                                <a href="{$menu.href|default=''}" target="{$menu.target|default=''}">
-                                    {$menu.name|default=''}
-                                </a>
-                            </li>
-                        </if>
-                    </navigationMenu>
-                    <navigationFolder root="li"
-                                      class="dropdown dropdown-custom dropdown-custom-level"
-                                      dropdown="ul"
-                                      dropdown-class="dropdown-menu dropdown-menu-level">
-                        <a href="#" class="dropdown-toggle dropdown-toggle" data-toggle="dropdown">
-                            {$menu.name|default=''}<span class="caret"></span>
-                        </a>
-                    </navigationFolder>
-                </navigation>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/" target="">首页 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/festival.html" target="">节日旅行 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/hotel.html" target="">酒店 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/ticket.html" target="">门票 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/destination.html" target="">目的地 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/experience.html" target="">体验旅行 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/community.html" target="">导游专栏 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/notice.html" target="">旅行公告 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/haidao.html" target="">海岛游 </a>
+                </li>
+                <li class="menu-item menu-item-level-1">
+                    <a href="/public/guzhen.html" target="">古镇游 </a>
+                </li>
             </ul>
         </div>
     </div>
