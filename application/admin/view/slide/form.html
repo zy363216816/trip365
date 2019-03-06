@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理| 幻灯片管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__ADMIN__/css/AdminLTE.min.css">
+</head>
+<body>
+<div style="padding: 15px">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('/slide/index')}">幻灯片列表</a></li>
+        <li class="active"><a href="{:url('/slide/add')}">添加幻灯片</a></li>
+    </ul>
+    <form method="post" class="form-horizontal" action="{:url('/slide/save')}" style="margin-top: 15px">
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label">名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$slide.name?:''}" placeholder="幻灯片名称" required>
+                <span class="help-block">名称必填，不可重复</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-remark" class="col-sm-2 control-label">备注</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" id="input-remark" name="remark">{$slide.name?:''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">添加</button>
+                <a class="btn btn-default" href="{:url('/slide/index')}">返回</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

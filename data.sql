@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `article_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
 
 
-CREATE TABLE IF NOT EXISTS `slide` (
+CREATE TABLE IF NOT EXISTS `slides` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示,0不显示',
   `delete_time` DATETIME NULL COMMENT '删除时间',
@@ -119,11 +119,11 @@ CREATE TABLE IF NOT EXISTS `slide` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片表';
 
-CREATE TABLE IF NOT EXISTS `slide_item` (
+CREATE TABLE IF NOT EXISTS `slides_item` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `slide_id` int(11)NULL COMMENT '幻灯片id',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示;0:隐藏',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `sort` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '幻灯片名称',
   `image` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片图片',
   `url` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片链接',

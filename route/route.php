@@ -9,12 +9,6 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
-});
-
-Route::get('hello/:name', 'index/hello');
-
 Route::get('login', 'admin/Login/index');
 Route::post('login', 'admin/Login/login');
 Route::get('admin/index','admin/index/index');
@@ -50,5 +44,17 @@ Route::get('category/showAll','admin/Category/getGridTree');
 Route::post('category/add','admin/Category/save');
 Route::post('category/del','admin/Category/delete');
 Route::get('category/getTree','admin/Category/getTree');
+
+//幻灯片
+Route::get('slide/index','admin/Slide/index');
+Route::get('slide/form','admin/Slide/form');
+Route::post('slide/save','admin/Slide/save');
+Route::post('slide/delete','admin/Slide/delete');
+Route::get('slide/item','admin/Slide/item');
+Route::get('slide/addItem','admin/Slide/itemForm');
+Route::get('slide/assets','admin/Slide/assets');
+Route::post('slide/saveItem','admin/Slide/saveItem');
+Route::get('slide/itemImage','admin/Slide/itemImage');
+Route::post('slide/deleteItem','admin/Slide/deleteItem');
 
 

@@ -9,17 +9,23 @@ class Asset extends Controller
 {
     public function save($data = [])
     {
-        if ($data){
-            $asset= Assets::create([
-                'file_size' => $data['file_size'],
-                'file_key' => guid(),
-                'filename' => $data['filename'],
+        if ($data) {
+            $asset = Assets::create([
+                'file_size'     => $data['file_size'],
+                'file_key'      => guid(),
+                'filename'      => $data['filename'],
                 'original_name' => $data['original_name'],
-                'file_path' => $data['file_path'],
-                'suffix' => $data['suffix']
+                'file_path'     => $data['file_path'],
+                'suffix'        => $data['suffix']
             ]);
             return $asset;
         }
         return null;
+    }
+
+    public function read($id)
+    {
+        $asset = Assets::get($id);
+        return $asset;
     }
 }

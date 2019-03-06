@@ -32,7 +32,7 @@ class Article extends Controller
      */
     public function assetUpload()
     {
-        return view('upload');
+        return view('assets/upload');
     }
 
     /**

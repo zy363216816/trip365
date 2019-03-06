@@ -555,7 +555,7 @@
         };
 
         uploader.on('uploadSuccess', function( file ,response ) {
-            updateTpl(response.id,response.originalName,'../'+response.url);
+            updateTpl(response.id,response.originalName,rootPath + '/' + response.url);
         });
 
         uploader.on( 'all', function( type ) {
