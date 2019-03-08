@@ -13,30 +13,14 @@
 {include file="public/nav" /}
 <div class="section">
     <ul id="banner">
+        {Portal:slides id='1'}
         <li>
             <div class="caption-wrapper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
+                <div class="caption">{$vo.title|default=''}</div>
             </div>
-            <a href=""><img src="__PORTAL__/images/demo/banner1.jpg" alt=""></a>
+            <a href="{$vo.url|default='#'}" target="{$vo.target}"><img src="{:getAssets($vo.image)}" alt=""></a>
         </li>
-        <li>
-            <div class="caption-wrapper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__PORTAL__/images/demo/banner2.jpg" alt=""></a>
-        </li>
-        <li>
-            <div class="caption-wrapper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__PORTAL__/images/demo/banner3.jpg" alt=""></a>
-        </li>
-        <li>
-            <div class="caption-wrapper">
-                <div class="caption">此幻灯片只是演示,您没有设置任何幻灯片,请到后台模板设置！</div>
-            </div>
-            <a href=""><img src="__PORTAL__/images/demo/banner4.jpg" alt=""></a>
-        </li>
+        {/Portal:slides}
     </ul>
     <div class="roll-news">
         <div class="bd">
@@ -71,333 +55,252 @@
     </div>
 </div>
 <div class="container-fluid" style="padding: 0">
-    <widget name="festival_video">
-        <div class="section">
-            <div class="text-center widget-title">
-                <p class="title">视屏赏析</p>
-                <p class="sub-title">Video</p>
+    <div class="section">
+        <div class="text-center widget-title">
+            <p class="title">视屏赏析</p>
+            <p class="sub-title">Video</p>
+        </div>
+        <div class="slide-box">
+            <div class="box-container bd">
+                <ul class="slide-list video-list">
+                    {Portal:articles limit="4" order="published_time DESC" categoryIds="3"}
+                    <li>
+                        <img src="{:getAssets($vo['thumbnail_id'])}" alt="">
+                        <div class="video-play">
+                            <a class="play-btn" data-source="{:getAssets($vo['video_id'])}">
+                                <span></span>
+                                <em></em>
+                            </a>
+                        </div>
+                        <div class="video-intro">
+                            {$vo['content'] | raw}
+                        </div>
+                    </li>
+                    {/Portal:articles}
+                </ul>
             </div>
-            <div class="slide-box">
-                <div class="box-container bd">
-                    <php>
-                        $last_news_limit=4;
-                    </php>
-                    <ul class="slide-list video-list">
-                        <portal:articles limit="7" order="post.published_time DESC" categoryIds="$widget.vars.video">
-                            <li>
-                                <img src="" alt="">
-                                <div class="video-play">
-                                    <php>
-                                        $content=$vo['post_content'];
-                                        $video=cmf_get_content_videos($content);
-                                        if(count($video)!=0){
-                                        $url=$video[0]['src'];
-                                        }else{
-                                        $url='';
-                                        }
-                                    </php>
-                                    <a class="play-btn" data-source="">
-                                        <if condition="$url==''">
-                                            <div class="video-content">
-                                            </div>
-                                        </if>
-                                        <span></span>
-                                        <em></em>
-                                    </a>
-                                </div>
-                                <div class="video-intro">
-                                </div>
-                            </li>
-                        </portal:articles>
-                    </ul>
-                </div>
-                <div class="box-pager hd">
-                    <ul>
-                        <portal:articles limit="7" order="post.published_time DESC" categoryIds="$widget.vars.video">
-                            <li><span class="dot"></span></li>
-                        </portal:articles>
-                    </ul>
-                </div>
+            <div class="box-pager hd">
+                <ul>
+                    {php}
+                    $count = count($data['articles']);
+                    {/php}
+                    {for start="0" end="$count"}
+                    <li><span class="dot"></span></li>
+                    {/for}
+                </ul>
             </div>
         </div>
-    </widget>
+    </div>
     <hr class="line-break">
-    <widget name="recommend">
-        <div class="section container">
-            <div class="text-center widget-title">
-                <p class="title">旅行推荐</p>
-                <p class="sub-title">Recommend</p>
-            </div>
-            <div class="recommend">
+    <div class="section container">
+        <div class="text-center widget-title">
+            <p class="title">旅行推荐</p>
+            <p class="sub-title">Recommend</p>
+        </div>
+        <div class="recommend">
+            <ul>
+                {Portal:articles limit="6" order="published_time DESC" categoryIds="5"}
+                <li class="{$key == 0?'first':''}">
+                    <div class="img">
+                        <img src="{:getAssets($vo['thumbnail_id'])}" alt="">
+                    </div>
+                    <div class="detail">
+                        <h3>{$vo['title']}</h3>
+                        <div class="detail-intro">
+                            {$vo['excerpt']}
+                        </div>
+                    </div>
+                    <a class="link-href" href="#"></a>
+                </li>
+                {/Portal:articles}
+            </ul>
+        </div>
+    </div>
+    <hr class="line-break">
+    <div class="section container">
+        <div class="text-center widget-title">
+            <p class="title">导游推荐</p>
+            <p class="sub-title">EveryDay Star</p>
+        </div>
+        <div class="slide-box2 guide">
+            <div class="hd">
                 <ul>
-                    <li class="first">
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j1.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
-                            </div>
-                        </div>
-                        <a class="link-href" href="#"></a>
-                    </li>
+                    <li class="male"><span></span></li>
+                    <li class="female"><span></span></li>
+                </ul>
+            </div>
+            <div class="bd">
+                <ul>
                     <li>
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j2.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
+                        <div class="row">
+                            <div class="guide-photo col-xs-4 col-xs-offset-1">
+                                <img src="__PORTAL__/images/photo2.jpg" alt=""
+                                     class="animated bounceInDown">
+                                <div class="p-sign animated bounceInUp">
+                                    <p>个性签名</p>
+                                    <p>当你的才华撑不起你的野心时，那你就应该静下心来学习</p>
+                                </div>
+                            </div>
+                            <div class="guide-intro col-xs-6 col-xs-offset-1 animated bounceInRight">
+                                <p>姓名：&nbsp;某某某</p>
+                                <p>性别：&nbsp;女</p>
+                                <p>年龄：&nbsp;xx</p>
                             </div>
                         </div>
-                        <a class="link-href" href="#"></a>
                     </li>
+                </ul>
+                <ul>
                     <li>
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j3.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
+                        <div class="row">
+                            <div class="guide-photo col-xs-4 col-xs-offset-1">
+                                <img src="__PORTAL__/images/photo1.jpg" alt=""
+                                     class="animated bounceInDown">
+                                <div class="p-sign animated bounceInUp">
+                                    <p>个性签名</p>
+                                    <p>春风十里不如你</p>
+                                </div>
+                            </div>
+                            <div class="guide-intro col-xs-6 col-xs-offset-1 animated bounceInRight">
+                                <p>姓名：&nbsp;某某某</p>
+                                <p>性别：&nbsp;女</p>
+                                <p>年龄：&nbsp;xx</p>
                             </div>
                         </div>
-                        <a class="link-href" href="#"></a>
-                    </li>
-                    <li>
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j1.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
-                            </div>
-                        </div>
-                        <a class="link-href" href="#"></a>
-                    </li>
-                    <li>
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j2.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
-                            </div>
-                        </div>
-                        <a class="link-href" href="#"></a>
-                    </li>
-                    <li>
-                        <div class="img">
-                            <img src="__PORTAL__/images/demo/j3.jpg" alt="">
-                        </div>
-                        <div class="detail">
-                            <h3>详情标题</h3>
-                            <div class="detail-intro">
-                                详情简介
-                            </div>
-                        </div>
-                        <a class="link-href" href="#"></a>
                     </li>
                 </ul>
             </div>
         </div>
-    </widget>
+    </div>
     <hr class="line-break">
-    <widget name="guides">
-        <div class="section container">
-            <div class="text-center widget-title">
-                <p class="title">导游推荐</p>
-                <p class="sub-title">EveryDay Star</p>
-            </div>
-            <div class="slide-box2 guide">
-                <div class="hd">
-                    <ul>
-                        <li class="male"><span></span></li>
-                        <li class="female"><span></span></li>
-                    </ul>
-                </div>
-                <div class="bd">
-                    <ul>
-                        <li>
-                            <div class="row">
-                                <div class="guide-photo col-xs-4 col-xs-offset-1">
-                                    <img src="__PORTAL__/images/photo2.jpg" alt=""
-                                         class="animated bounceInDown">
-                                    <div class="p-sign animated bounceInUp">
-                                        <p>个性签名</p>
-                                        <p>当你的才华撑不起你的野心时，那你就应该静下心来学习</p>
-                                    </div>
-                                </div>
-                                <div class="guide-intro col-xs-6 col-xs-offset-1 animated bounceInRight">
-                                    <p>姓名：&nbsp;某某某</p>
-                                    <p>性别：&nbsp;女</p>
-                                    <p>年龄：&nbsp;xx</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <div class="row">
-                                <div class="guide-photo col-xs-4 col-xs-offset-1">
-                                    <img src="__PORTAL__/images/photo1.jpg" alt=""
-                                         class="animated bounceInDown">
-                                    <div class="p-sign animated bounceInUp">
-                                        <p>个性签名</p>
-                                        <p>春风十里不如你</p>
-                                    </div>
-                                </div>
-                                <div class="guide-intro col-xs-6 col-xs-offset-1 animated bounceInRight">
-                                    <p>姓名：&nbsp;某某某</p>
-                                    <p>性别：&nbsp;女</p>
-                                    <p>年龄：&nbsp;xx</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div class="section container">
+        <div class="text-center widget-title">
+            <p class="title">服务项目</p>
+            <p class="sub-title">Services</p>
         </div>
-    </widget>
-    <hr class="line-break">
-    <widget name="services">
-        <div class="section container">
-            <div class="text-center widget-title">
-                <p class="title">服务项目</p>
-                <p class="sub-title">Services</p>
-            </div>
-            <php>
-                $services_count = count($widget['vars']['services']);
-                $rows = ceil($services_count/4);
-            </php>
-            <for start="1" end="$rows" comparison="elt" step="1" name="row">
-                <php>
-                    $first_row = ($row-1)*4;
-                    $services = array_slice($widget['vars']['services'],$first_row,4);
-                </php>
-                <div class="row">
-                    <foreach name="services" item="vo">
-                        <div class="col-xs-3">
-                            <div class="service-item">
-                                <a href="#">
-                                    <h3 class="font-large nospace">{$vo.title?:''}</h3>
-                                    <p>{$vo.content?:''}</p>
-                                    <i class="fa fa-{$vo.icon?:''}"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </foreach>
+        {php}
+        $list = [
+        ['name'=>'预约导游','content' => '','icon'=>''],
+        ['name'=>'酒店预订','content' => '','icon'=>''],
+        ['name'=>'门票预订','content' => '','icon'=>''],
+        ['name'=>'车票/机票预订','content' => '','icon'=>'']
+        ];
+        {/php}
+        <div class="row">
+            {volist name="list" id="vo"}
+            <div class="col-xs-3">
+                <div class="service-item">
+                    <a href="#">
+                        <h3 class="font-large nospace">{$vo.name?:''}</h3>
+                        <p>{$vo.content?:''}</p>
+                        <i class="fa fa-{$vo.icon?:''}"></i>
+                    </a>
                 </div>
-            </for>
+            </div>
+            {/volist}
         </div>
-    </widget>
+    </div>
     <hr class="line-break">
     <div class="news">
         <div class="section container">
-            <widget name="news">
-                <div class="text-center widget-title">
-                    <p class="title">新闻聚焦</p>
-                    <p class="sub-title">News</p>
-                </div>
-                <div class="row">
-                    <div class="news-box col-xs-6">
-                        <div class="news-tab hd">
-                            <a href="" class="more" target="_blank"></a>
-                            <ul>
-                                <li data-href="">最新</li>
-                                <li data-href="">新闻</li>
-                                <li data-href="">公告</li>
-                            </ul>
-                        </div>
-                        <div class="news-list bd">
-                            <ul>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">新闻标题1</a>
-                                </li>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">新闻标题2</a>
-                                </li>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">新闻标题3</a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">新闻标题1</a>
-                                </li>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">新闻标题2</a>
-                                </li>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">新闻标题3</a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">测试1</a>
-                                </li>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">测试12</a>
-                                </li>
-                                <li>
-                                    <span>7/03</span>
-                                    <a href="">测试13</a>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="text-center widget-title">
+                <p class="title">新闻聚焦</p>
+                <p class="sub-title">News</p>
+            </div>
+            <div class="row">
+                <div class="news-box col-xs-6">
+                    <div class="news-tab hd">
+                        <a href="" class="more" target="_blank"></a>
+                        <ul>
+                            <li data-href="">最新</li>
+                            <li data-href="">新闻</li>
+                            <li data-href="">公告</li>
+                        </ul>
                     </div>
-                    <div class="news-box col-xs-6">
-                        <div class="news-tab hd">
-                            <a href="" class="more" target="_blank"></a>
-                            <ul>
-                                <li data-href="">最新动态</li>
-                                <li data-href="">用户发表</li>
-                            </ul>
-                        </div>
-                        <div class="news-list bd">
-                            <ul>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">标题1</a>
-                                </li>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">标题2</a>
-                                </li>
-                                <li>
-                                    <span>6/29</span>
-                                    <a href="">标题3</a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <span>7/02</span>
-                                    <a href="">标题1</a>
-                                </li>
-                                <li>
-                                    <span>7/02</span>
-                                    <a href="">标题2</a>
-                                </li>
-                                <li>
-                                    <span>7/02</span>
-                                    <a href="">标题3</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="news-list bd">
+                        <ul>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">新闻标题1</a>
+                            </li>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">新闻标题2</a>
+                            </li>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">新闻标题3</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">新闻标题1</a>
+                            </li>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">新闻标题2</a>
+                            </li>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">新闻标题3</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">测试1</a>
+                            </li>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">测试12</a>
+                            </li>
+                            <li>
+                                <span>7/03</span>
+                                <a href="">测试13</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <div class="news-box col-xs-6">
+                    <div class="news-tab hd">
+                        <a href="" class="more" target="_blank"></a>
+                        <ul>
+                            <li data-href="">最新动态</li>
+                            <li data-href="">用户发表</li>
+                        </ul>
+                    </div>
+                    <div class="news-list bd">
+                        <ul>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">标题1</a>
+                            </li>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">标题2</a>
+                            </li>
+                            <li>
+                                <span>6/29</span>
+                                <a href="">标题3</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span>7/02</span>
+                                <a href="">标题1</a>
+                            </li>
+                            <li>
+                                <span>7/02</span>
+                                <a href="">标题2</a>
+                            </li>
+                            <li>
+                                <span>7/02</span>
+                                <a href="">标题3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             </widget>
         </div>
     </div>

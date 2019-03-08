@@ -44,6 +44,7 @@ Route::get('category/showAll','admin/Category/getGridTree');
 Route::post('category/add','admin/Category/save');
 Route::post('category/del','admin/Category/delete');
 Route::get('category/getTree','admin/Category/getTree');
+Route::get('category/getAll','admin/Category/getAll');
 
 //幻灯片
 Route::get('slide/index','admin/Slide/index');

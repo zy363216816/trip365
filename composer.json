@@ -22,7 +22,8 @@
       "ext-com_dotnet": "*",
       "ext-json": "*",
         "ext-iconv": "*",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

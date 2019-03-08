@@ -8,9 +8,8 @@
 
 namespace app\admin\controller;
 
-
 use app\admin\model\Slides;
-use app\admin\model\SlidesItem;
+use app\admin\model\SlideItems;
 use think\Controller;
 use think\Request;
 use think\Validate;
@@ -67,7 +66,7 @@ class Slide extends Controller
     public function saveItem(Request $request)
     {
         $data = $request->param();
-        SlidesItem::create([
+        SlideItems::create([
             'slide_id'    => $data['slide_id'],
             'title'       => $data['title'],
             'image'       => $data['image'],
@@ -104,7 +103,7 @@ class Slide extends Controller
 
     public function deleteItem(Request $request, $id)
     {
-        SlidesItem::destroy($id);
+        SlideItems::destroy($id);
         return redirect('/slide/item');
     }
 

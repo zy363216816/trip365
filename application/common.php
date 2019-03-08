@@ -10,3 +10,9 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+function getAssets($id)
+{
+    $path = db('assets')->where('id', $id)->column('file_path');
+    return isset($path[0]) ? $path[0] : '';
+}

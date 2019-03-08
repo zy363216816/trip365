@@ -10,6 +10,6 @@ class Slides extends Model
 
     public function items()
     {
-        return $this->hasMany('SlidesItem','slide_id');
+        return $this->hasMany('SlideItems','slide_id');
     }
 }

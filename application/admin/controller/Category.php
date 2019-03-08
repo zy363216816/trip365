@@ -36,7 +36,6 @@ class Category extends Controller
      * 保存新建的资源
      *
      * @param  \think\Request $request
-     * @return \think\Response
      */
     public function save(Request $request)
     {
@@ -54,6 +53,7 @@ class Category extends Controller
             'one_tpl'         => $data['one_tpl'],
             'more'            => json_encode($data['more']),
         ]);
+        return ['msg' => '添加成功'];
     }
 
     /**
@@ -79,6 +79,12 @@ class Category extends Controller
             return true;
         };
         return false;
+    }
+
+    public function getAll()
+    {
+        $categories = Categories::order('sort')->select();
+        return $categories;
     }
 
     public function getTree()

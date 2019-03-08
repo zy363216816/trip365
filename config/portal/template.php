@@ -5,5 +5,7 @@ return [
         '__PORTAL__'=>'/static/portal',
         '__PLUGINS__' => '/static/plugins',
         '__BOOTSTRAP__' => '/static/admin/bootstrap',
-    ]
+    ],
+    // 预先加载的标签库
+    'taglib_pre_load'     =>    'app\common\taglib\Portal',
 ];

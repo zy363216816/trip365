@@ -9,9 +9,4 @@ class Index extends Controller
     {
         return view('index');
     }
-
-    public function topBanner()
-    {
-
-    }
 }
