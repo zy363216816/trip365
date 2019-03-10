@@ -33,6 +33,7 @@ body.bg {
 .logo {
     font-size: 24px;
     text-decoration: none;
+    width: 200px;
 }
 
 .navbar .logo {
@@ -763,6 +764,7 @@ ul.tc-photos {
 .login-header .logo a,
 .register-header .logo a {
     display: block;
+    max-width: 300px;
 }
 
 .login-header .logo a img,
@@ -778,6 +780,7 @@ ul.tc-photos {
     font-size: 24px;
     font-weight: bold;
     line-height: 60px;
+    max-width: 300px;
 }
 
 .login-wrap {
@@ -895,6 +898,111 @@ ul.tc-photos {
 
 .login-wrap .login-box .login-form .login-other a img {
     padding-top: 5px;
+}
+
+.register-box {
+    width: 920px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.register-box .step {
+    margin: 0 auto;
+    display: block;
+    height: 60px;
+}
+
+.register-box .step li {
+    list-style: none;
+}
+
+.register-box .step .num {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    width: 54px;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+}
+
+.register-box .step .num em, .num i {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    left: 15px;
+    top: 2px;
+    position: absolute;
+}
+
+.register-box .step .num i {
+    z-index: 3;
+    color: #fff;
+    font-style: normal;
+    font-weight: 700;
+    top: 4px;
+}
+
+.register-box .step .line {
+    height: 3px;
+    background: #d9eaf3;
+    display: inline-block;
+    width: 100%;
+    top: 13px;
+    position: absolute;
+    z-index: 1;
+}
+
+.register-box .step .num em {
+    background: #d9eaf3;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    z-index: 2;
+}
+
+.register-box .step .step-txt {
+    position: relative;
+    color: #b6c6ce;
+    font-size: 13px;
+}
+
+.register-box .step .active .step-txt {
+    color: #1a97d7;
+}
+
+.step .on .line_bg, .step .active .num em {
+    background: #1a97d7;
+}
+
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.form-group span.required {
+    color: #f00;
+    margin: 0 5px;
+}
+
+.form-group input {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.register-box input[type="text"],input[type="password"] {
+    width: 60%;
+}
+
+.count-down{
+    line-height: 34px;
+    display: block;
+    background: #ccc;
 }
 
 /************index**************/

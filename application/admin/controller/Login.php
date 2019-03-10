@@ -70,14 +70,14 @@ class Login extends Controller
      */
     public function authenticated()
     {
-        $user = Authenticated::user();
-        $key = $user['id'];
+        $user        = Authenticated::user();
+        $key         = $user['id'];
         $login_times = $user['login_times'];
-        $admin = new \app\admin\model\AdminUsers();
+        $admin       = new \app\admin\model\AdminUsers();
         $admin->save([
             'login_time' => date('Y-m-d H:i:s', time()),
-            'ip' => $this->request->ip(),
-            'login_num' => $login_times + 1], ['id' => $key]);
+            'ip'         => $this->request->ip(),
+            'login_num'  => $login_times + 1], ['id' => $key]);
     }
 
     /*

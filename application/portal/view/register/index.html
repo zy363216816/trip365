@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>注册</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file="public/head" /}
+    <style>
+        #footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="register-header">
+    <div class="container">
+        <div class="logo pull-left">
+            <a href="/public/">
+                <img src="__PORTAL__/images/logo.png" alt="logo">
+                <span>途迹网</span>
+            </a>
+        </div>
+        <h3 class="pull-right">用户注册</h3>
+    </div>
+</div>
+<div class="register-box clearfix">
+    <div class="reg-box display-inline">
+        <div class="step">
+            <ul>
+                <li class="col-xs-4 active">
+                    <span class="num"><em></em><i>1</i></span>
+                    <span class="line"></span>
+                    <p class="step-txt">填写用户信息</p>
+                </li>
+                <li class="col-xs-4">
+                    <span class="num"><em></em><i>2</i></span>
+                    <span class="line"></span>
+                    <p class="step-txt">验证用户信息</p>
+                </li>
+                <li class="col-xs-4">
+                    <span class="num"><em></em><i>3</i></span>
+                    <p class="step-txt">注册成功</p>
+                </li>
+            </ul>
+        </div>
+        <div id="content" style="margin-top:20px;">
+            <div class="step-content active">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="username"><span class="required">*</span>用户名：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="username" class="form-control" id="username"
+                                   placeholder="请输入用户名">
+                            <span class="help-block">4-20位，中文、字母、数字、下划线的组合，以中文或字母开头</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="mobile">手机号：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="请输入手机号">
+                            <span class="help-block">请输入有效11位手机号码</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password">密码：</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="password" class="form-control" id="password"
+                                   placeholder="请输入密码">
+                            <span class="help-block">6-20位英文（区分大小写）、数字、字符的组合</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="confirm-password">确认密码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="confirm_password" class="form-control" id="confirm-password "
+                                   placeholder="请再次输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="verify">验证码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="verify" class="form-control pull-left" id="verify"
+                                   style="width: 20%" placeholder="验证码">
+                            <img src="{:captcha_src()}" onclick="this.src='/captcha.html?'+Math.random()" title="换一张"
+                                 width="145" height="34" class="captcha captcha-img" style="cursor: pointer;"/>
+                            <span>看不清？换一张</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="radio-inline col-sm-10 col-sm-offset-2">
+                            <input type="checkbox" name="clause" id="clause"> <a href="">我同意并已仔细阅读服务条款</a>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button class="btn btn-success btn-block next-step" style="width: 60%">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="step-content">
+
+                <form action="" class="form-horizontal">
+                    <p class="text-center">短信已发送至您手机，请输入短信中的验证码，确保您的手机号真实有效。</p>
+                    <input type="hidden" name="mobile" value="">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="verify">手机验证码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="mobile-verify" class="form-control pull-left" style="width: 40%"
+                                   placeholder="验证码">
+                            <button class=" btn btn-primary" style="border-radius: 0" disabled><i>(60)</i>秒后可再次获取
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button class="btn btn-success btn-block submit" style="width: 60%">确定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="step-content text-center">
+                <h3>恭喜cz82465，您已注册成功！</h3>
+                <p >页面将在 <strong>10</strong> 秒钟后，跳转到 <a href="">用户中心</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="public/footer" /}
+{include file="public/scripts" /}
+<script>
+    $(function () {
+        //下一步
+        $('.next-step').click(function () {
+            change();
+            return false;
+        });
+        //验证手机提交注册
+        $('.submit').click(function () {
+            change();
+            return false;
+        });
+
+        function change() {
+            var currentStep = $('.step li.active'),
+                currentContent = $('.step-content.active');
+            currentStep.removeClass('active').next().addClass('active');
+            currentContent.removeClass('active').next().addClass('active');
+        }
+    });
+</script>
+</body>
+</html>

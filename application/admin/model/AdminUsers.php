@@ -40,5 +40,4 @@ class AdminUsers extends Model
     {
         return 1;
     }
-
 }

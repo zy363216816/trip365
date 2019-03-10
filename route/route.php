@@ -9,8 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('login', 'admin/Login/index');
-Route::post('login', 'admin/Login/login');
+Route::get('admin/login', 'admin/Login/index');
+Route::post('admin/login', 'admin/Login/login');
 Route::get('admin/index','admin/index/index');
 
 Route::get('admin/dashboard','admin/index/dashboard');
@@ -45,6 +45,12 @@ Route::post('category/add','admin/Category/save');
 Route::post('category/del','admin/Category/delete');
 Route::get('category/getTree','admin/Category/getTree');
 Route::get('category/getAll','admin/Category/getAll');
+
+
+// 前端路由
+Route::get('login','portal/login/index');
+Route::get('register','portal/register/index');
+
 
 //幻灯片
 Route::get('slide/index','admin/Slide/index');

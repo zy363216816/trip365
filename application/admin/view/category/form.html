@@ -179,7 +179,9 @@
                     top.layer.msg('添加成功!是否继续添加', {
                         time: 20000,
                         btn: ['是', '否'],
-                        no:function () {
+                        yes:function(){
+                        },
+                        btn2:function () {
                             top.layer.closeAll();
                         }
                     });
