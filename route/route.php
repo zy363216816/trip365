@@ -50,6 +50,7 @@ Route::get('category/getAll','admin/Category/getAll');
 // 前端路由
 Route::get('login','portal/login/index');
 Route::get('register','portal/register/index');
+Route::get('sendSms','portal/register/testSendSms');
 
 
 //幻灯片
@@ -63,5 +64,7 @@ Route::get('slide/assets','admin/Slide/assets');
 Route::post('slide/saveItem','admin/Slide/saveItem');
 Route::get('slide/itemImage','admin/Slide/itemImage');
 Route::post('slide/deleteItem','admin/Slide/deleteItem');
+
+
 
 
