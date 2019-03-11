@@ -177,7 +177,7 @@ create table if not exists `users`
   `create_time`      DATETIME     NULL COMMENT '创建时间',
   `update_time`      DATETIME     NULL COMMENT '修改时间',
   `delete_time`      DATETIME     NULL COMMENT '删除时间',
-  'more'             VARCHAR(255) NULL COMMENT '扩展备用',
+  `more`             VARCHAR(255) NULL COMMENT '扩展备用',
     PRIMARY KEY (`id`),
   UNIQUE INDEX (`user_id`),
   UNIQUE INDEX (`username`)

@@ -9,27 +9,27 @@
 namespace app\portal\controller;
 
 
+use app\portal\model\Users;
 use think\Controller;
 use think\Request;
 
 class Register extends Controller
 {
-    protected $rule = [
-        'username'    => 'require|unique:users|max:25',
-        'password'    => 'require|confirm',
-        'mobile'      => 'mobile',
-        'captcha|验证码' => 'require|captcha',
-        '__token__'   => 'token',
-    ];
-
     public function index()
     {
         return view();
     }
 
-    public function register(Request $request)
+    public function register(Request $request, Users $user)
     {
-        if ($request->isAjax() && $request->isPost()){
+        if ($request->isAjax() && $request->isPost()) {
+            $param  = $request->only(['username', 'password', 'confirm_password', 'captcha', 'clause', 'mobile','__token__']);
+            $verify = $this->validate($param, 'app\portal\validate\User');
+            if (true !== $verify) {
+                return ['error' => $verify];
+            }else{
+
+            }
 
         }
 
