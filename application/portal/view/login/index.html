@@ -32,7 +32,7 @@
     </div>
     <div class="login-box container">
         <form class="login-form js-ajax-form" id="login-form" action="{:url('/login')}" method="post">
-            <div class="login-title">用户登录</div>
+            <div class="login-title">用户登录<span class="error"></span></div>
             <div class="form-item">
                 <label><i class="fa fa-user"></i></label>
                 <input type="text" id="input_username" name="username" placeholder="用户名/邮箱/手机号" required>
@@ -74,15 +74,17 @@
 {include file="public/scripts" /}
 <script>
     $(function () {
-        var form = $('#login-form');
+        var form = $('#login-form'),
+            error = $('.error');
         form.submit(function () {
-            var data = form.serialize(),
-                error = $('.error');
+            var $data = form.serialize();
             $.ajax({
                 url: '{:url("/login")}',
                 type: 'post',
+                data: $data,
                 success: function (data) {
                     if (!data.success) {
+                        console.log(data);
                         error.text(data.msg);
                         return;
                     }
@@ -90,6 +92,9 @@
                 }
             });
             return false;
+        });
+        $('input').focus(function () {
+            error.text('');
         });
     })
 </script>

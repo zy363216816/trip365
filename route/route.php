@@ -71,5 +71,9 @@ Route::get('slide/itemImage', 'admin/Slide/itemImage');
 Route::post('slide/deleteItem', 'admin/Slide/deleteItem');
 
 
+//个人主页
+Route::get('user/center', 'portal/user/index');
+Route::get('user/profile', 'portal/user/profile');
+
 
 

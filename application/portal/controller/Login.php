@@ -29,41 +29,37 @@ class Login extends Controller
         return view();
     }
 
-    public function doLogin(Request $request, Users $user)
+    public function doLogin(Request $request, Users $user, Auth $auth)
     {
         $result   = ['success' => false, 'msg' => ''];
         $validate = Validate::make($this->rule);
-        $res      = null;
         if ($request->isAjax()) {
-            $data = [
-                'username' => $request->post("username"),
-                'password' => $request->post("password"),
-                'captcha'  => $request->post("captcha")
-            ];
+            $data = $request->only(['username', 'password', 'captcha', '__token__']);
             if ($validate->check($data)) {
                 $res = $user->where('username', $data['username'])->find();
                 if ($res !== null) {
                     $pwd    = $res->password;
                     $status = $res->getData('status'); //-1删除,账号状态,0-禁用,1-正常,2-待审核
-                    if ($pwd === password_hash($data['password'], PASSWORD_DEFAULT)) {
+                    if (password_verify(trim($data['password']), $pwd)) {
                         switch ($status) {
                             case 0:
-                                return lang('forbidden');
+                                $result['msg'] = lang('forbidden');
                                 break;
                             case 2:
-                                return lang('authStr');
+                                $result['msg'] = lang('authStr');
                                 break;
                             default:
-                                Authenticated::save($res);
+                                $auth->auth($res);
                                 $this->authenticated();
-                                return lang('success');
+                                $result['msg']     = lang('success');
+                                $result['success'] = true;
                         }
                     }
+                } else {
+                    $result['msg'] = lang('fail');
                 }
-                return lang('fail');
             } else {
-                $res['msg']  = $validate->getError();
-                $res['code'] = -1;
+                $result['msg'] = $validate->getError();
             }
         }
         return $result;
@@ -74,7 +70,8 @@ class Login extends Controller
      */
     public function authenticated()
     {
-        $user        = Authenticated::user();
+        $auth        = new Auth();
+        $user        = $auth->getSession();
         $key         = $user['id'];
         $login_times = $user['login_times'];
         $admin       = new \app\admin\model\AdminUsers();

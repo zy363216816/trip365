@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>首页 - 极速后台的博客</title>
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PORTAL__/css/personal.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!-- 侧栏 -->
+<div id="side" class="ta-c" style="background-image: url('__PORTAL__/images/user-bg.jpeg');background-size: cover;">
+    <div class="head">
+        <img src="__PORTAL__/images/avatar.jpg" alt="">
+    </div>
+    <h1>Sunny小时光</h1>
+    <h3>个人主页</h3>
+    <ul class="nav">
+        <li><a href="{:url('/user/center')}" class="active"><span class="icon-home hidden-l"></span>首页</a></li>
+        <li><a href="{:url('/user/profile')}"><span class="icon-user hidden-l"></span>个人信息</a></li>
+        <!--<li><a href="#"><span class="icon-list hidden-l"></span>认证</a></li>-->
+        <li><a href="{:url('/user/publish')}"><span class="icon-edit hidden-l"></span>发表信息</a></li>
+    </ul>
+    <p class="intro ta-l hidden-l">个人简介</p>
+    <div class="doing hidden-l">
+        <p>个人信息</p>
+        <p><span class="icon-map-marker"></span>贵州 贵阳</p>
+    </div>
+    <p class="copyright hidden-l">© 途迹网 2018 - 2019</p>
+</div>
+{__CONTENT__}
+<script src="__PLUGINS__/jQuery/jquery-2.2.3.min.js"></script>
+</body>
+
+</html>

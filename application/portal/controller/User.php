@@ -12,4 +12,19 @@ namespace app\portal\controller;
 class User
 {
 
+    public function index()
+    {
+        return view();
+    }
+
+
+    public function home()
+    {
+
+    }
+
+    public function profile()
+    {
+        return view();
+    }
 }
