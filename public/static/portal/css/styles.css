@@ -904,6 +904,7 @@ ul.tc-photos {
     width: 920px;
     margin: 0 auto;
     padding: 40px;
+    min-height: 454px;
 }
 
 .register-box .step {

@@ -8,8 +8,14 @@
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     {include file="public/head" /}
     <style>
-        #footer {
+        .error {
             position: absolute;
+            right: 100px;
+            top: 6px;
+            color: #f00;
+        }
+
+        #footer {
             width: 100%;
             bottom: 0;
         }
@@ -19,7 +25,7 @@
 <div class="register-header">
     <div class="container">
         <div class="logo pull-left">
-            <a href="/public/">
+            <a href="/">
                 <img src="__PORTAL__/images/logo.png" alt="logo">
                 <span>途迹网</span>
             </a>
@@ -49,70 +55,76 @@
         </div>
         <div id="content" style="margin-top:20px;">
             <div class="step-content active">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="form">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="username"><span class="required">*</span>用户名：</label>
                         <div class="col-sm-10">
                             <input type="text" name="username" class="form-control" id="username"
-                                   placeholder="请输入用户名">
+                                   placeholder="请输入用户名" required>
                             <span class="help-block">4-20位，中文、字母、数字、下划线的组合，以中文或字母开头</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="mobile">手机号：</label>
+                        <label class="col-sm-2 control-label" for="mobile"><span class="required">*</span>手机号：</label>
                         <div class="col-sm-10">
-                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="请输入手机号">
+                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="请输入手机号"
+                                   required>
                             <span class="help-block">请输入有效11位手机号码</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="password">密码：</label>
+                        <label class="col-sm-2 control-label" for="password"><span class="required">*</span>密码：</label>
                         <div class="col-sm-10">
                             <input type="password" name="password" class="form-control" id="password"
-                                   placeholder="请输入密码">
+                                   placeholder="请输入密码" required>
                             <span class="help-block">6-20位英文（区分大小写）、数字、字符的组合</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="confirm-password">确认密码：</label>
+                        <label class="col-sm-2 control-label" for="repassword"><span
+                                class="required">*</span>确认密码：</label>
                         <div class="col-sm-10">
-                            <input type="text" name="confirm_password" class="form-control" id="confirm-password "
-                                   placeholder="请再次输入密码">
+                            <input type="password" name="password_confirm" class="form-control" id="repassword"
+                                   placeholder="请再次输入密码" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="verify">验证码：</label>
+                        <label class="col-sm-2 control-label" for="verify"><span class="required">*</span>验证码：</label>
                         <div class="col-sm-10">
                             <input type="text" name="captcha" class="form-control pull-left" id="verify"
-                                   style="width: 20%" placeholder="验证码">
-                            <img src="{:captcha_src()}" onclick="this.src='/captcha.html?'+Math.random()" title="换一张"
+                                   style="width: 20%" placeholder="验证码" required>
+                            <img src="{:captcha_src()}" id="captcha-img"
+                                 onclick="this.src='/captcha.html?'+Math.random()" title="换一张"
                                  width="145" height="34" class="captcha captcha-img" style="cursor: pointer;"/>
                             <span>看不清？换一张</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="radio-inline col-sm-10 col-sm-offset-2">
-                            <input type="checkbox" name="clause" id="clause"> <a href="">我同意并已仔细阅读服务条款</a>
+                            <input type="checkbox" name="clause" id="clause" required> <a href="">我同意并已仔细阅读服务条款</a>
                         </label>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <button class="btn btn-success btn-block next-step" style="width: 60%">下一步</button>
+                            <button class="btn btn-success btn-block" type="submit" style="width: 60%">下一步</button>
                         </div>
                     </div>
+                    <input type="hidden" id="token" name="__token__" value="{$Request.token}"/>
                 </form>
             </div>
             <div class="step-content">
 
-                <form action="" class="form-horizontal">
+                <form action="" class="form-horizontal" id="sms-form">
                     <p class="text-center">短信已发送至您手机，请输入短信中的验证码，确保您的手机号真实有效。</p>
                     <input type="hidden" name="mobile" value="">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="verify">手机验证码：</label>
                         <div class="col-sm-10">
-                            <input type="text" name="mobile-verify" class="form-control pull-left" style="width: 40%"
+                            <input type="text" name="mobile_verify" id="sms-code" class="form-control pull-left"
+                                   style="width: 40%"
                                    placeholder="验证码">
-                            <button class=" btn btn-primary" style="border-radius: 0" disabled><i>(60)</i>秒后可再次获取
+                            <button class=" btn btn-primary get-sms" type="button" style="border-radius: 0" disabled><i
+                                    id="second">(90)秒后可再次获取</i>
                             </button>
                         </div>
                     </div>
@@ -124,8 +136,8 @@
                 </form>
             </div>
             <div class="step-content text-center">
-                <h3>恭喜cz82465，您已注册成功！</h3>
-                <p >页面将在 <strong>10</strong> 秒钟后，跳转到 <a href="">用户中心</a></p>
+                <h3>恭喜 <strong class="user"></strong>，您已注册成功！</h3>
+                <p>页面将在 <strong>10</strong> 秒钟后，跳转到 <a href="">用户中心</a></p>
             </div>
         </div>
     </div>
@@ -136,13 +148,44 @@
 <script>
     $(function () {
         //下一步
-        $('.next-step').click(function () {
-            change();
+        var form = $('#form'),
+            userData = '';
+        form.submit(function () {
+            $.ajax({
+                url: '{:url("/user/register")}',
+                type: 'post',
+                data: $('#form').serialize(),
+                success: function (data) {
+                    if (!!data.success) {
+                        userData = data.data;
+                        change();
+                        countDown();
+                    } else {
+                        var $error = '<i class="error">' + data.msg + '</i>',
+                            $input = $('input[name="' + data.field + '"]');
+                        $input.focus();
+                        $input.parent().append($error);
+                        $('#token').val(data.token);
+                        $('#captcha-img').attr('src', '/captcha.htm?' + Math.random());
+                    }
+                }
+            });
             return false;
         });
         //验证手机提交注册
-        $('.submit').click(function () {
-            change();
+        var smsForm = $('#sms-form');
+        smsForm.submit(function () {
+            userData['smsCode'] = $("#sms-code").val();
+            $.ajax({
+                url: '{:url("/user/add")}',
+                type: 'post',
+                data: userData,
+                success: function (data) {
+                    if (!data.success) return;
+                    $('.user').text(data.username);
+                    change();
+                }
+            });
             return false;
         });
 
@@ -152,6 +195,28 @@
             currentStep.removeClass('active').next().addClass('active');
             currentContent.removeClass('active').next().addClass('active');
         }
+
+        function countDown() {
+            var intDiff = parseInt(5);//倒计时总秒数量
+            var timer = setInterval(function () {
+                if (intDiff >= 0) {
+                    $('#second').text('(' + intDiff + ')可再次获取');
+                    intDiff--;
+                } else {
+                    $('.get-sms').attr('disabled', false);
+                    $('#second').text('获取验证码');
+                    clearInterval(timer);
+                }
+            }, 1000)
+        }
+
+        $('.get-sms').click(function () {
+            $.get('{:url("/register/sms")}', function (data) {
+                $('.get-sms').attr('disabled', true);
+                countDown();
+            })
+        });
+
     });
 </script>
 </body>

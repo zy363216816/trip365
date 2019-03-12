@@ -28,7 +28,7 @@ class AlibabaCloud
     /**
      * Version of the Client
      */
-    const VERSION = '1.0.18';
+    const VERSION = '1.0.19';
 
     /**
      * This static method can directly call the specific service.
@@ -59,7 +59,7 @@ class AlibabaCloud
         throw new ClientException(
             "May not yet support product $product quick access, "
             . 'you can use [Alibaba Cloud Client for PHP] to send any custom '
-            . 'requests: https://github.com/aliyun/openapi-sdk-php-client/blob/master/docs/Request-EN.md',
+            . 'requests: https://github.com/aliyun/openapi-sdk-php-client/blob/master/docs/3-Request-EN.md',
             SDK::SERVICE_NOT_FOUND
         );
     }

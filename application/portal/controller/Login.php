@@ -9,9 +9,11 @@
 namespace app\portal\controller;
 
 
+use app\portal\model\Users;
 use think\Controller;
 use think\facade\Session;
 use think\Request;
+use think\Validate;
 
 class Login extends Controller
 {
@@ -27,10 +29,44 @@ class Login extends Controller
         return view();
     }
 
-    public function login(Request $request)
+    public function doLogin(Request $request, Users $user)
     {
-        $data = $request->param();
-        return $data;
+        $result   = ['success' => false, 'msg' => ''];
+        $validate = Validate::make($this->rule);
+        $res      = null;
+        if ($request->isAjax()) {
+            $data = [
+                'username' => $request->post("username"),
+                'password' => $request->post("password"),
+                'captcha'  => $request->post("captcha")
+            ];
+            if ($validate->check($data)) {
+                $res = $user->where('username', $data['username'])->find();
+                if ($res !== null) {
+                    $pwd    = $res->password;
+                    $status = $res->getData('status'); //-1删除,账号状态,0-禁用,1-正常,2-待审核
+                    if ($pwd === password_hash($data['password'], PASSWORD_DEFAULT)) {
+                        switch ($status) {
+                            case 0:
+                                return lang('forbidden');
+                                break;
+                            case 2:
+                                return lang('authStr');
+                                break;
+                            default:
+                                Authenticated::save($res);
+                                $this->authenticated();
+                                return lang('success');
+                        }
+                    }
+                }
+                return lang('fail');
+            } else {
+                $res['msg']  = $validate->getError();
+                $res['code'] = -1;
+            }
+        }
+        return $result;
     }
 
     /*

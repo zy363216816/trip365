@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea
+class ComposerStaticInit032dba4dc6a04626cab0b2bff7f3591e
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -16,6 +16,7 @@ class ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
         '66453932bc1be9fb2f910a27947d11b6' => __DIR__ . '/..' . '/alibabacloud/client/src/Functions.php',
+        '63a61fd025a31affebb0723ca3298418' => __DIR__ . '/..' . '/alibabacloud/sdk/src/Constants.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
     );
 
@@ -55,6 +56,7 @@ class ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea
         'A' => 
         array (
             'AlibabaCloud\\Client\\' => 20,
+            'AlibabaCloud\\' => 13,
             'Adbar\\' => 6,
         ),
     );
@@ -108,6 +110,10 @@ class ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea
         array (
             0 => __DIR__ . '/..' . '/alibabacloud/client/src',
         ),
+        'AlibabaCloud\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/sdk/src',
+        ),
         'Adbar\\' => 
         array (
             0 => __DIR__ . '/..' . '/adbario/php-dot-notation/src',
@@ -117,8 +123,8 @@ class ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcb78ee5d2fbe695b2f5758bc01e6daea::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit032dba4dc6a04626cab0b2bff7f3591e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit032dba4dc6a04626cab0b2bff7f3591e::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

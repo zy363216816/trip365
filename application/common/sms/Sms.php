@@ -10,8 +10,7 @@ namespace app\common\sms;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;
-use think\Template;
+use AlibabaCloud\Client\Exception\ServerException;use think\console\command\optimize\Autoload;
 
 class Sms
 {
@@ -22,7 +21,7 @@ class Sms
             ->asGlobalClient();
     }
 
-    public static function sendSms($mobile, $param, $templateCode = 'SMS_139237854', $signName = '途迹网')
+    public function sendSms($mobile, $param, $templateCode = 'SMS_139237854', $signName = '途迹网')
     {
         try {
             $result = AlibabaCloud::rpcRequest()
@@ -34,8 +33,8 @@ class Sms
                 ->options([
                     'query' => [
                         'PhoneNumbers'  => $mobile,
-                        'TemplateCode'  => $templateCode,
                         'SignName'      => $signName,
+                        'TemplateCode'  => $templateCode,
                         'TemplateParam' => json_encode(['code' => $param]),
                     ],
                 ])

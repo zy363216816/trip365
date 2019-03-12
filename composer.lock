@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a59c1049f8615caf171f8d6ea529f75a",
+    "content-hash": "b35b866718fd7062a4fe6e4ad34724f6",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -57,16 +57,16 @@
         },
         {
             "name": "alibabacloud/client",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aliyun/openapi-sdk-php-client.git",
-                "reference": "7823923f38ccca12e47f11d8ff5399267ae7a341"
+                "reference": "1f09ce643ba06510e687e714d433cfcd9bde3760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aliyun/openapi-sdk-php-client/zipball/7823923f38ccca12e47f11d8ff5399267ae7a341",
-                "reference": "7823923f38ccca12e47f11d8ff5399267ae7a341",
+                "url": "https://api.github.com/repos/aliyun/openapi-sdk-php-client/zipball/1f09ce643ba06510e687e714d433cfcd9bde3760",
+                "reference": "1f09ce643ba06510e687e714d433cfcd9bde3760",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,76 @@
                 "cloud",
                 "sdk"
             ],
-            "time": "2019-03-11T13:08:13+00:00"
+            "time": "2019-03-12T04:18:56+00:00"
+        },
+        {
+            "name": "alibabacloud/sdk",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aliyun/openapi-sdk-php.git",
+                "reference": "a2e3c0bfcf6c36234eb306b9249505ff16817a64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aliyun/openapi-sdk-php/zipball/a2e3c0bfcf6c36234eb306b9249505ff16817a64",
+                "reference": "a2e3c0bfcf6c36234eb306b9249505ff16817a64",
+                "shasum": ""
+            },
+            "require": {
+                "alibabacloud/client": "^1.0",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-mbstring": "*",
+                "ext-simplexml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "composer/composer": "^1.8",
+                "friendsofphp/php-cs-fixer": "^2.2",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^3.4",
+                "symfony/dotenv": "^3.4",
+                "symfony/var-dumper": "^3.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AlibabaCloud\\": "src"
+                },
+                "files": [
+                    "src/Constants.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Alibaba Cloud SDK",
+                    "email": "sdk-team@alibabacloud.com",
+                    "homepage": "http://www.alibabacloud.com"
+                }
+            ],
+            "description": "Alibaba Cloud SDK for PHP - Easier to Use Alibaba Cloud in your PHP project",
+            "homepage": "https://www.alibabacloud.com/",
+            "keywords": [
+                "ECS",
+                "alibaba",
+                "alibabacloud",
+                "aliyun",
+                "cloud",
+                "sdk"
+            ],
+            "time": "2019-03-07T06:45:19+00:00"
         },
         {
             "name": "clagiordano/weblibs-configmanager",
@@ -634,16 +703,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.1.32",
+            "version": "v5.1.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "88a2ab625b35e047896718db320e08375cf021da"
+                "reference": "c53c0c6132022a87e8ee9c4109939eaf9a8a7adb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/88a2ab625b35e047896718db320e08375cf021da",
-                "reference": "88a2ab625b35e047896718db320e08375cf021da",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/c53c0c6132022a87e8ee9c4109939eaf9a8a7adb",
+                "reference": "c53c0c6132022a87e8ee9c4109939eaf9a8a7adb",
                 "shasum": ""
             },
             "require": {
@@ -681,7 +750,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-12-23T13:42:11+00:00"
+            "time": "2019-03-03T00:44:44+00:00"
         },
         {
             "name": "topthink/think-captcha",

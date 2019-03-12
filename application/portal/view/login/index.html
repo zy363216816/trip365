@@ -8,8 +8,7 @@
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
     {include file="public/head" /}
     <style>
-        #footer{
-            position: absolute;
+        #footer {
             width: 100%;
             bottom: 0;
         }
@@ -44,20 +43,22 @@
             </div>
             <div class="form-item">
                 <label><i class="fa fa-lock"></i></label>
-                <input type="text" name="captcha" placeholder="验证码" class="form-control captcha" style="width: 150px;float: left" required>
-                <img src="{:captcha_src()}" onclick="this.src='/captcha.html?'+Math.random()" title="换一张" width="145" height="38" class="captcha captcha-img" style="cursor: pointer;"/>
-                <input type="hidden" name="_captcha_id" value="">
+                <input type="text" name="captcha" placeholder="验证码" class="form-control captcha"
+                       style="width: 150px;float: left" required>
+                <img src="{:captcha_src()}" onclick="this.src='/captcha.html?'+Math.random()" title="换一张" width="145"
+                     height="38" class="captcha captcha-img" style="cursor: pointer;"/>
+                <input type="hidden" id="token" name="__token__" value="{$Request.token}"/>
             </div>
             <!--<div class="form-item remember">-->
             <!--<label><input type="checkbox" name="remember">记住密码</label>-->
             <!--</div>-->
             <div class="form-item">
                 <input type="hidden" name="redirect" value="">
-                <button  class="js-ajax-submit" type="submit">登 录</button>
+                <button class="js-ajax-submit" type="submit">登 录</button>
             </div>
             <div class="forget-register">
-                <a href="/public/user/login/findpassword.html">忘记密码</a>
-                <a href="/public/user/register/index.html">注册 ></a>
+                <a href="{:url('/user/forgetPassword')}">忘记密码</a>
+                <a href="{:url('/register')}">注册 ></a>
             </div>
             <hr style="border: 1px solid #f2f2f2">
             <div class="login-other">
@@ -71,5 +72,26 @@
 <!-- /container -->
 {include file="public/footer" /}
 {include file="public/scripts" /}
+<script>
+    $(function () {
+        var form = $('#login-form');
+        form.submit(function () {
+            var data = form.serialize(),
+                error = $('.error');
+            $.ajax({
+                url: '{:url("/login")}',
+                type: 'post',
+                success: function (data) {
+                    if (!data.success) {
+                        error.text(data.msg);
+                        return;
+                    }
+                    window.location.herf = '/'
+                }
+            });
+            return false;
+        });
+    })
+</script>
 </body>
 </html>
