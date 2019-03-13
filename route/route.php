@@ -48,10 +48,10 @@ Route::get('category/getAll', 'admin/Category/getAll');
 
 
 // 前端路由
+Route::get('index', 'portal/index/index');
 Route::get('login', 'portal/login/index');
 Route::post('login', 'portal/login/doLogin');
 Route::get('register', 'portal/register/index');
-Route::get('testSms', 'portal/register/testSms');
 
 //登录注册
 Route::post('user/register', 'portal/register/register');

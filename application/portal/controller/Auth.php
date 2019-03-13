@@ -14,23 +14,23 @@ use think\facade\Session;
 
 class Auth
 {
-    private static $session_key = '_WEB_USER_SESSION_INFO_';
-    private static $cookie_key = '_WEB_USER_COOKIE_INFO_';
+    private static $session_key = 'WEB_USER_SESSION_INFO';
+    private static $cookie_key = 'WEB_USER_COOKIE_INFO';
 
     public function auth($value)
     {
-        $this->setSession($value);
         $this->setCookie($value);
+        $this->setSession($value);
     }
 
     protected function setSession($value)
     {
-        Session::set(self::$session_key, $value);
+        Session::set(self::$session_key, $value->toArray());
     }
 
     protected function setCookie($value)
     {
-        Cookie::set(self::$cookie_key, $value);
+        Cookie::set(self::$cookie_key, $value->toArray());
     }
 
     public function getSession()

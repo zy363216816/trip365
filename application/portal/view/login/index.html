@@ -47,13 +47,13 @@
                        style="width: 150px;float: left" required>
                 <img src="{:captcha_src()}" onclick="this.src='/captcha.html?'+Math.random()" title="换一张" width="145"
                      height="38" class="captcha captcha-img" style="cursor: pointer;"/>
-                <input type="hidden" id="token" name="__token__" value="{$Request.token}"/>
             </div>
+
+            <input type="hidden" id="token" name="__token__" value="{$Request.token}"/>
             <!--<div class="form-item remember">-->
             <!--<label><input type="checkbox" name="remember">记住密码</label>-->
             <!--</div>-->
             <div class="form-item">
-                <input type="hidden" name="redirect" value="">
                 <button class="js-ajax-submit" type="submit">登 录</button>
             </div>
             <div class="forget-register">
@@ -84,11 +84,12 @@
                 data: $data,
                 success: function (data) {
                     if (!data.success) {
-                        console.log(data);
+                        $('#token').val(data.token);
+                        $('.captcha').attr('src', '{:captcha_src()}');
                         error.text(data.msg);
                         return;
                     }
-                    window.location.herf = '/'
+                    window.location.href = '/index.html';
                 }
             });
             return false;

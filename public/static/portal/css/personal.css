@@ -1335,18 +1335,80 @@ body {
     padding: 5px;
     color: #444;
 }
+
 hr.line-break {
     border: 0;
     height: 0;
     border-top: 1px solid #c3c3c3;
     border-bottom: 1px solid #ffffff;
 }
+
 .profile .tabs-header li {
     display: inline-block;
-    margin-left: 15px;
-    margin-bottom: 15px;
+    padding: 0 10px;
+    line-height: 34px;
+    position: relative;
 }
+
+.profile .tabs-header li:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    border-bottom: 4px solid #ff5100;
+    left: 51%;
+    right: 51%;
+    bottom: -7px;
+    transition: all .3s;
+}
+
+.profile .tabs-header li:hover a {
+    color: #ff5100;
+}
+
+.profile .tabs-header li:hover:after {
+    left: 0;
+    right: 0;
+}
+
+.profile .tabs-header li.active a {
+    color: #ff5100;
+}
+
+.profile .tabs-header li.active:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 70px;
+    border-bottom: 4px solid #ff5100;
+    left: 10px;
+    bottom: -7px;
+}
+
 
 .profile .tabs-header li a {
     font-size: 18px;
+}
+
+.profile .tabs-body {
+    padding-top: 15px;
+}
+
+.profile .tabs-body .field {
+    padding: 15px;
+    margin-bottom: 5px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.profile .tabs-body .field i {
+    font-size: 28px;
+    margin-right: 10px;
+    color: #0080ff;
+}
+
+.field .field-value {
+    margin-left: 10px;
+}
+
+.field .action {
+    float: right;
 }

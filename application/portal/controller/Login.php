@@ -18,10 +18,9 @@ use think\Validate;
 class Login extends Controller
 {
     protected $rule = [
-        'username'    => 'require|max:25',
+        'username'    => 'require|max:25|token',
         'password'    => 'require',
         'captcha|验证码' => 'require|captcha',
-        '__token__'   => 'token',
     ];
 
     public function index()
@@ -31,7 +30,7 @@ class Login extends Controller
 
     public function doLogin(Request $request, Users $user, Auth $auth)
     {
-        $result   = ['success' => false, 'msg' => ''];
+        $result   = ['success' => false, 'msg' => '登录失败密码或账号错误'];
         $validate = Validate::make($this->rule);
         if ($request->isAjax()) {
             $data = $request->only(['username', 'password', 'captcha', '__token__']);
@@ -62,6 +61,7 @@ class Login extends Controller
                 $result['msg'] = $validate->getError();
             }
         }
+        $result['token'] = $request->token();
         return $result;
     }
 

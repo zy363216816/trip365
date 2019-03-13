@@ -3,9 +3,9 @@
         <div class="container">
             <p class="contact pull-left"><a href="/contacts.html">联系我们</a></p>
             <ul class="nav navbar-nav navbar-right" id="main-menu-user">
-                {if Session::has('_WEB_USER_SESSION_INFO_')}
+                {if Session::has('WEB_USER_SESSION_INFO')}
                 {php}
-                $authenticated = Session::get('_WEB_USER_SESSION_INFO_');
+                $authenticated = Session::get('WEB_USER_SESSION_INFO');
                 {/php}
                 <li class="user offline">
                     <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
@@ -18,7 +18,8 @@
                         <span class="user-nickname"></span><b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{:url('/user/center')}"><i class="fa fa-home"></i> &nbsp;个人中心</a></li>
+                        <li><a href="{:url('/user/center')}" target="_blank"><i class="fa fa-home"></i> &nbsp;个人中心</a>
+                        </li>
                         <li class="divider"></li>
                         <li><a href=""><i class="fa fa-sign-out"></i> &nbsp;退出</a></li>
                     </ul>

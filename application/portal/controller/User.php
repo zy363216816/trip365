@@ -9,8 +9,11 @@
 namespace app\portal\controller;
 
 
-class User
+use think\Controller;
+
+class User extends Controller
 {
+    protected $middleware = ['Web'];
 
     public function index()
     {
