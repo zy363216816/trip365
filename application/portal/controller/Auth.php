@@ -30,7 +30,7 @@ class Auth
 
     protected function setCookie($value)
     {
-        Cookie::set(self::$cookie_key, $value->toArray());
+        Cookie::set(self::$cookie_key, base64_encode(json_encode($value->toArray())));
     }
 
     public function getSession()

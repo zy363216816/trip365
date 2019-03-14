@@ -13,7 +13,7 @@
     <div class="tabs-body">
         <div class="tab-item">
             <div class="field">
-                <p><i class="fa fa-user-circle"></i>登录名：<span class="field-value">sunny</span></p>
+                <p><i class="fa fa-user-circle"></i>登录名：<span class="field-value">{$user['username']}</span></p>
             </div>
             <div class="field">
                 <p>
@@ -23,31 +23,31 @@
             </div>
             <div class="field">
                 <p>
-                    <i class="fa fa-mobile"></i>绑定手机号：<span class="field-value">15086006504</span>
+                    <i class="fa fa-mobile"></i>绑定手机号：<span class="field-value">{$user['mobile']}</span>
                     <a class="action" href="">更换手机号码</a>
                 </p>
             </div>
             <div class="field">
                 <p>
-                    <i class="fa fa-id-card"></i>昵称：<span class="field-value">Sunny小时光</span>
+                    <i class="fa fa-id-card"></i>昵称：<span class="field-value">{$user['nick_name']?:'未设置昵称'}</span>
                     <a class="action" href="">修改昵称</a>
                 </p>
             </div>
             <div class="field">
                 <p>
-                    <i class="fa fa-address-book"></i>地址：<span class="field-value">贵州省贵阳市</span>
+                    <i class="fa fa-address-book"></i>地址：<span class="field-value">{$user['nick_name']?:'未设置地址'}</span>
                     <a class="action" href="">修改地址</a>
                 </p>
             </div>
             <div class="field">
                 <p>
-                    <i class="fa fa-birthday-cake"></i>生日：<span class="field-value">1991-01-02</span>
+                    <i class="fa fa-birthday-cake"></i>生日：<span class="field-value">{$user['birthday']?:'未设置生日'}</span>
                     <a class="action" href="">修改出生日期</a>
                 </p>
             </div>
             <div class="field">
                 <p>
-                    <i class="fa fa-lock"></i>性别：<span class="field-value">男</span>
+                    <i class="fa fa-lock"></i>性别：<span class="field-value">{$user['gender']}</span>
                     <a class="action" href="">修改性别</a>
                 </p>
             </div>

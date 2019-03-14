@@ -20,11 +20,14 @@
 
 <body>
 <!-- 侧栏 -->
+{php}
+$user = session('WEB_USER_SESSION_INFO');
+{/php}
 <div id="side" class="ta-c" style="background-image: url('__PORTAL__/images/user-bg.jpeg');background-size: cover;">
     <div class="head">
         <img src="__PORTAL__/images/avatar.jpg" alt="">
     </div>
-    <h1>Sunny小时光</h1>
+    <h1>{$user['nick_name']?:'未设置昵称'}</h1>
     <h3>个人主页</h3>
     <ul class="nav">
         <li><a href="{:url('/user/center')}" class="active"><span class="icon-home hidden-l"></span>首页</a></li>
@@ -32,7 +35,9 @@
         <!--<li><a href="#"><span class="icon-list hidden-l"></span>认证</a></li>-->
         <li><a href="{:url('/user/publish')}"><span class="icon-edit hidden-l"></span>发表信息</a></li>
     </ul>
-    <p class="intro ta-l hidden-l">个人简介</p>
+    <div class="intro ta-l personalized">
+        <p>个性签名 <i class="icon-edit" title="修改个性签名"></i></p>
+    </div>
     <div class="doing hidden-l">
         <p>个人信息</p>
         <p><span class="icon-map-marker"></span>贵州 贵阳</p>

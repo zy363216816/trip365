@@ -34,7 +34,8 @@ class Register extends Controller
                 if (session('?sms')) {
                     $data['username'] = $param['username'];
                     $data['password'] = $param['password'];
-                    $data['step']     = 2;
+                    $data['mobile']   = $param['mobile'];
+//                    $data['step']     = 2;
                     return ['success' => true, 'msg' => '', 'token' => '', 'data' => $data];
                 }
             }
@@ -48,11 +49,12 @@ class Register extends Controller
     public function save(Request $request, Users $user)
     {
         if (session('?sms')) {
-            $data = $request->only(['smsCode', 'username', 'password']);
+            $data = $request->only(['smsCode', 'username', 'password', 'mobile']);
             if ($data['smsCode'] == session('sms.code')) {
                 $result = $user::create([
                     'username' => trim($data['username']),
                     'password' => password_hash(trim($data['password']), PASSWORD_DEFAULT),
+                    'mobile'   => $data['mobile']
                 ]);
                 session(null);
                 return ['success' => true, 'username' => $result->username, 'userId' => $result->user_id];

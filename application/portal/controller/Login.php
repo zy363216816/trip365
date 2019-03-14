@@ -25,6 +25,8 @@ class Login extends Controller
 
     public function index()
     {
+        $redirect = session('URL');
+        $this->assign('redirect', $redirect);
         return view();
     }
 

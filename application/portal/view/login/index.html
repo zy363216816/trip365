@@ -89,7 +89,7 @@
                         error.text(data.msg);
                         return;
                     }
-                    window.location.href = '/index.html';
+                    window.location.href = '{$redirect|default="/index.html"}';
                 }
             });
             return false;

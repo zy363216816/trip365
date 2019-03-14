@@ -13,10 +13,11 @@ class Web
         if (!empty($cookie)) {
 
         }
-        if (!empty($session)) {
+        if (!empty($session) || $session != null) {
 
         } else {
-            return redirect('/login');
+            $url = $request->url();
+            return redirect('/login')->with('URL', $url);
         };
         return $next($request);
     }

@@ -1306,7 +1306,7 @@ body {
     display: block;
     border: 1px solid #969799;
     color: #969799;
-    margin: 0px 2px;
+    margin: 0 2px;
     padding: 2px 5px;
     text-decoration: none;
 }
@@ -1318,7 +1318,7 @@ body {
     border: 1px solid #d5d5d5;
     color: #d5d5d5;
     font-weight: bold;
-    margin: 0px 2px;
+    margin: 0 2px;
     padding: 2px 5px;
 }
 
@@ -1342,7 +1342,15 @@ hr.line-break {
     border-top: 1px solid #c3c3c3;
     border-bottom: 1px solid #ffffff;
 }
-
+.personalized{
+    background: rgba(3,3,3,.3);
+    height: 80px;
+    color: #fff;
+    border-radius: 5px;
+}
+.personalized i{
+    cursor: pointer;
+}
 .profile .tabs-header li {
     display: inline-block;
     padding: 0 10px;
