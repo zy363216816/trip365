@@ -11,10 +11,9 @@ use think\Validate;
 class Login extends Controller
 {
     protected $rule = [
-        'username' => 'require|max:25',
-        'password' => 'require',
-        'captcha|验证码' => 'require|captcha',
-        '__token__' => 'token',
+        'username'    => 'require|max:25|token',
+        'password'    => 'require',
+        'captcha|验证码' => 'require|captcha'
     ];
 
     public function index()
@@ -28,18 +27,19 @@ class Login extends Controller
     public function login(Request $request)
     {
         $validate = Validate::make($this->rule);
-        $res = null;
+        $res      = null;
         if ($request->isAjax()) {
             $data = [
-                'username' => $request->post("username"),
-                'password' => $request->post("password"),
-                'captcha' => $request->post("captcha")
+                'username'  => $request->post("username"),
+                'password'  => $request->post("password"),
+                'captcha'   => $request->post("captcha"),
+                '__token__' => $request->post('__token__')
             ];
             if ($validate->check($data)) {
                 $admin = new AdminUsers();
-                $user = $admin->getAdmin($data['username']);
+                $user  = $admin->getAdmin($data['username']);
                 if ($user !== null) {
-                    $pwd = $user->password;
+                    $pwd    = $user->password;
                     $status = $user->getData('status'); //-1删除,账号状态,0-禁用,1-正常,2-待审核
                     if ($pwd === $admin->encrypt($data['password'])) {
                         switch ($status) {
@@ -58,7 +58,7 @@ class Login extends Controller
                 }
                 return lang('fail');
             } else {
-                $res['msg'] = $validate->getError();
+                $res['msg']  = $validate->getError();
                 $res['code'] = -1;
             }
         }

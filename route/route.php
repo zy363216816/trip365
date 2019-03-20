@@ -9,43 +9,64 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+//后台路由地址
 Route::get('admin/login', 'admin/Login/index');
 Route::post('admin/login', 'admin/Login/login');
-Route::get('admin/index', 'admin/index/index');
-
-Route::get('admin/dashboard', 'admin/index/dashboard');
-
-//管理员相关
-Route::get('admin/admins', 'admin/AdminUsers/index');
-Route::get('admin/form', 'admin/AdminUsers/form');
-Route::post('admin/add', 'admin/AdminUsers/add');
-Route::post('admin/delete', 'admin/AdminUsers/del');
-Route::get('admin/profile', 'admin/AdminUsers/profile');
-Route::get('admin/avatar', 'admin/AdminUsers/avatar');
-Route::post('admin/uploadAvatar', 'admin/AdminUsers/uploadFile');
-Route::post('admin/changePwd', 'admin/AdminUsers/changePassword');
-Route::get('admin/getAdmins', 'admin/AdminUsers/getAdmins');
+Route::group('admin', function () {
+    Route::get('index', 'index/index');
+    Route::get('dashboard', 'index/dashboard');
+    //管理员相关
+    Route::get('admins', 'AdminUsers/index');
+    Route::get('form', 'AdminUsers/form');
+    Route::post('add', 'AdminUsers/add');
+    Route::post('delete', 'AdminUsers/del');
+    Route::get('profile', 'aAdminUsers/profile');
+    Route::get('avatar', 'AdminUsers/avatar');
+    Route::post('uploadAvatar', 'AdminUsers/uploadFile');
+    Route::post('changePwd', 'AdminUsers/changePassword');
+    Route::get('getAdmins', 'AdminUsers/getAdmins');
+    Route::get('Article', 'Article/index');
+})->prefix('admin/')->middleware('Auth');
 
 //内容管理相关
-Route::get('admin/Article', 'admin/Article/index');
-Route::get('article/ArticleList', 'admin/Article/index');
-Route::get('article/getArticles', 'admin/Article/getAll');
-Route::get('article/form', 'admin/Article/form');
-Route::post('article/add', 'admin/Article/save');
-Route::post('article/del', 'admin/Article/delete');
-Route::get('article/asset', 'admin/Article/assetUpload');
-Route::post('asset/webUpload.php', 'admin/webUpload/index');
-Route::rule('asset/upload', 'admin/Ueditor/index', 'GET|POST');
+Route::group('article', function () {
+    Route::get('ArticleList', 'Article/index');
+    Route::get('getArticles', 'Article/getAll');
+    Route::get('form', 'Article/form');
+    Route::post('add', 'Article/save');
+    Route::post('del', 'Article/delete');
+    Route::get('asset', 'Article/assetUpload');
+})->prefix('admin/')->middleware('Auth');
+
+Route::group('asset', function () {
+    Route::post('webUpload.php', 'webUpload/index');
+    Route::rule('upload', 'Ueditor/index', 'GET|POST');
+})->prefix('admin/')->middleware('Auth');
 
 //分类设置
-Route::get('category/index', 'admin/Category/index');
-Route::get('category/form', 'admin/Category/form');
-Route::get('category/showAll', 'admin/Category/getGridTree');
-Route::post('category/add', 'admin/Category/save');
-Route::post('category/del', 'admin/Category/delete');
-Route::get('category/getTree', 'admin/Category/getTree');
-Route::get('category/getAll', 'admin/Category/getAll');
+Route::group('category', function () {
+    Route::get('index', 'Category/index');
+    Route::get('form', 'Category/form');
+    Route::get('showAll', 'Category/getGridTree');
+    Route::post('add', 'Category/save');
+    Route::post('del', 'Category/delete');
+    Route::get('getTree', 'Category/getTree');
+    Route::get('getAll', 'Category/getAll');
+})->prefix('admin/')->middleware('Auth');
 
+//幻灯片
+Route::group('slide', function () {
+    Route::get('index', 'index');
+    Route::get('form', 'form');
+    Route::post('save', 'save');
+    Route::post('delete', 'delete');
+    Route::get('item', 'item');
+    Route::get('addItem', 'itemForm');
+    Route::get('assets', 'assets');
+    Route::post('saveItem', 'saveItem');
+    Route::get('itemImage', 'itemImage');
+    Route::post('deleteItem', 'deleteItem');
+})->prefix('admin/Slide/')->middleware('Auth');
 
 // 前端路由
 Route::get('index', 'portal/index/index');
@@ -58,22 +79,10 @@ Route::post('user/register', 'portal/register/register');
 Route::post('user/add', 'portal/register/save');
 Route::get('register/sms', 'portal/register/sendSmsAgain');
 
-//幻灯片
-Route::get('slide/index', 'admin/Slide/index');
-Route::get('slide/form', 'admin/Slide/form');
-Route::post('slide/save', 'admin/Slide/save');
-Route::post('slide/delete', 'admin/Slide/delete');
-Route::get('slide/item', 'admin/Slide/item');
-Route::get('slide/addItem', 'admin/Slide/itemForm');
-Route::get('slide/assets', 'admin/Slide/assets');
-Route::post('slide/saveItem', 'admin/Slide/saveItem');
-Route::get('slide/itemImage', 'admin/Slide/itemImage');
-Route::post('slide/deleteItem', 'admin/Slide/deleteItem');
-
 
 //个人主页
-Route::get('user/center', 'portal/user/index');
-Route::get('user/profile', 'portal/user/profile');
+Route::get('user/center', 'portal/user/index')->middleware('Web');
+Route::get('user/profile', 'portal/user/profile')->middleware('Web');
 
 
 

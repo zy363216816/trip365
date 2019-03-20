@@ -18,7 +18,7 @@ class Ueditor extends Controller
     public function initialize()
     {
         date_default_timezone_set("Asia/chongqing");
-        $this->config = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./static/plugins/ueditor/config.json")), true);
+        $this->config = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("./public/static/plugins/ueditor/config.json")), true);
     }
 
     public function index()

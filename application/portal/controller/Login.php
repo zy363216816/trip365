@@ -27,7 +27,7 @@ class Login extends Controller
     {
         $redirect = session('URL');
         $this->assign('redirect', $redirect);
-        return view();
+        return $this->fetch();
     }
 
     public function doLogin(Request $request, Users $user, Auth $auth)

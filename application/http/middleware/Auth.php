@@ -14,12 +14,12 @@ class Auth
             $session_time = session($name);
             if ($time - $session_time >= 3600) {
                 session(null);
-                return redirect('/login');
+                return redirect('/admin/login');
             } else {
                 session($name, $time);
             }
         } else {
-            return redirect('/login');
+            return redirect('/admin/login');
         };
         return $next($request);
     }

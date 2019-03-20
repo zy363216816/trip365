@@ -216,7 +216,7 @@
         });
 
         uploader.on('dialogOpen', function() {
-            console.log('弹出选择框');
+            // console.log('弹出选择框');
         });
 
         // uploader.on('filesQueued', function() {

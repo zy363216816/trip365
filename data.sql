@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `slides`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='幻灯片表';
 
-CREATE TABLE IF NOT EXISTS `slides_item`
+CREATE TABLE IF NOT EXISTS `slide_items`
 (
   `id`          int(10) UNSIGNED                NOT NULL AUTO_INCREMENT,
   `slide_id`    int(11)                         NULL COMMENT '幻灯片id',

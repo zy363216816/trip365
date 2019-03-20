@@ -228,13 +228,12 @@
             success: function (data) {
                 if (data.status === 'success') {
                     layer.msg(data.msg);
-                    form.find('input[name="__token__"]').remove();
-                    form.prepend(data.token);
-                } else {
-                    top.layer.closeAll();
-                    top.layer.msg('添加成功');
                     $obj = top.window['iframe'];
                     $obj.reload();
+                    top.layer.closeAll();
+                } else {
+                    form.find('input[name="__token__"]').remove();
+                    form.prepend(data.token);
                 }
             }
         });
