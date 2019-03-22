@@ -30,7 +30,8 @@ class Register extends Controller
                 $msg = explode(',', $verify);
                 return ['success' => false, 'msg' => isset($msg[1]) ?: '', 'field' => $msg[0], 'token' => $request->token()];
             } else {
-                $this->sms($param['mobile']);
+                $sms = new Sms();
+                $sms->sms($param['mobile']);
                 if (session('?sms')) {
                     $data['username'] = $param['username'];
                     $data['password'] = $param['password'];
@@ -63,26 +64,9 @@ class Register extends Controller
         return null;
     }
 
-    protected function sms($mobile)
-    {
-        $code   = mt_rand(10000, 99999);
-        $result = ['Code' => 'OK', 'Message' => 'OK'];
-//        $sms    = new Sms();
-//        $result = $sms->sendSms($mobile, $code);//发送短信验证码
-        if ($result['Code'] == 'OK' && $result['Message'] == 'OK') {
-            //发送成功
-            session('sms.mobile', $mobile);
-            session('sms.code', $code);
-        }
-    }
-
     public function sendSmsAgain()
     {
-        if (session('?sms')) {
-            $mobile = session('sms.mobile');
-            $this->sms($mobile);
-            return true;
-        }
-        return false;
+        $sms = new Sms();
+        $sms->sendSmsAgain();
     }
 }

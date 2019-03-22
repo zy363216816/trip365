@@ -30,4 +30,5 @@ class User extends Controller
     {
         return view();
     }
+
 }

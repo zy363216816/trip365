@@ -10,7 +10,8 @@ namespace app\common\sms;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
-use AlibabaCloud\Client\Exception\ServerException;use think\console\command\optimize\Autoload;
+use AlibabaCloud\Client\Exception\ServerException;
+use think\console\command\optimize\Autoload;
 
 class Sms
 {
@@ -45,6 +46,27 @@ class Sms
         } catch (ServerException $e) {
             echo $e->getErrorMessage() . PHP_EOL;
         }
+    }
 
+    public function sms($mobile)
+    {
+        $code   = mt_rand(10000, 99999);
+        $result = ['Code' => 'OK', 'Message' => 'OK'];
+//        $result = $this->sendSms($mobile, $code);//发送短信验证码
+        if ($result['Code'] == 'OK' && $result['Message'] == 'OK') {
+            //发送成功
+            session('sms.mobile', $mobile);
+            session('sms.code', $code);
+        }
+    }
+
+    public function sendSmsAgain()
+    {
+        if (session('?sms')) {
+            $mobile = session('sms.mobile');
+            $this->sms($mobile);
+            return true;
+        }
+        return false;
     }
 }

@@ -9,6 +9,7 @@
 namespace app\portal\controller;
 
 
+use app\common\sms\Sms;
 use app\portal\model\Users;
 use think\Controller;
 use think\facade\Session;
@@ -90,5 +91,65 @@ class Login extends Controller
     {
         Session::clear();
         $this->success('注销登录成功');
+    }
+
+    /*
+     * 忘记密码视图
+     */
+    public function forgetPassword()
+    {
+        return view();
+    }
+
+    /*
+     * 获取用户判断用户是否存在
+     */
+    public function getUser(Users $user, Request $request)
+    {
+        $rule     = ['username' => 'require|max:25|token'];
+        $validate = Validate::make($rule);
+        $msg      = ['success' => false];
+        $data     = $request->param();
+        if (!$validate->check($data)) {
+            $msg['msg'] = $validate->getError();
+        }
+        $username = $data['username'];
+        $user     = $user->where('username', $username)->find();
+        if ($user != null) {
+            $mobile = $user->mobile;
+            if ($mobile !== null) {
+                $sms = new Sms();
+                $sms->sms($mobile);
+                $hideMobile = substr($mobile, 0, 3) . '****' . substr($mobile, 7, 4);
+                return $hideMobile;
+            }
+        }
+        $msg['token'] = request()->token();
+        return $msg;
+    }
+
+    /*
+     * 再次获取验证码
+     */
+    public function sendSms()
+    {
+        $sms = new Sms();
+        $sms->sendSmsAgain();
+    }
+
+    public function checkCode(Request $request)
+    {
+        $code = $request->post('mobile_verify');
+        $res  = ['success' => true,'msg' => '验证码错误'];
+        if ($code == session('sms.code')) {
+            $res['msg'] = '修改密码';
+            $res['success'] = true;
+        };
+        return $res;
+    }
+
+    public function changePassword(Users $user)
+    {
+
     }
 }

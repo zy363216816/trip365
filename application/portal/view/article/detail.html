@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>文章详情页</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/nav" /}
+<div class="main">
+    <div class="cover-box">
+        <div class="bg-cover" style="background-image: url('__PORTAL__/images/bg-cover.jpeg')">
+            <div class="title">
+                <div class="tit">
+                    文章标题
+                    <span class="pull-right like">点赞数</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="article-nav"></div>
+</div>
+
+</body>
+</html>

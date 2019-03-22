@@ -57,12 +57,12 @@ class Article extends Controller
                 'keywords'       => $data['article_keywords'],
                 'excerpt'        => $data['article_excerpt'],
                 'source'         => $data['article_source'],
-                'content'        => isset($data['editorValue']) ?: null,
+                'content'        => isset($data['editorValue']) ? $data['editorValue'] : null,
                 'photo_id'       => isset($photosId) ? $photosId : null,
                 'file_id'        => isset($fileId) ? $fileId : null,
-                'audio_id'       => isset($data['audio_id']) ?: null,
-                'video_id'       => isset($data['video_id']) ?: null,
-                'thumbnail_id'   => isset($data['thumbnail']) ?: null,
+                'audio_id'       => isset($data['audio_id']) ? $data['audio_id'] : null,
+                'video_id'       => isset($data['video_id']) ? $data['video_id'] : null,
+                'thumbnail_id'   => isset($data['thumbnail']) ? $data['thumbnail'] : null,
                 'published_time' => $data['published_time'],
                 'more'           => json_encode($data['more'])
             ]);

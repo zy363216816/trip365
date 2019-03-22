@@ -73,6 +73,13 @@ Route::get('index', 'portal/index/index');
 Route::get('login', 'portal/login/index');
 Route::post('login', 'portal/login/doLogin');
 Route::get('register', 'portal/register/index');
+Route::get('forgetPassword', 'portal/login/forgetPassword');
+Route::post('checkUsername', 'portal/login/getUser');
+Route::post('againSendSms', 'portal/login/sendSms');
+Route::post('checkCode', 'portal/login/checkCode');
+
+//文章详情页
+Route::get('detail/:id', 'portal/article/read');
 
 //登录注册
 Route::post('user/register', 'portal/register/register');

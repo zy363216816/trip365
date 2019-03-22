@@ -30,7 +30,7 @@
                 <span>途迹网</span>
             </a>
         </div>
-        <h3 class="pull-right">用户注册</h3>
+        <h3 class="pull-right"><a href="{:url('/login')}" style="margin: 0 15px">返回登录</a>用户注册</h3>
     </div>
 </div>
 <div class="register-box clearfix">
@@ -200,7 +200,7 @@
             var intDiff = parseInt(5);//倒计时总秒数量
             var timer = setInterval(function () {
                 if (intDiff >= 0) {
-                    $('#second').text('(' + intDiff + ')可再次获取');
+                    $('#second').text('(' + intDiff + ')秒后可再次获取');
                     intDiff--;
                 } else {
                     $('.get-sms').attr('disabled', false);
