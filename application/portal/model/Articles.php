@@ -14,4 +14,8 @@ use think\Model;
 class Articles extends Model
 {
 
+    public function getUserIdAttr($val)
+    {
+        return '途迹网';
+    }
 }

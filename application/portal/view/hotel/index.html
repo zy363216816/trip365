@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>途迹网 - 酒店</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    {include file="public/head" /}
+</head>
+<body class="body-white">
+{include file="public/nav" /}
+<div class="container">
+    <div class="hotel">
+        <div class="choice">
+            <h3>选择酒店</h3>
+            <form action="" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="出行目的地/酒店" title="">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="入住日期" title="">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="退房日期" title="">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="人数" title="">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="搜索" title="">
+                </div>
+            </form>
+        </div>
+        <div class="selection">
+            <h3>主题酒店</h3>
+            <div class="hd">
+                <ul>
+                    <li>热门地点</li>
+                    <li>购物天堂</li>
+                    <li>美食诱惑</li>
+                    <li>当季热玩</li>
+                    <li>特价酒店</li>
+                </ul>
+            </div>
+            <div class="bd">
+                <ul>
+                    <li>
+                        <a href="">
+                            <img src="__PORTAL__/images/cd.jpg" alt="成都">
+                            <p>成都</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="__PORTAL__/images/shh.jpg" alt="上海">
+                            <p>上海</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="__PORTAL__/images/sy.jpg" alt="三亚">
+                            <p>三亚</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="__PORTAL__/images/sy.jpg" alt="三亚">
+                            <p>三亚</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+{include file="public/scripts" /}
+<script src="__PORTAL__/js/jquery.SuperSlide.2.1.2.js"></script>
+<script>
+    $(function () {
+        $(".selection").slide({effect: "fold", autoPlay: true});
+    })
+</script>
+</body>
+</html>

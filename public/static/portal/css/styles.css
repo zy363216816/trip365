@@ -2452,3 +2452,30 @@ hr.line-break {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
     position: relative;
 }
+
+.article-info {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.article-info .author {
+    width: 480px;
+    padding: 20px 0 0 150px;
+    float: left;
+    position: relative;
+}
+
+.article-info .author a {
+    font-size: 16px;
+}
+
+.article-info .author span {
+    color: #acacac;
+    display: inline;
+    margin-left: 10px;
+}
+
+.article-content {
+    width: 1000px;
+    margin: 40px auto 20px;
+}

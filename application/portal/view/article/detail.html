@@ -15,14 +15,26 @@
         <div class="bg-cover" style="background-image: url('__PORTAL__/images/bg-cover.jpeg')">
             <div class="title">
                 <div class="tit">
-                    文章标题
+                    {$article.title}
                     <span class="pull-right like">点赞数</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="article-nav"></div>
+    <div class="article-nav">
+        <div class="article-info">
+            <div class="author">
+                <a href="#"><strong>{$article.user_id}</strong></a>
+                <span>{$article.published_time}</span>
+                <span><i class="fa fa-eye" style="margin-right: 5px"></i>{$article.article_hits}</span>
+            </div>
+        </div>
+    </div>
+    <div class="article-content">
+        {$article.content | raw}
+    </div>
 </div>
-
+{include file="public/footer" /}
+{include file="public/scripts" /}
 </body>
 </html>

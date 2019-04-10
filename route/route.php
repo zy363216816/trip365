@@ -79,7 +79,7 @@ Route::post('againSendSms', 'portal/login/sendSms');
 Route::post('checkCode', 'portal/login/checkCode');
 
 //文章详情页
-Route::get('detail/:id', 'portal/article/read');
+Route::get('detail/articleId/:id', 'portal/article/read');
 
 //登录注册
 Route::post('user/register', 'portal/register/register');
@@ -91,5 +91,16 @@ Route::get('register/sms', 'portal/register/sendSmsAgain');
 Route::get('user/center', 'portal/user/index')->middleware('Web');
 Route::get('user/profile', 'portal/user/profile')->middleware('Web');
 
+
+//门户
+Route::get('festival', 'portal/festival/index');
+Route::get('hotel', 'portal/hotel/index');
+Route::get('ticket', 'portal/ticket/index');
+Route::get('destination', 'portal/destination/index');
+Route::get('experience', 'portal/experience/index');
+Route::get('notice', 'portal/notice/index');
+Route::get('community', 'portal/community/index');
+Route::get('guzhen', 'portal/gu_zhen/index');
+Route::get('island', 'portal/island/index');
 
 

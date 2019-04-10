@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>途迹网 - 节日旅行</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="">
+    {include file="public/head" /}
+</head>
+<body class="body-white">
+{include file="public/nav" /}
+<div class="festival">
+    <div class="video">
+        <a class="play" href="#">
+            <span></span>
+            <em></em>
+        </a>
+        <div class="video-list hd">
+            <ul>
+                <li><a href="">云南：泼水节</a></li>
+                <li><a href="">xxxx: xxxxxxxxxxxxx</a></li>
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li>
+                    <img src="__PORTAL__/images/festival1.jpg" alt="">
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <img src="__PORTAL__/images/festival.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="section latest">
+        <h3>近期最热节日</h3>
+        <div class="list">
+            <ul>
+                <li>
+                    <a href="">
+                        <div class="img">
+                            <img src="__PORTAL__/images/jr.jpg" alt="">
+                        </div>
+                        <p>日期</p>
+                        <p>地点</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="img">
+                            <img src="__PORTAL__/images/jr1.jpg" alt="">
+                        </div>
+                        <p>日期</p>
+                        <p>地点</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="img">
+                            <img src="__PORTAL__/images/zz.jpg" alt="">
+                        </div>
+                        <p>日期</p>
+                        <p>地点</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="img">
+                            <img src="__PORTAL__/images/zz.jpg" alt="">
+                        </div>
+                        <p>日期</p>
+                        <p>地点</p>
+                    </a>
+                </li>
+            </ul>
+            <a href="" class="more-info">查看更多>></a>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+{include file="public/scripts" /}
+
+
+<script src="__PORTAL__/js/jquery.SuperSlide.2.1.2.js"></script>
+<script>
+    $(function () {
+        $(".video").slide({effect:"fold",autoPlay:true});
+        $(".play").click(function () {
+            var $this = $(this),
+                videoSrc = $this.attr("data-source");
+            var html = '<div class="video-bg"></div>';
+            html += '<div class="pop-video container"><div id="pop-video"><video src="' + videoSrc + '" controls autoplay></video></div><a class="close-pv" href="javascript:void(0)">X</a></div></div>';
+            $('body').append(html);
+            setTimeout(function () {
+                $(".close-pv").click(function () {
+                    $('.video-bg').remove();
+                    $('.pop-video').remove();
+                });
+            }, 500)
+        });
+    })
+</script>
+</body>
+</html>
