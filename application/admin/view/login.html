@@ -20,7 +20,7 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        html,body{
+        html, body {
             height: 100%;
             width: 100%;
             overflow: hidden;
@@ -45,7 +45,8 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group  has-feedback">
-                <input type="text" class="form-control" style="width:50%" id="captcha" name="captcha" placeholder="请输入验证码">
+                <input type="text" class="form-control" style="width:50%" id="captcha" name="captcha"
+                       placeholder="请输入验证码">
                 <img class="captcha-img" src="{:captcha_src()}" alt="">
             </div>
             <div class="row">
@@ -60,8 +61,8 @@
                     <button type="submit" id="sub" class="btn btn-success btn-block btn-flat">登 录</button>
                 </div>
             </div>
-            <input type="hidden" name="_method" value="POST" >
-            {:token()}
+            <input type="hidden" name="_method" value="POST">
+            <input type="hidden" id="token" name="__token__" value="{$Request.token}"/>
         </form>
 
         <a href="#">忘记密码</a><br>

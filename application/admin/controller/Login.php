@@ -62,6 +62,8 @@ class Login extends Controller
                 $res['code'] = -1;
             }
         }
+
+        $res['token'] = request()->token();
         return json($res);
     }
 

@@ -39,6 +39,8 @@ $(function () {
                             window.location.href = "/admin/index.html";
                         } else {
                             $.Pop.error(data.msg);
+                            console.log(data);
+                            $('#token').val(data.token);
                             _captcha.attr('src','/captcha.htm?'+Math.random());
                         }
                         NProgress.done();
